@@ -1,5 +1,6 @@
 package com.jyami.commitersewha.config;
 
+import com.jyami.commitersewha.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

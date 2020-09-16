@@ -36,4 +36,26 @@ mysql -u root -p
 
 
 
-​    
+### Custom Classes for OAuth2 Authentication
+
+OAuth2 프로토콜은 CSRF 공격을 방지하기 위해 state 매개변수를 사용할 걸 권장한다.
+
+authentication을 하는 중에, 어플리케이션은 이 state 파라미터를 authorization request에서 보낸다. 그리고 OAuth2 provider 이 파라미터를 변경하지 않은 채 OAuth2 콜백에서 리턴한다.
+
+어플리케이션에서는 state 파라미터의 값과 OAuth2 provider가 초기에 보내준 값(oauth2_auth_request)이 같은지를 비교한다. 그래서 만약 그 둘이 매치가 되지 않으면 authentication 요청이 실패한다.
+
+이 플로우를 타기위해서는 애플리케이션은 state 파라미터를 어디든지 반드시 저장해야한다. 그렇게 해서 나중에 그것과 OAuth2 provider에서 리턴받는 값과의 비교를 한다.
+
+state처럼 우리는 redirect_uri도 짧은시간 살아있는 쿠키로 저장한다. 
+
+``HttpCookieOAuth2AuthorizationRequestRepository.java``이 클래스는 authoriaztion request 안에있는 쿠키를 저장하고 그것을 검색한다.
+
+
+
+### CustomOAuth2UserService
+
+Spring Security의 ``DefaultOAuth2UserService`` 를 확장하고 ``loadUser()`` 메서드를 구현한다.
+
+loadUser() 메서드는 OAuth2 provider로부터 access token이 얻은 후에 불린다.
+
+OAuth2 provider로부터 유저의 세부사항이 먼저 fetch되는데 이때 유저가 우리의 데이터베이스에 이미 존재한다면(email) 해당 정보의 세부사항을 업데이트하고, 존재하지 않는다면 새로운 유저를 만든다.
