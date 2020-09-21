@@ -18,18 +18,23 @@ public class AppProperties {
     @Getter
     @NoArgsConstructor
     public static class Auth{
-        private String tockenString;
+        private String tokenSecret;
         private long tokenExpirationMsec;
     }
 
     @Getter
     @NoArgsConstructor
-    private static class OAuth2 {
+    public static class OAuth2 {
         private List<String> authorizedRedirectUris;
+
+        public List<String> getAuthorizedRedirectUris() {
+            return authorizedRedirectUris;
+        }
 
         public OAuth2 authorizedRedirectUris(List<String> authorizedRedirectUris) {
             this.authorizedRedirectUris = authorizedRedirectUris;
             return this;
         }
+
     }
 }

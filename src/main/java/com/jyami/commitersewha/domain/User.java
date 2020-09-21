@@ -41,5 +41,4 @@ public class User {
     @Enumerated(EnumType.STRING)
     private String providerId;
 
-
 }

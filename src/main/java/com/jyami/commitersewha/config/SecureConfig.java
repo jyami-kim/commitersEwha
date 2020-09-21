@@ -1,6 +1,8 @@
 package com.jyami.commitersewha.config;
 
-import com.jyami.commitersewha.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.jyami.commitersewha.security.RestAuthenticationEntryPoint;
+import com.jyami.commitersewha.security.TokenAuthenticationFilter;
+import com.jyami.commitersewha.security.oauth2.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,14 +28,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecureConfig extends WebSecurityConfigurerAdapter {
 
-    private final CustomerUserDetailsService customerUserDetailsService;
-    private final CustomerOAuth2UserService customerOAuth2UserService;
+    private final CustomUserDetailsService customUserDetailsService;
+    private final CustomOAuth2UserService customOAuth2UserService;
     private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
     private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
     @Bean
-    public TokenAuthenticationFilter tokenAuthenticationFilter(){
+    public TokenAuthenticationFilter tokenAuthenticationFilter() {
         return new TokenAuthenticationFilter();
     }
 
@@ -51,7 +53,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customerUserDetailsService)
+        auth.userDetailsService(customUserDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
 
@@ -83,16 +85,16 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                     .authenticated()
                 .and()
-            .oauth2Login()
+                .oauth2Login()
                 .authorizationEndpoint()
                 .baseUri("/oauth2/authorize")
                 .authorizationRequestRepository(cookieOAuth2AuthorizationRequestRepository())
-                    .and()
+                .and()
                 .redirectionEndpoint()
                 .baseUri("/oauth2/callback/*")
-                    .and()
+                .and()
                 .userInfoEndpoint()
-                .userService(customerOAuth2UserService)
+                .userService(customOAuth2UserService)
                 .and()
                 .successHandler(oAuth2AuthenticationSuccessHandler)
                 .failureHandler(oAuth2AuthenticationFailureHandler);

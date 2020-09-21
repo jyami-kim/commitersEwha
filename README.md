@@ -59,3 +59,4 @@ Spring Security의 ``DefaultOAuth2UserService`` 를 확장하고 ``loadUser()`` 
 loadUser() 메서드는 OAuth2 provider로부터 access token이 얻은 후에 불린다.
 
 OAuth2 provider로부터 유저의 세부사항이 먼저 fetch되는데 이때 유저가 우리의 데이터베이스에 이미 존재한다면(email) 해당 정보의 세부사항을 업데이트하고, 존재하지 않는다면 새로운 유저를 만든다.
+
