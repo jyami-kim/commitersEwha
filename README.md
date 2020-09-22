@@ -60,3 +60,36 @@ loadUser() 메서드는 OAuth2 provider로부터 access token이 얻은 후에 �
 
 OAuth2 provider로부터 유저의 세부사항이 먼저 fetch되는데 이때 유저가 우리의 데이터베이스에 이미 존재한다면(email) 해당 정보의 세부사항을 업데이트하고, 존재하지 않는다면 새로운 유저를 만든다.
 
+
+
+### TokenProvider
+
+JWT에 대한 생성과 검증을 담당하는 코드
+
+
+
+### TokenAuthenticationFilter
+
+request에서 JWT 인증 토큰을 읽고 확인한다. 
+이 토큰이 유효화다면 Spring Security의 `SecurityContext` 를 설정하는데 사용된다.
+
+
+
+### RestAuthenticationEntryPoint
+
+사용자가 인증없이 보호된 리소스에 접근하려 할 때 호출된다.
+
+401 Unauthorized 응답 반환한다
+
+
+
+### UserPrincipal
+
+인증이 된 Spring Seucirty 주체(principal)을 나타낸다. 인증이 완료된 유저의 세부사항을 포함한다.
+
+
+
+### CurrentUser meta annotation
+
+현재 인증이 완료된 사용자 주체(principal)를 컨트롤러에 삽입하는데 사용가능하다.
+
