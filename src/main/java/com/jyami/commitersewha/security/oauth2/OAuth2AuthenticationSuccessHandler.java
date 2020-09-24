@@ -5,6 +5,7 @@ import com.jyami.commitersewha.exception.BadRequestException;
 import com.jyami.commitersewha.security.TokenProvider;
 import com.jyami.commitersewha.util.CookieUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -44,7 +45,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     @Override
     protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         Optional<String> redirectUri = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME).map(Cookie::getValue);
-        if (redirectUri.isPresent() && isAuthorizedRedirectUri(redirectUri.get())) {
+        if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
             throw new BadRequestException("Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
         }
 
@@ -63,14 +64,10 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
     private boolean isAuthorizedRedirectUri(String uri) {
         URI clientRedirectUrl = URI.create(uri);
+        URI authorizedURI = URI.create(appProperties.getAuthorizedRedirectUri());
 
-        return appProperties.getOauth2().getAuthorizedRedirectUris()
-                .stream()
-                .anyMatch(authorizedRedirectUri -> {
-                    URI authorizedURI = URI.create(authorizedRedirectUri);
-                    return authorizedURI.getHost().equalsIgnoreCase(clientRedirectUrl.getHost())
-                            && authorizedURI.getPort() == clientRedirectUrl.getPort();
-                });
+        return authorizedURI.getHost().equalsIgnoreCase(clientRedirectUrl.getHost())
+                && authorizedURI.getPort() == clientRedirectUrl.getPort();
     }
 
 

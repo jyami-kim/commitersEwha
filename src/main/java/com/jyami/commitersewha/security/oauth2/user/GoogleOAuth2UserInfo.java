@@ -13,12 +13,12 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
 
     @Override
     public String getId() {
-        return (String) attributes.get("id");
+        return (String) attributes.get("sub");
     }
 
     @Override
     public String getName() {
-        return (String) attributes.get("name");
+        return (String) attributes.get("given_name");
     }
 
     @Override
@@ -29,5 +29,10 @@ public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
     @Override
     public String getImageUrl() {
         return (String) attributes.get("picture");
+    }
+
+    @Override
+    public Boolean getEmailVerified() {
+        return (Boolean) attributes.get("email_verified");
     }
 }

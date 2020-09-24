@@ -1,21 +1,19 @@
 package com.jyami.commitersewha.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.jyami.commitersewha.security.oauth2.user.OAuth2UserInfo;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by jyami on 2020/09/14
  */
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
+@Builder(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class User {
 
     @Id
@@ -23,22 +21,29 @@ public class User {
     private long id;
 
     @Column(nullable = false)
+    @Setter
     private String name;
 
     @Email
     @Column(nullable = false)
     private String email;
 
+    @Setter
     private String imageUrl;
 
     @Column(nullable = false)
     private boolean emailVerified = false;
 
-    @JsonIgnore
-    private String password;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
     private String providerId;
+
+    public static User toEntity(OAuth2UserInfo oAuth2UserInfo){
+        return User.builder()
+                .email(oAuth2UserInfo.getEmail())
+                .providerId(oAuth2UserInfo.getId())
+                .imageUrl(oAuth2UserInfo.getImageUrl())
+                .name(oAuth2UserInfo.getName())
+                .emailVerified(oAuth2UserInfo.getEmailVerified())
+                .build();
+    }
 
 }

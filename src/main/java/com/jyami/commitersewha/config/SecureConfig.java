@@ -4,6 +4,7 @@ import com.jyami.commitersewha.security.RestAuthenticationEntryPoint;
 import com.jyami.commitersewha.security.TokenAuthenticationFilter;
 import com.jyami.commitersewha.security.oauth2.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,14 +26,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
-@RequiredArgsConstructor
 public class SecureConfig extends WebSecurityConfigurerAdapter {
 
-    private final CustomUserDetailsService customUserDetailsService;
-    private final CustomOAuth2UserService customOAuth2UserService;
-    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
-    private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-    private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private CustomOAuth2UserService customOAuth2UserService;
+    @Autowired
+    private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+    @Autowired
+    private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
     @Bean
     public TokenAuthenticationFilter tokenAuthenticationFilter() {
@@ -43,7 +46,6 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
     public HttpCookieOAuth2AuthorizationRequestRepository cookieOAuth2AuthorizationRequestRepository(){
         return new HttpCookieOAuth2AuthorizationRequestRepository();
     }
-
 
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
@@ -79,7 +81,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/","/error",  "/**/*.png",
                         "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js")
-            .       permitAll()
+                    .permitAll()
                 .antMatchers("/auth/**","/oauth2/**")
                     .permitAll()
                 .anyRequest()

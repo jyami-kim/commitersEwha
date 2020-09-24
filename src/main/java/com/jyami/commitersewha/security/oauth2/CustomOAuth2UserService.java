@@ -11,6 +11,7 @@ import org.springframework.security.authentication.InternalAuthenticationService
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,6 @@ import java.util.Optional;
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private final UserRepository userRepository;
-
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -47,9 +47,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         if (StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
-        if (!oAuth2UserInfo.getEmail().contains("@ewhain.net")) {
-            throw new OAuth2AuthenticationProcessingException("This Email is not EWHA students thing");
-        }
+//        if (!oAuth2UserInfo.getEmail().contains("@ewhain.net")) {
+//            throw new OAuth2AuthenticationProcessingException("This Email is not EWHA students thing");
+//        }
 
         Optional<User> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
         User user;
@@ -70,11 +70,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
-        User user = new User();
-        user.setProviderId(oAuth2UserInfo.getId());
-        user.setName(oAuth2UserInfo.getName());
-        user.setName(oAuth2UserInfo.getEmail());
-        user.setName(oAuth2UserInfo.getImageUrl());
+        User user = User.toEntity(oAuth2UserInfo);
         return userRepository.save(user);
     }
 }
