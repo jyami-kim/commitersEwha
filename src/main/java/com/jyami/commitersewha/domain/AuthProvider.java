@@ -7,6 +7,7 @@ import java.util.Arrays;
 /**
  * Created by jyami on 2020/09/14
  */
+//TODO : 사용하지 않음
 public enum AuthProvider {
     google,
     github;

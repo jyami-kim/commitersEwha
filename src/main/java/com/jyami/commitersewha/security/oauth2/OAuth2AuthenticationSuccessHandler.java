@@ -27,6 +27,7 @@ import static com.jyami.commitersewha.security.oauth2.HttpCookieOAuth2Authorizat
 @Component
 @RequiredArgsConstructor
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+
     private final TokenProvider tokenProvider;
     private final AppProperties appProperties;
     private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;

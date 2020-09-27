@@ -7,11 +7,11 @@ import com.jyami.commitersewha.security.UserPrincipal;
 import com.jyami.commitersewha.security.oauth2.user.OAuth2UserInfo;
 import com.jyami.commitersewha.security.oauth2.user.OAuth2UserInfoFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
@@ -70,7 +70,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
-        User user = User.toEntity(oAuth2UserInfo);
+        User user = User.toGoogleInfoEntity(oAuth2UserInfo);
         return userRepository.save(user);
     }
 }

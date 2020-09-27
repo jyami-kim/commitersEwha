@@ -2,6 +2,7 @@ package com.jyami.commitersewha.security.oauth2;
 
 import com.jyami.commitersewha.util.CookieUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
