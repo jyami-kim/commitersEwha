@@ -39,7 +39,7 @@ public class User {
 
     private String providerId; // Google 에서 부여한 id
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
     private Role role;
 

@@ -22,11 +22,13 @@ public class TokenProvider {
 
     public String createToken(Authentication authentication) {
 
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
 
         return Jwts.builder()
-                .setSubject(authentication.getName())
+                .setSubject(Long.toString(userPrincipal.getId()))
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())

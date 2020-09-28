@@ -94,8 +94,9 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .antMatchers("/auth/**","/oauth2/**")
                     .permitAll()
+                .antMatchers("/api/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
                 .anyRequest()
-                    .authenticated()
+                    .permitAll()
                 .and()
                 .oauth2Login()
                 .authorizationEndpoint()
@@ -110,7 +111,6 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .successHandler(oAuth2AuthenticationSuccessHandler)
                 .failureHandler(oAuth2AuthenticationFailureHandler);
-
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
