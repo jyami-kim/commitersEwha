@@ -5,7 +5,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,13 +16,14 @@ import java.util.List;
 @NoArgsConstructor
 @Builder(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class User {
+public class User extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
     @Column(nullable = false)
+    @Setter
     private String name;
 
     @Email

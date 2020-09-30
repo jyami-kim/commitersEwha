@@ -1,6 +1,5 @@
 package com.jyami.commitersewha.controller;
 
-import com.jyami.commitersewha.domain.User;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.request.UserSignupRequest;
 import com.jyami.commitersewha.payload.response.UserInfoResponse;
@@ -14,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.jyami.commitersewha.payload.ResponseMessage.GET_CURRENT_USER_INFO;
-import static com.jyami.commitersewha.payload.ResponseMessage.SUCESS_USER_SIGNUP;
+import static com.jyami.commitersewha.payload.ResponseMessage.SUCCESS_USER_SIGNUP;
 
 
 /**
@@ -31,18 +30,18 @@ public class UserController {
     @GetMapping("me")
     public ResponseEntity<?> getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
         log.info("-- current user info : {}", userPrincipal.toString());
-        User currentUser = userService.getCurrentUser(userPrincipal.getId());
+        UserInfoResponse currentUser = userService.getCurrentUser(userPrincipal.getId());
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, GET_CURRENT_USER_INFO, UserInfoResponse.fromEntity(currentUser)));
+                .body(DefaultResponse.of(HttpStatus.OK, GET_CURRENT_USER_INFO, currentUser));
     }
 
     @PostMapping
     public ResponseEntity<?> nextSignup(@CurrentUser UserPrincipal userPrincipal,
                                         @RequestBody UserSignupRequest userSignupRequest) {
-        User user = userService.nextSignUp(userPrincipal.getId(), userSignupRequest);
+        UserInfoResponse user = userService.nextSignUp(userPrincipal.getId(), userSignupRequest);
         log.info("-- complete user signup : {}", userPrincipal.getId());
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, SUCESS_USER_SIGNUP, UserInfoResponse.fromEntity(user)));
+                .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_USER_SIGNUP, user));
     }
 
 }

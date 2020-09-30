@@ -5,7 +5,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
@@ -17,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Created by jyami on 2020/09/30
  */
 @DataJpaTest
+@ActiveProfiles("dev")
 @ExtendWith(SpringExtension.class)
 class BadgeRepositoryTest {
 

@@ -1,7 +1,12 @@
 package com.jyami.commitersewha.payload.response;
 
+import com.jyami.commitersewha.domain.Badge;
+import com.jyami.commitersewha.domain.DevStack;
 import com.jyami.commitersewha.domain.User;
 import lombok.*;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by jyami on 2020/09/30
@@ -40,6 +45,10 @@ public class UserInfoResponse {
 
     private String company;
 
+    private List<Badge> badges = Collections.emptyList();
+
+    private List<DevStack> devStacks = Collections.emptyList();
+
     public static UserInfoResponse fromEntity(User user){
         return UserInfoResponse.builder()
                 .id(user.getUserId())
@@ -53,6 +62,8 @@ public class UserInfoResponse {
                 .isGraduate(user.isGraduate())
                 .job(user.getJob())
                 .company(user.getCompany())
+                .badges(user.getBadgeList())
+                .devStacks(user.getDevStackList())
                 .build();
     }
 }
