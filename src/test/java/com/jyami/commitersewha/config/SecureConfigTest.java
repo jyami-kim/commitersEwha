@@ -19,7 +19,6 @@ import static io.restassured.RestAssured.given;
 @TestPropertySource(properties = "spring.config.location=classpath:/application-oauth2.yaml")
 public class SecureConfigTest {
 
-
     @BeforeEach
     public void setup() {
         RestAssured.baseURI = "http://localhost";
@@ -27,14 +26,14 @@ public class SecureConfigTest {
     }
 
     @Test
-    @DisplayName("클라이언트에서 로그인 없이 api를 호출하려 하면 403이 뜬다.")
+    @DisplayName("클라이언트에서 로그인 없이 api를 호출하려 하면 401이 뜬다.")
     public void clientOAuth() throws Exception {
         given()
                 .when()
                 .redirects().follow(false) // 리다이렉트 방지
                 .get("/api/user/me")
                 .then()
-                .statusCode(403);
+                .statusCode(401);
     }
 
 }

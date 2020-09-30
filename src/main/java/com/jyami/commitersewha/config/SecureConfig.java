@@ -1,6 +1,6 @@
 package com.jyami.commitersewha.config;
 
-import com.jyami.commitersewha.domain.Role;
+import com.jyami.commitersewha.domain.User;
 import com.jyami.commitersewha.security.RestAuthenticationEntryPoint;
 import com.jyami.commitersewha.security.TokenAuthenticationFilter;
 import com.jyami.commitersewha.security.oauth2.*;
@@ -13,6 +13,7 @@ import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -56,6 +57,13 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(
+                "/v2/api-cods", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**");
+    }
+
+
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder passwordEncoder = passwordEncoder();
 
@@ -63,7 +71,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder())
                 .withUser("jyami")
                 .password(passwordEncoder.encode("secret"))
-                .roles(String.valueOf(Role.USER));
+                .roles(String.valueOf(User.Role.USER));
 
         auth.userDetailsService(customUserDetailsService)
                 .passwordEncoder(passwordEncoder);
@@ -78,25 +86,28 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors()
                 .and()
-            .sessionManagement()
+                .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-            .csrf()
+                .csrf()
                 .disable()
-            .formLogin()
+                .formLogin()
                 .disable()
-            .exceptionHandling()
+                .exceptionHandling()
                 .authenticationEntryPoint(new RestAuthenticationEntryPoint())
                 .and()
-            .authorizeRequests()
-                .antMatchers("/","/error",  "/**/*.png",
+                .authorizeRequests()
+                .antMatchers("/", "/error", "/**/*.png",
                         "/**/*.gif", "/**/*.svg", "/**/*.jpg", "/**/*.html", "/**/*.css", "/**/*.js")
-                    .permitAll()
-                .antMatchers("/auth/**","/oauth2/**")
-                    .permitAll()
-                .antMatchers("/api/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+                .permitAll()
+                .antMatchers("/auth/**", "/oauth2/**")
+                .permitAll()
+                .antMatchers("/api/**")
+                    .hasAnyAuthority(User.Role.ADMIN.name(), User.Role.USER.name())
+//                    .hasAnyRole(Role.ADMIN.name(), Role.USER.name())
+//                    .authenticated() // 이후 role로 변경하기
                 .anyRequest()
-                    .permitAll()
+                .permitAll()
                 .and()
                 .oauth2Login()
                 .authorizationEndpoint()

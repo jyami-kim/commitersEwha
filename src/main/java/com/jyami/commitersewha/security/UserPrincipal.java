@@ -1,7 +1,7 @@
 package com.jyami.commitersewha.security;
 
-import com.jyami.commitersewha.domain.Role;
 import com.jyami.commitersewha.domain.User;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +15,7 @@ import java.util.Map;
 /**
  * Created by jyami on 2020/09/21
  */
+@ToString
 public class UserPrincipal implements OAuth2User, UserDetails {
     private Long id;
     private String email;
@@ -28,8 +29,8 @@ public class UserPrincipal implements OAuth2User, UserDetails {
     }
 
     public static UserPrincipal create(User user) {
-        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(String.valueOf(Role.USER)));
-        return new UserPrincipal(user.getId(), user.getEmail(), authorities);
+        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(String.valueOf(User.Role.USER)));
+        return new UserPrincipal(user.getUserId(), user.getEmail(), authorities);
     }
 
     public static UserPrincipal create(User user, Map<String, Object> attributes) {

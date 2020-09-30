@@ -28,8 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by jyami on 2020/09/27
  */
 @ExtendWith(SpringExtension.class)
-//@ContextConfiguration(classes= CommitersEwhaApplication.class)
-//@WebMvcTest(UserController.class)
+@ContextConfiguration(classes= CommitersEwhaApplication.class)
+@WebMvcTest(UserController.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UserControllerTest {
 
@@ -54,7 +54,6 @@ class UserControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk());
-
     }
 
 }

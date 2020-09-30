@@ -5,7 +5,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long userId;
 
     @Column(nullable = false)
     @Setter
@@ -59,9 +58,13 @@ public class User {
 
     private String company;
 
-//    private String badgeList;
-//
-//    private String devStackList;
+    @ManyToMany
+    @JoinTable(name = "user_badge_link")
+    private List<Badge> badgeList;
+
+    @ManyToMany
+    @JoinColumn(name = "user_dev_stack_link")
+    private List<DevStack> devStackList;
 
     public static User toGoogleInfoEntity(OAuth2UserInfo oAuth2UserInfo){
         return User.builder()
@@ -73,5 +76,19 @@ public class User {
                 .role(Role.USER)
                 .build();
     }
+
+    @Getter
+    @RequiredArgsConstructor
+    public enum Role {
+
+        ADMIN("ROLE_ADMIN", "어드민"),
+        USER("ROLE_USER", "사용자");
+
+        private final String key;
+        private final String title;
+
+    }
+
+
 
 }
