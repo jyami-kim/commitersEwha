@@ -102,7 +102,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/auth/**", "/oauth2/**")
                 .permitAll()
-                .antMatchers("/api/**")
+                .antMatchers("/api/user/**")
                     .hasAnyAuthority(User.Role.ADMIN.name(), User.Role.USER.name())
 //                    .hasAnyRole(Role.ADMIN.name(), Role.USER.name())
 //                    .authenticated() // 이후 role로 변경하기

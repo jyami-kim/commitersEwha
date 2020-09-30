@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -22,7 +24,6 @@ public class User {
     private long userId;
 
     @Column(nullable = false)
-    @Setter
     private String name;
 
     @Email
@@ -45,26 +46,28 @@ public class User {
     // ----------- 여기까지 google 기본 정보 ----------
 
 //    private long githubId; // 이후 깃허브 연동시 사용할 아이디
-
+    @Setter
     private String description;
-
+    @Setter
     private String major;
-
+    @Setter
     private int entranceYear;
-
+    @Setter
     private boolean isGraduate;
-
+    @Setter
     private String job;
-
+    @Setter
     private String company;
 
+    @Setter
     @ManyToMany
     @JoinTable(name = "user_badge_link")
-    private List<Badge> badgeList;
+    private List<Badge> badgeList = Collections.emptyList();
 
+    @Setter
     @ManyToMany
     @JoinColumn(name = "user_dev_stack_link")
-    private List<DevStack> devStackList;
+    private List<DevStack> devStackList = Collections.emptyList();
 
     public static User toGoogleInfoEntity(OAuth2UserInfo oAuth2UserInfo){
         return User.builder()
