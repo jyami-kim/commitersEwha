@@ -3,6 +3,7 @@ package com.jyami.commitersewha.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,9 +49,11 @@ public class Post extends BaseTime {
     private long hit = 0;
 
     // TODO : 좋아요 기능 확장
-
     // TODO : 댓글 기능 확장
 
+//    @OneToMany
+//    @Builder.Default
+//    private List<Comment> comments = Collections.emptyList();
 
     @Getter
     public enum Category {

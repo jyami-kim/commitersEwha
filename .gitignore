@@ -1,5 +1,6 @@
 *.properties
 *.yaml
+**/generated
 
 HELP.md
 .gradle
