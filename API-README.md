@@ -170,4 +170,3 @@ Authentication: Bearer [Token]
     ]
 }
 ```
-

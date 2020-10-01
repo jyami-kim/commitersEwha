@@ -60,6 +60,14 @@ public class PostService {
         return PostResponse.fromEntityToLongDto(updatedPost);
     }
 
+    @Transactional
+    public void deletePost(Long userId, Long postId){
+        Post post = findPostFromId(postId);
+        validateAuthorizedUser(userId, post);
+
+        postRepository.delete(post);
+    }
+
     private Post findPostFromId(Long postId){
         return postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));

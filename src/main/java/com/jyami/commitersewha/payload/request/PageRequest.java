@@ -1,36 +1,35 @@
 package com.jyami.commitersewha.payload.request;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Sort;
 
 /**
  * Created by jyami on 2020/09/30
  */
 @Getter
-@NoArgsConstructor
 public final class PageRequest {
+    private final int DEFAULT_SIZE = 10;
+    private final int MAX_SIZE = 50;
+
     private int page;
     private int size;
     private Sort.Direction direction;
 
-    public void setPage(int page) {
-        this.page = page <= 0 ? 1 : page;
+    public PageRequest(Integer page, Integer size, Sort.Direction direction) {
+        this.page = (page == null) ? 1 : page;
+        this.size = (size == null) ? DEFAULT_SIZE : size;
+        this.direction = (direction == null) ? Sort.Direction.DESC : direction;
+        validatePagenation();
     }
 
-    public void setSize(int size) {
-        int DEFAULT_SIZE = 10;
-        int MAX_SIZE = 50;
+    private void validatePagenation() {
+        this.page = page <= 0 ? 1 : page;
         this.size = size > MAX_SIZE ? DEFAULT_SIZE : size;
     }
 
-    public void setDirection(Sort.Direction direction) {
-        this.direction = direction;
+    public org.springframework.data.domain.PageRequest of() {
+        return org.springframework.data.domain.PageRequest.of(page - 1, size, direction, "createdDate");
     }
 
-    // getter
-    public org.springframework.data.domain.PageRequest of() {
-        return org.springframework.data.domain.PageRequest.of(page, size, direction, "createdDate");
-    }
 }
 

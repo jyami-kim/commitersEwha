@@ -12,6 +12,7 @@ import com.jyami.commitersewha.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +34,11 @@ public class PostController {
     private final UserService userService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllPostWithPage(@RequestBody PageRequest pageRequest) {
+    public ResponseEntity<?> getAllPostWithPage(@RequestParam(required = false) Integer page,
+                                                @RequestParam(required = false) Integer size,
+                                                @RequestParam(required = false) Sort.Direction direction) {
         log.info("---getAllPage");
+        PageRequest pageRequest = new PageRequest(page, size, direction);
         Page<PostResponse> postOutLineResponse = postService.getPostOutLineResponse(pageRequest);
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(HttpStatus.OK, GET_POST_LIST, postOutLineResponse));
@@ -65,6 +69,14 @@ public class PostController {
         log.info("---updatePost success : {} ", postResponse);
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_POST_UPDATE, postResponse));
+    }
+
+    @DeleteMapping("{postId}")
+    public ResponseEntity<?> deletePost(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long postId) {
+        postService.deletePost(userPrincipal.getId(), postId);
+        log.info("---deletePost success : {} => {} ", userPrincipal.getId(), postId);
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_POST_DELETE, postId));
     }
 
 }
