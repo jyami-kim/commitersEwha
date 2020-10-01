@@ -2,6 +2,7 @@ package com.jyami.commitersewha.domain;
 
 import com.jyami.commitersewha.security.oauth2.user.OAuth2UserInfo;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -16,11 +17,16 @@ import java.util.List;
 @NoArgsConstructor
 @Builder(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@DynamicUpdate
+@Table(indexes = {@Index(columnList = "subId")})
 public class User extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
+
+    @Column(unique = true)
+    private String subId;
 
     @Column(nullable = false)
     @Setter
@@ -43,9 +49,11 @@ public class User extends BaseTime {
     @Column(nullable = false)
     private Role role;
 
+    private String defaultMajor;
+
     // ----------- 여기까지 google 기본 정보 ----------
 
-//    private long githubId; // 이후 깃허브 연동시 사용할 아이디
+    //    private long githubId; // 이후 깃허브 연동시 사용할 아이디
     @Setter
     private String description;
     @Setter
@@ -62,22 +70,37 @@ public class User extends BaseTime {
     @Setter
     @ManyToMany
     @JoinTable(name = "user_badge_link")
+    @Builder.Default
     private List<Badge> badgeList = Collections.emptyList();
 
     @Setter
     @ManyToMany
     @JoinColumn(name = "user_dev_stack_link")
+    @Builder.Default
     private List<DevStack> devStackList = Collections.emptyList();
 
-    public static User toGoogleInfoEntity(OAuth2UserInfo oAuth2UserInfo){
+    public static User toGoogleInfoEntity(OAuth2UserInfo oAuth2UserInfo) {
+        String[] userInfo = devideName(oAuth2UserInfo.getName());
         return User.builder()
+                .subId(emailToSubId(oAuth2UserInfo.getEmail()))
                 .email(oAuth2UserInfo.getEmail())
                 .providerId(oAuth2UserInfo.getId())
+                .defaultMajor(userInfo[1])
+                .name(userInfo[0])
                 .imageUrl(oAuth2UserInfo.getImageUrl())
-                .name(oAuth2UserInfo.getName())
                 .emailVerified(oAuth2UserInfo.getEmailVerified())
                 .role(Role.USER)
                 .build();
+    }
+
+    protected static String emailToSubId(String email) {
+        return email.split("@")[0];
+    }
+
+    protected static String[] devideName(String googleName) {
+        int start = googleName.indexOf('(');
+        int end = googleName.indexOf(')');
+        return new String[]{googleName.substring(0, start), googleName.substring(start + 1, end)};
     }
 
     @Getter
@@ -91,7 +114,6 @@ public class User extends BaseTime {
         private final String title;
 
     }
-
 
 
 }

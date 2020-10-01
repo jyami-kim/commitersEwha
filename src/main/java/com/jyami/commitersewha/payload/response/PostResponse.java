@@ -24,8 +24,10 @@ public class PostResponse {
     private String detail;
     private long userId;
     private String userName;
+    @Builder.Default
     List<DevStack> devStackList = Collections.emptyList();
     private Post.Category category;
+    @Builder.Default
     private long hit = 0;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;

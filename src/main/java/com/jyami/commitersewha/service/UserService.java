@@ -1,11 +1,10 @@
 package com.jyami.commitersewha.service;
 
-import com.jyami.commitersewha.domain.Badge;
 import com.jyami.commitersewha.domain.DevStack;
 import com.jyami.commitersewha.domain.User;
 import com.jyami.commitersewha.domain.UserRepository;
 import com.jyami.commitersewha.exception.ResourceNotFoundException;
-import com.jyami.commitersewha.payload.request.UserSignupRequest;
+import com.jyami.commitersewha.payload.request.UserUpdateRequest;
 import com.jyami.commitersewha.payload.response.UserInfoResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,18 +30,21 @@ public class UserService {
     }
 
     @Transactional
-    public UserInfoResponse nextSignUp(Long userId, UserSignupRequest userSignupRequest) {
+    public UserInfoResponse nextSignUp(Long userId, UserUpdateRequest userUpdateRequest) {
         User user = getUserFromId(userId);
-        List<Badge> allBadges = tagService.findAllByBadgeId(userSignupRequest.getBadgeIdList());
-        List<DevStack> allDevStacks = tagService.findAllBtDevStackId(userSignupRequest.getDevStackIdList());
-        userSignupRequest.updateUserInfo(user, allBadges, allDevStacks);
+        List<DevStack> allDevStacks = tagService.findAllBtDevStackId(userUpdateRequest.getDevStackIdList());
+        userUpdateRequest.updateUserInfo(user, allDevStacks);
         return UserInfoResponse.fromEntity(userRepository.save(user));
     }
 
     public User getUserFromId(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+    }
 
+    public User getUserFromSubId(String userSubId){
+        return userRepository.findBySubId(userSubId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "subId", userSubId));
     }
 
 

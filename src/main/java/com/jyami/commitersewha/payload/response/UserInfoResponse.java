@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserInfoResponse {
 
-    private long id;
+    private String subId;
 
     private String name;
 
@@ -45,13 +45,15 @@ public class UserInfoResponse {
 
     private String company;
 
+    @Builder.Default
     private List<Badge> badges = Collections.emptyList();
 
+    @Builder.Default
     private List<DevStack> devStacks = Collections.emptyList();
 
     public static UserInfoResponse fromEntity(User user){
         return UserInfoResponse.builder()
-                .id(user.getUserId())
+                .subId(user.getSubId())
                 .name(user.getName())
                 .email(user.getEmail())
                 .imageUrl(user.getImageUrl())

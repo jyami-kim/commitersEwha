@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Getter
 @NoArgsConstructor
-public class UserSignupRequest {
+public class UserUpdateRequest {
     private String description;
     @NotNull
     private String major;
@@ -24,17 +24,15 @@ public class UserSignupRequest {
     private boolean isGraduate;
     private String job;
     private String company;
-    private List<Long> badgeIdList;
     private List<Long> devStackIdList;
 
-    public void updateUserInfo(User user, List<Badge> badges, List<DevStack> devStacks){
+    public void updateUserInfo(User user, List<DevStack> devStacks){
         user.setDescription(this.description);
         user.setMajor(this.major);
         user.setEntranceYear(this.entranceYear);
         user.setGraduate(this.isGraduate);
         user.setJob(this.job);
         user.setCompany(this.company);
-        user.setBadgeList(badges);
         user.setDevStackList(devStacks);
     }
 }

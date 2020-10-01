@@ -24,7 +24,7 @@ import static com.jyami.commitersewha.payload.ResponseMessage.*;
 /**
  * Created by jyami on 2020/09/30
  */
-@RequestMapping("api/post")
+@RequestMapping("api")
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -33,7 +33,7 @@ public class PostController {
     private final PostService postService;
     private final UserService userService;
 
-    @GetMapping("")
+    @GetMapping("posts")
     public ResponseEntity<?> getAllPostWithPage(@RequestParam(required = false) Integer page,
                                                 @RequestParam(required = false) Integer size,
                                                 @RequestParam(required = false) Sort.Direction direction) {
@@ -44,7 +44,7 @@ public class PostController {
                 .body(DefaultResponse.of(HttpStatus.OK, GET_POST_LIST, postOutLineResponse));
     }
 
-    @PostMapping("")
+    @PostMapping("post")
     public ResponseEntity<?> createPost(@CurrentUser UserPrincipal userPrincipal, @RequestBody PostRequest postRequest) {
         User user = userService.getUserFromId(userPrincipal.getId());
         PostResponse postResponse = postService.createNewPost(user, postRequest);
@@ -53,7 +53,7 @@ public class PostController {
                 .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_POST_CREATE, postResponse));
     }
 
-    @GetMapping("{postId}")
+    @GetMapping("post/{postId}")
     public ResponseEntity<?> getPost(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long postId) {
 //        User user = userService.getUserFromId(userPrincipal.getId());
         PostResponse postResponse = postService.getDetailPost(postId);
@@ -62,7 +62,7 @@ public class PostController {
                 .body(DefaultResponse.of(HttpStatus.OK, GET_POST_DETAIL, postResponse));
     }
 
-    @PutMapping()
+    @PutMapping("post")
     public ResponseEntity<?> updatePost(@CurrentUser UserPrincipal userPrincipal,
                                         @Valid @RequestBody PostRequest postRequest) {
         PostResponse postResponse = postService.updatePost(userPrincipal.getId(), postRequest);
@@ -71,7 +71,7 @@ public class PostController {
                 .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_POST_UPDATE, postResponse));
     }
 
-    @DeleteMapping("{postId}")
+    @DeleteMapping("post/{postId}")
     public ResponseEntity<?> deletePost(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long postId) {
         postService.deletePost(userPrincipal.getId(), postId);
         log.info("---deletePost success : {} => {} ", userPrincipal.getId(), postId);

@@ -34,6 +34,7 @@ public class Post extends BaseTime {
     @ManyToMany
     @JoinTable(name = "post_dev_stack_link")
     @Setter
+    @Builder.Default
     private List<DevStack> devStackList = Collections.emptyList();
 
     // TODO : 해시태그 기능 확장
@@ -43,6 +44,7 @@ public class Post extends BaseTime {
     @Setter
     private Category category;
 
+    @Builder.Default
     private long hit = 0;
 
     // TODO : 좋아요 기능 확장

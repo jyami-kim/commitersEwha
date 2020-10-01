@@ -1,7 +1,8 @@
 package com.jyami.commitersewha.controller;
 
+import com.jyami.commitersewha.domain.User;
 import com.jyami.commitersewha.payload.DefaultResponse;
-import com.jyami.commitersewha.payload.request.UserSignupRequest;
+import com.jyami.commitersewha.payload.request.UserUpdateRequest;
 import com.jyami.commitersewha.payload.response.UserInfoResponse;
 import com.jyami.commitersewha.security.CurrentUser;
 import com.jyami.commitersewha.security.UserPrincipal;
@@ -12,8 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.jyami.commitersewha.payload.ResponseMessage.GET_CURRENT_USER_INFO;
-import static com.jyami.commitersewha.payload.ResponseMessage.SUCCESS_USER_SIGNUP;
+import static com.jyami.commitersewha.payload.ResponseMessage.*;
 
 
 /**
@@ -36,12 +36,31 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> nextSignup(@CurrentUser UserPrincipal userPrincipal,
-                                        @RequestBody UserSignupRequest userSignupRequest) {
-        UserInfoResponse user = userService.nextSignUp(userPrincipal.getId(), userSignupRequest);
+    public ResponseEntity<?> nextSignUp(@CurrentUser UserPrincipal userPrincipal,
+                                        @RequestBody UserUpdateRequest userUpdateRequest) {
+        UserInfoResponse user = userService.nextSignUp(userPrincipal.getId(), userUpdateRequest);
         log.info("-- complete user signup : {}", userPrincipal.getId());
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_USER_SIGNUP, user));
     }
+
+    @PutMapping()
+    public ResponseEntity<?> updateUserInfo(@CurrentUser UserPrincipal userPrincipal,
+                                            @RequestBody UserUpdateRequest userUpdateRequest) {
+        UserInfoResponse user = userService.nextSignUp(userPrincipal.getId(), userUpdateRequest);
+        log.info("-- complete user info update : {}", userPrincipal.getId());
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(HttpStatus.OK, UPDATE_USER_INFO, user));
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getUserInfo(@CurrentUser UserPrincipal userPrincipal, @RequestParam("user") String userSubId) {
+        log.info("-- see user info : {} => {}", userPrincipal.getId(), userSubId);
+        User user = userService.getUserFromSubId(userSubId);
+        UserInfoResponse userInfo = UserInfoResponse.fromEntity(user);
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(HttpStatus.OK, GET_USER_INFO, userInfo));
+    }
+
 
 }
