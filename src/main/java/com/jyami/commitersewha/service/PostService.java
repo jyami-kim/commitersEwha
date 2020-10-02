@@ -1,21 +1,18 @@
 package com.jyami.commitersewha.service;
 
-import com.jyami.commitersewha.domain.Comment;
-import com.jyami.commitersewha.domain.Post;
-import com.jyami.commitersewha.domain.PostRepository;
-import com.jyami.commitersewha.domain.User;
+import com.jyami.commitersewha.domain.post.Post;
+import com.jyami.commitersewha.domain.post.PostRepository;
+import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.exception.NotAccessUserException;
 import com.jyami.commitersewha.exception.ResourceNotFoundException;
-import com.jyami.commitersewha.payload.request.PageRequest;
 import com.jyami.commitersewha.payload.request.PostRequest;
+import com.jyami.commitersewha.payload.request.SearchRequest;
 import com.jyami.commitersewha.payload.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
 
 import static com.jyami.commitersewha.payload.ResponseMessage.CAN_NOT_UPDATED_THIS_ACCESS_USER;
 
@@ -28,8 +25,8 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public Page<PostResponse> getPostOutLineResponse(PageRequest pageRequest) {
-        return postRepository.findAll(pageRequest.of())
+    public Page<PostResponse> getPostOutLineResponse(SearchRequest searchRequest) {
+        return postRepository.findAllBySearchCondition(searchRequest)
                 .map(PostResponse::fromEntityToShotDto);
     }
 

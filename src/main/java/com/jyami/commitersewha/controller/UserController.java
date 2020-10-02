@@ -1,6 +1,6 @@
 package com.jyami.commitersewha.controller;
 
-import com.jyami.commitersewha.domain.User;
+import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.request.UserUpdateRequest;
 import com.jyami.commitersewha.payload.response.UserInfoResponse;

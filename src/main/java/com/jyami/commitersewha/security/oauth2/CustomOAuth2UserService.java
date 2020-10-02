@@ -1,13 +1,12 @@
 package com.jyami.commitersewha.security.oauth2;
 
-import com.jyami.commitersewha.domain.User;
-import com.jyami.commitersewha.domain.UserRepository;
+import com.jyami.commitersewha.domain.user.User;
+import com.jyami.commitersewha.domain.user.UserRepository;
 import com.jyami.commitersewha.exception.OAuth2AuthenticationProcessingException;
 import com.jyami.commitersewha.security.UserPrincipal;
 import com.jyami.commitersewha.security.oauth2.user.OAuth2UserInfo;
 import com.jyami.commitersewha.security.oauth2.user.OAuth2UserInfoFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

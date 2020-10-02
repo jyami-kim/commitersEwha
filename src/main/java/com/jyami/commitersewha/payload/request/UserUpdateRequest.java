@@ -1,8 +1,7 @@
 package com.jyami.commitersewha.payload.request;
 
-import com.jyami.commitersewha.domain.Badge;
-import com.jyami.commitersewha.domain.DevStack;
-import com.jyami.commitersewha.domain.User;
+import com.jyami.commitersewha.domain.tag.DevStack;
+import com.jyami.commitersewha.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

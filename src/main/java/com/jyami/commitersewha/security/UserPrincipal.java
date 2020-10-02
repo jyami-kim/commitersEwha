@@ -1,6 +1,6 @@
 package com.jyami.commitersewha.security;
 
-import com.jyami.commitersewha.domain.User;
+import com.jyami.commitersewha.domain.user.User;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

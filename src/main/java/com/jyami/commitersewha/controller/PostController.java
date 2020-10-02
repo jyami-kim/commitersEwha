@@ -1,9 +1,9 @@
 package com.jyami.commitersewha.controller;
 
-import com.jyami.commitersewha.domain.User;
+import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.payload.DefaultResponse;
-import com.jyami.commitersewha.payload.request.PageRequest;
 import com.jyami.commitersewha.payload.request.PostRequest;
+import com.jyami.commitersewha.payload.request.SearchRequest;
 import com.jyami.commitersewha.payload.response.PostResponse;
 import com.jyami.commitersewha.security.CurrentUser;
 import com.jyami.commitersewha.security.UserPrincipal;
@@ -12,7 +12,6 @@ import com.jyami.commitersewha.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,12 +33,9 @@ public class PostController {
     private final UserService userService;
 
     @GetMapping("posts")
-    public ResponseEntity<?> getAllPostWithPage(@RequestParam(required = false) Integer page,
-                                                @RequestParam(required = false) Integer size,
-                                                @RequestParam(required = false) Sort.Direction direction) {
-        log.info("---getAllPage");
-        PageRequest pageRequest = new PageRequest(page, size, direction);
-        Page<PostResponse> postOutLineResponse = postService.getPostOutLineResponse(pageRequest);
+    public ResponseEntity<?> getAllPostWithPage(SearchRequest searchRequest) {
+        log.info("---getAllPage : parameter = {}", searchRequest);
+        Page<PostResponse> postOutLineResponse = postService.getPostOutLineResponse(searchRequest);
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(HttpStatus.OK, GET_POST_LIST, postOutLineResponse));
     }

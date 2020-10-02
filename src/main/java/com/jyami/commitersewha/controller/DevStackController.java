@@ -1,6 +1,6 @@
 package com.jyami.commitersewha.controller;
 
-import com.jyami.commitersewha.domain.DevStack;
+import com.jyami.commitersewha.domain.tag.DevStack;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.service.TagService;
 import lombok.RequiredArgsConstructor;

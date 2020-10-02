@@ -1,9 +1,9 @@
 package com.jyami.commitersewha.service;
 
-import com.jyami.commitersewha.domain.Badge;
-import com.jyami.commitersewha.domain.BadgeRepository;
-import com.jyami.commitersewha.domain.DevStack;
-import com.jyami.commitersewha.domain.DevStackRepository;
+import com.jyami.commitersewha.domain.tag.Badge;
+import com.jyami.commitersewha.domain.tag.BadgeRepository;
+import com.jyami.commitersewha.domain.tag.DevStack;
+import com.jyami.commitersewha.domain.tag.DevStackRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,12 @@
 package com.jyami.commitersewha.domain;
 
+import com.jyami.commitersewha.domain.comment.Comment;
+import com.jyami.commitersewha.domain.comment.CommentRepository;
+import com.jyami.commitersewha.domain.post.Category;
+import com.jyami.commitersewha.domain.post.Post;
+import com.jyami.commitersewha.domain.post.PostRepository;
+import com.jyami.commitersewha.domain.user.User;
+import com.jyami.commitersewha.domain.user.UserRepository;
 import com.jyami.commitersewha.exception.ResourceNotFoundException;
 import com.jyami.commitersewha.preSetting.TestConfig;
 import jdk.nashorn.internal.ir.annotations.Ignore;
@@ -58,7 +65,7 @@ class PostRepositoryTest {
 
     private Post settingPost(User settingUser) {
         Post settingPost = Post.builder()
-                .category(Post.Category.ADVERTISING)
+                .category(Category.ADVERTISING)
                 .detail("세부사항")
                 .title("제목")
                 .user(settingUser)

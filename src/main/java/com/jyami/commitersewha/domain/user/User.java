@@ -1,5 +1,8 @@
-package com.jyami.commitersewha.domain;
+package com.jyami.commitersewha.domain.user;
 
+import com.jyami.commitersewha.domain.BaseTime;
+import com.jyami.commitersewha.domain.tag.Badge;
+import com.jyami.commitersewha.domain.tag.DevStack;
 import com.jyami.commitersewha.security.oauth2.user.OAuth2UserInfo;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;

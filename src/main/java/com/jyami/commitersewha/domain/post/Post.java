@@ -1,12 +1,15 @@
-package com.jyami.commitersewha.domain;
+package com.jyami.commitersewha.domain.post;
 
+import com.jyami.commitersewha.domain.BaseTime;
+import com.jyami.commitersewha.domain.comment.Comment;
+import com.jyami.commitersewha.domain.user.User;
 import lombok.*;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by jyami on 2020/09/30
@@ -45,31 +48,17 @@ public class Post extends BaseTime {
     @Builder.Default
     private List<Comment> comments = new ArrayList<>();
 
+    @Setter
+    private String hashTags;
+
     // TODO : 좋아요 기능 확장
 
-//    @ManyToMany
-//    @JoinTable(name = "post_dev_stack_link")
-//    @Setter
-//    @Builder.Default
-    // TODO : 해시태그 기능 확장
-
-    @Getter
-    public enum Category {
-        CHAT("잡담"), EMPLOYMENT("취업/이직"), REVIEW("후기"), ADVERTISING("홍보");
-
-        Category(String name) {
-            this.name = name;
-        }
-
-        private String name;
+    public List<String> getHashTags(){
+        return Arrays.asList(hashTags.split(","));
     }
 
     public void addHitCount() {
         this.hit = ++hit;
-    }
-
-    public void addComment(Comment comment) {
-        this.comments.add(comment);
     }
 
 }

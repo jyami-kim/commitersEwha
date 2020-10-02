@@ -1,6 +1,6 @@
 package com.jyami.commitersewha.config;
 
-import com.jyami.commitersewha.domain.User;
+import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.security.RestAuthenticationEntryPoint;
 import com.jyami.commitersewha.security.TokenAuthenticationFilter;
 import com.jyami.commitersewha.security.oauth2.*;

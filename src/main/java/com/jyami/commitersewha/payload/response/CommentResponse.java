@@ -1,8 +1,6 @@
 package com.jyami.commitersewha.payload.response;
 
-import com.jyami.commitersewha.domain.Comment;
-import com.jyami.commitersewha.domain.Post;
-import com.jyami.commitersewha.domain.User;
+import com.jyami.commitersewha.domain.comment.Comment;
 import lombok.*;
 
 import java.time.LocalDateTime;

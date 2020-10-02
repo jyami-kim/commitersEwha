@@ -1,4 +1,4 @@
-package com.jyami.commitersewha.domain;
+package com.jyami.commitersewha.domain.comment;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

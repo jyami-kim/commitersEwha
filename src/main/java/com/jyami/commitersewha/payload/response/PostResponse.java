@@ -1,7 +1,8 @@
 package com.jyami.commitersewha.payload.response;
 
-import com.jyami.commitersewha.domain.Post;
-import com.jyami.commitersewha.domain.User;
+import com.jyami.commitersewha.domain.post.Category;
+import com.jyami.commitersewha.domain.post.Post;
+import com.jyami.commitersewha.domain.user.User;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -24,16 +25,16 @@ public final class PostResponse {
     private String detail;
     private long userId;
     private String userName;
-    private Post.Category category;
+    private Category category;
     @Builder.Default
     private long hit = 0;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
     @Builder.Default
     private List<CommentResponse> commentResponses = Collections.emptyList();
+    private List<String> hashTags;
 
     // TODO : 좋아요 기능 확장
-    // TODO : 해시태그 기능 구현
 
     public static PostResponse fromEntityToShotDto(Post post) {
         User user = post.getUser();
@@ -44,6 +45,7 @@ public final class PostResponse {
                 .userId(user.getUserId())
                 .userName(user.getName())
                 .category(post.getCategory())
+                .hashTags(post.getHashTags())
                 .hit(post.getHit())
                 .createdDate(post.getCreatedDate())
                 .modifiedDate(post.getModifiedDate())
@@ -59,6 +61,7 @@ public final class PostResponse {
                 .userId(user.getUserId())
                 .userName(user.getName())
                 .category(post.getCategory())
+                .hashTags(post.getHashTags())
                 .hit(post.getHit())
                 .createdDate(post.getCreatedDate())
                 .modifiedDate(post.getModifiedDate())

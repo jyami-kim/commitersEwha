@@ -1,6 +1,9 @@
 package com.jyami.commitersewha.service;
 
-import com.jyami.commitersewha.domain.*;
+import com.jyami.commitersewha.domain.comment.Comment;
+import com.jyami.commitersewha.domain.comment.CommentRepository;
+import com.jyami.commitersewha.domain.post.Post;
+import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.exception.NotAccessUserException;
 import com.jyami.commitersewha.exception.ResourceNotFoundException;
 import com.jyami.commitersewha.payload.request.CommentRequest;

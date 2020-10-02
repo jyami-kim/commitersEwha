@@ -1,8 +1,6 @@
 package com.jyami.commitersewha.controller;
 
-import com.jyami.commitersewha.domain.Badge;
-import com.jyami.commitersewha.domain.Post;
-import com.jyami.commitersewha.domain.User;
+import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.request.CommentRequest;
 import com.jyami.commitersewha.payload.response.CommentResponse;
@@ -14,11 +12,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 import static com.jyami.commitersewha.payload.ResponseMessage.*;
 

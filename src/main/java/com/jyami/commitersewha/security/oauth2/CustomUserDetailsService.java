@@ -1,7 +1,7 @@
 package com.jyami.commitersewha.security.oauth2;
 
-import com.jyami.commitersewha.domain.User;
-import com.jyami.commitersewha.domain.UserRepository;
+import com.jyami.commitersewha.domain.user.User;
+import com.jyami.commitersewha.domain.user.UserRepository;
 import com.jyami.commitersewha.exception.ResourceNotFoundException;
 import com.jyami.commitersewha.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;

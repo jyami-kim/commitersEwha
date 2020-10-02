@@ -1,5 +1,7 @@
 package com.jyami.commitersewha.domain;
 
+import com.jyami.commitersewha.domain.tag.Badge;
+import com.jyami.commitersewha.domain.tag.BadgeRepository;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,7 +1,9 @@
-package com.jyami.commitersewha.domain;
+package com.jyami.commitersewha.domain.comment;
 
+import com.jyami.commitersewha.domain.BaseTime;
+import com.jyami.commitersewha.domain.post.Post;
+import com.jyami.commitersewha.domain.user.User;
 import lombok.*;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -14,7 +16,7 @@ import javax.persistence.*;
 @Builder(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
-public class Comment extends BaseTime{
+public class Comment extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

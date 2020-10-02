@@ -1,8 +1,8 @@
 package com.jyami.commitersewha.payload.request;
 
-import com.jyami.commitersewha.domain.Comment;
-import com.jyami.commitersewha.domain.Post;
-import com.jyami.commitersewha.domain.User;
+import com.jyami.commitersewha.domain.comment.Comment;
+import com.jyami.commitersewha.domain.post.Post;
+import com.jyami.commitersewha.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
  */
 @Getter
 @NoArgsConstructor
-public class CommentRequest {
+public final class CommentRequest {
 
     @NotNull
     private String content;

@@ -1,23 +1,24 @@
 package com.jyami.commitersewha.domain;
 
+import com.jyami.commitersewha.domain.comment.Comment;
+import com.jyami.commitersewha.domain.comment.CommentRepository;
+import com.jyami.commitersewha.domain.post.Category;
+import com.jyami.commitersewha.domain.post.Post;
+import com.jyami.commitersewha.domain.post.PostRepository;
+import com.jyami.commitersewha.domain.user.User;
+import com.jyami.commitersewha.domain.user.UserRepository;
 import com.jyami.commitersewha.preSetting.TestConfig;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -56,7 +57,7 @@ class CommentRepositoryTest {
 
     private Post settingPost(User settingUser) {
         Post settingPost = Post.builder()
-                .category(Post.Category.ADVERTISING)
+                .category(Category.ADVERTISING)
                 .detail("세부사항")
                 .title("제목")
                 .user(settingUser)
