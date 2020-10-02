@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-@Builder(access = AccessLevel.PRIVATE)
+@Builder(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @DynamicUpdate
 @Table(indexes = {@Index(columnList = "subId")})
@@ -75,7 +75,7 @@ public class User extends BaseTime {
 
     @Setter
     @ManyToMany
-    @JoinColumn(name = "user_dev_stack_link")
+    @JoinTable(name = "user_dev_stack_link")
     @Builder.Default
     private List<DevStack> devStackList = Collections.emptyList();
 

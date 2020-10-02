@@ -54,8 +54,8 @@ public class PostController {
     }
 
     @GetMapping("post/{postId}")
-    public ResponseEntity<?> getPost(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long postId) {
-//        User user = userService.getUserFromId(userPrincipal.getId());
+    // TODO : 댓글까지 함께 조회
+    public ResponseEntity<?> getPostDetail(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long postId) {
         PostResponse postResponse = postService.getDetailPost(postId);
         log.info("---getPost success : viewer {} => {}", userPrincipal.getId(), postResponse);
         return ResponseEntity.ok()

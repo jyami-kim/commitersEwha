@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Builder(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class UserInfoResponse {
+public final class UserInfoResponse {
 
     private String subId;
 

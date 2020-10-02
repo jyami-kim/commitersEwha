@@ -17,15 +17,13 @@ import java.util.List;
 @Builder(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
-public class PostResponse {
+public final class PostResponse {
 
     private long postId;
     private String title;
     private String detail;
     private long userId;
     private String userName;
-    @Builder.Default
-    List<DevStack> devStackList = Collections.emptyList();
     private Post.Category category;
     @Builder.Default
     private long hit = 0;
@@ -44,7 +42,6 @@ public class PostResponse {
                 .detail(post.getDetail())
                 .userId(user.getUserId())
                 .userName(user.getName())
-                .devStackList(post.getDevStackList())
                 .category(post.getCategory())
                 .hit(post.getHit())
                 .createdDate(post.getCreatedDate())

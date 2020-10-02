@@ -14,7 +14,7 @@ import java.util.Optional;
 @Setter
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class DefaultResponse<T> {
+public final class DefaultResponse<T> {
 
 
     public static final DefaultResponse FAIL_DEFAULT_RES

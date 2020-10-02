@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Created by jyami on 2020/09/30
  */
 @DataJpaTest
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 class BadgeRepositoryTest {
 

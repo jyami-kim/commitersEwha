@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Getter
 @NoArgsConstructor
-public class UserUpdateRequest {
+public final class UserUpdateRequest {
     private String description;
     @NotNull
     private String major;

@@ -1,6 +1,5 @@
 package com.jyami.commitersewha.service;
 
-import com.jyami.commitersewha.domain.DevStack;
 import com.jyami.commitersewha.domain.Post;
 import com.jyami.commitersewha.domain.PostRepository;
 import com.jyami.commitersewha.domain.User;
@@ -14,8 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 import static com.jyami.commitersewha.payload.ResponseMessage.CAN_NOT_UPDATED_THIS_ACCESS_USER;
 
 /**
@@ -26,17 +23,15 @@ import static com.jyami.commitersewha.payload.ResponseMessage.CAN_NOT_UPDATED_TH
 public class PostService {
 
     private final PostRepository postRepository;
-    private final TagService tagService;
 
-    public Page<PostResponse> getPostOutLineResponse(PageRequest pageRequest){
+    public Page<PostResponse> getPostOutLineResponse(PageRequest pageRequest) {
         return postRepository.findAll(pageRequest.of())
                 .map(PostResponse::fromEntityToShotDto);
     }
 
     @Transactional
     public PostResponse createNewPost(User user, PostRequest postRequest) {
-        List<DevStack> allByDevStackId = tagService.findAllBtDevStackId(postRequest.getDevStackList());
-        Post post = postRepository.save(postRequest.toEntity(user, allByDevStackId));
+        Post post = postRepository.save(postRequest.toEntity(user));
         return PostResponse.fromEntityToShotDto(post);
     }
 
@@ -52,29 +47,28 @@ public class PostService {
         Post post = findPostFromId(postRequest.getPostId());
         validateAuthorizedUser(userId, post);
 
-        List<DevStack> allByDevStackId = tagService.findAllBtDevStackId(postRequest.getDevStackList());
-        postRequest.updateEntity(post, allByDevStackId);
+        postRequest.updateEntity(post);
 
         Post updatedPost = postRepository.save(post);
         return PostResponse.fromEntityToLongDto(updatedPost);
     }
 
     @Transactional
-    public void deletePost(Long userId, Long postId){
+    public void deletePost(Long userId, Long postId) {
         Post post = findPostFromId(postId);
         validateAuthorizedUser(userId, post);
 
         postRepository.delete(post);
     }
 
-    private Post findPostFromId(Long postId){
+    public Post findPostFromId(Long postId) {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
     }
 
-    private void validateAuthorizedUser(Long accessUserId, Post post){
+    private void validateAuthorizedUser(Long accessUserId, Post post) {
         long authorId = post.getUser().getUserId();
-        if(authorId != accessUserId)
+        if (authorId != accessUserId)
             throw new NotAccessUserException(CAN_NOT_UPDATED_THIS_ACCESS_USER);
     }
 }

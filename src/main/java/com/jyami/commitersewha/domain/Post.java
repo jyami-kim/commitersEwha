@@ -1,9 +1,10 @@
 package com.jyami.commitersewha.domain;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,17 +29,9 @@ public class Post extends BaseTime {
     @Setter
     private String detail;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
-
-    @ManyToMany
-    @JoinTable(name = "post_dev_stack_link")
-    @Setter
-    @Builder.Default
-    private List<DevStack> devStackList = Collections.emptyList();
-
-    // TODO : 해시태그 기능 확장
 
     @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
@@ -48,12 +41,17 @@ public class Post extends BaseTime {
     @Builder.Default
     private long hit = 0;
 
-    // TODO : 좋아요 기능 확장
-    // TODO : 댓글 기능 확장
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+    @Builder.Default
+    private List<Comment> comments = new ArrayList<>();
 
-//    @OneToMany
+    // TODO : 좋아요 기능 확장
+
+//    @ManyToMany
+//    @JoinTable(name = "post_dev_stack_link")
+//    @Setter
 //    @Builder.Default
-//    private List<Comment> comments = Collections.emptyList();
+    // TODO : 해시태그 기능 확장
 
     @Getter
     public enum Category {
@@ -66,7 +64,12 @@ public class Post extends BaseTime {
         private String name;
     }
 
-    public void addHitCount(){
+    public void addHitCount() {
         this.hit = ++hit;
     }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
+
 }
