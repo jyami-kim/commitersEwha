@@ -1,6 +1,7 @@
 package com.jyami.commitersewha.controller;
 
 import com.jyami.commitersewha.domain.Badge;
+import com.jyami.commitersewha.domain.Post;
 import com.jyami.commitersewha.domain.User;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.request.CommentRequest;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,12 +36,19 @@ public class CommentController {
 
     @PostMapping("")
     public ResponseEntity<?> createComment(@CurrentUser UserPrincipal userPrincipal,
-                                          @Valid @RequestBody CommentRequest commentRequest) {
+                                           @Valid @RequestBody CommentRequest commentRequest) {
         User user = userService.getUserFromId(userPrincipal.getId());
         CommentResponse commentResponse = commentService.createComment(user, commentRequest);
+        log.info("---createComment success :{} - {}", user.getUserId(), commentResponse.toString());
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_COMMENT_CREATE, commentResponse));
     }
 
-
+    @PostMapping("{commentId}")
+    public ResponseEntity<?> deleteComment(@CurrentUser UserPrincipal userPrincipal, @PathVariable long commentId) {
+        commentService.deleteComment(userPrincipal.getId(), commentId);
+        log.info("---deleteComment success : {} => {} ", userPrincipal.getId(), commentId);
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_COMMENT_DELETE));
+    }
 }

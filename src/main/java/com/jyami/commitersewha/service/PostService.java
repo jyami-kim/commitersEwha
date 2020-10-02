@@ -1,5 +1,6 @@
 package com.jyami.commitersewha.service;
 
+import com.jyami.commitersewha.domain.Comment;
 import com.jyami.commitersewha.domain.Post;
 import com.jyami.commitersewha.domain.PostRepository;
 import com.jyami.commitersewha.domain.User;
@@ -12,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 import static com.jyami.commitersewha.payload.ResponseMessage.CAN_NOT_UPDATED_THIS_ACCESS_USER;
 
@@ -37,7 +41,8 @@ public class PostService {
 
     @Transactional
     public PostResponse getDetailPost(Long postId) {
-        Post post = findPostFromId(postId);
+        Post post = postRepository.findPostByIdWithComments(postId)
+                .orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
         post.addHitCount();
         return PostResponse.fromEntityToLongDto(post);
     }

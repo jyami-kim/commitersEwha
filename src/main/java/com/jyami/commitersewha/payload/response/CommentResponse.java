@@ -5,6 +5,8 @@ import com.jyami.commitersewha.domain.Post;
 import com.jyami.commitersewha.domain.User;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 
 /**
  * Created by jyami on 2020/10/02
@@ -13,6 +15,7 @@ import lombok.*;
 @Getter
 @Builder(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@ToString
 public class CommentResponse {
 
     private long commentId;
@@ -25,6 +28,10 @@ public class CommentResponse {
 
     private long userId;
 
+    private LocalDateTime createdDate;
+
+    private LocalDateTime modifiedDate;
+
     public static CommentResponse fromEntity(Comment comment){
         return CommentResponse.builder()
                 .commentId(comment.getCommentId())
@@ -32,6 +39,8 @@ public class CommentResponse {
                 .parent(comment.getParent())
                 .postId(comment.getPost().getPostId())
                 .userId(comment.getUser().getUserId())
+                .createdDate(comment.getCreatedDate())
+                .modifiedDate(comment.getModifiedDate())
                 .build();
 
     }

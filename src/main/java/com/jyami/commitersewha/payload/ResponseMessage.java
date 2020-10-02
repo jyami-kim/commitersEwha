@@ -22,6 +22,7 @@ public final class ResponseMessage {
     public static final String SUCCESS_POST_DELETE = "커뮤니티 포스트 삭제 성공";
 
     public static final String SUCCESS_COMMENT_CREATE = "커뮤니티 포스트의 댓글 만들기 성공";
+    public static final String SUCCESS_COMMENT_DELETE = "커뮤니티 포스트의 댓글 삭제하기 성공";
 
 
     public static final String GET_ALL_BADGE_LIST = "현재 모든 뱃지 리스트 조회 성공";

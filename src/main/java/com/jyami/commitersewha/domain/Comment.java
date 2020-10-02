@@ -13,6 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@ToString
 public class Comment extends BaseTime{
 
     @Id

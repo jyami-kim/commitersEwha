@@ -44,7 +44,6 @@ class CommentRepositoryTest {
 
 
     private User settingUser() {
-//        userRepository.deleteAll();
         User settingUser = User.builder()
                 .email("jyami@ewhain.net")
                 .name("jyami")

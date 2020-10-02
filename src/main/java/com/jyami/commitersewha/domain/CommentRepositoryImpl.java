@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
  * Created by jyami on 2020/10/02
  */
 @RequiredArgsConstructor
-public class CommentRepositoryImpl implements PostRepositoryCustom{
+public class CommentRepositoryImpl implements CommentRepositoryCustom{
 
     private final JPAQueryFactory jpaQueryFactory;
 }
