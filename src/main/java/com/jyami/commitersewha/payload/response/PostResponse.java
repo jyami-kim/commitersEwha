@@ -1,5 +1,6 @@
 package com.jyami.commitersewha.payload.response;
 
+import com.jyami.commitersewha.domain.comment.Comment;
 import com.jyami.commitersewha.domain.post.Category;
 import com.jyami.commitersewha.domain.post.Post;
 import com.jyami.commitersewha.domain.user.User;
@@ -36,8 +37,14 @@ public final class PostResponse {
 
     // TODO : 좋아요 기능 확장
 
-    public static PostResponse fromEntityToShotDto(Post post) {
+    public static PostResponse fromEntityWithCommentDto(List<Comment> comments) {
+        Post post = comments.get(0).getPost();
         User user = post.getUser();
+
+        List<CommentResponse> commentResponses = comments.stream()
+                .map(CommentResponse::fromEntity)
+                .collect(Collectors.toList());
+
         return PostResponse.builder()
                 .postId(post.getPostId())
                 .title(post.getTitle())
@@ -49,10 +56,11 @@ public final class PostResponse {
                 .hit(post.getHit())
                 .createdDate(post.getCreatedDate())
                 .modifiedDate(post.getModifiedDate())
+                .commentResponses(commentResponses)
                 .build();
     }
 
-    public static PostResponse fromEntityToLongDto(Post post) {
+    public static PostResponse fromEntityToDetailOnlyDto(Post post) {
         User user = post.getUser();
         return PostResponse.builder()
                 .postId(post.getPostId())
@@ -65,10 +73,6 @@ public final class PostResponse {
                 .hit(post.getHit())
                 .createdDate(post.getCreatedDate())
                 .modifiedDate(post.getModifiedDate())
-                .commentResponses(
-                        post.getComments().stream()
-                                .map(CommentResponse::fromEntity)
-                                .collect(Collectors.toList()))
                 .build();
     }
 

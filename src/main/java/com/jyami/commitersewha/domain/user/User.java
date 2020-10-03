@@ -18,7 +18,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-@Builder(access = AccessLevel.PROTECTED)
+@Builder(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @DynamicUpdate
 @Table(indexes = {@Index(columnList = "subId")})
@@ -96,7 +96,7 @@ public class User extends BaseTime {
                 .build();
     }
 
-    protected static String emailToSubId(String email) {
+    public static String emailToSubId(String email) {
         return email.split("@")[0];
     }
 

@@ -1,4 +1,4 @@
-package com.jyami.commitersewha.domain;
+package com.jyami.commitersewha.domain.user;
 
 import com.jyami.commitersewha.domain.user.User;
 import org.junit.jupiter.api.DisplayName;

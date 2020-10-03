@@ -1,7 +1,5 @@
-package com.jyami.commitersewha.domain;
+package com.jyami.commitersewha.domain.comment;
 
-import com.jyami.commitersewha.domain.comment.Comment;
-import com.jyami.commitersewha.domain.comment.CommentRepository;
 import com.jyami.commitersewha.domain.post.Category;
 import com.jyami.commitersewha.domain.post.Post;
 import com.jyami.commitersewha.domain.post.PostRepository;

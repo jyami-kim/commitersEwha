@@ -52,7 +52,6 @@ class PostRepositoryTest {
 
 
     private User settingUser() {
-//        userRepository.deleteAll();
         User settingUser = User.builder()
                 .email("jyami@ewhain.net")
                 .name("jyami")
@@ -96,15 +95,14 @@ class PostRepositoryTest {
         commentRepository.saveAll(Arrays.asList(comment, comment2, comment3));
     }
 
-
     @Test
-    @DisplayName("join 없이 post를 가져올 경우에 comment 내용을 읽을 때 문제가 생긴다.")
+    @Ignore
+    @DisplayName("join 없이 post를 가져올 경우에 comment 내용을 읽을 때 쿼리가 많이 나가는 문제가 생긴다.")
     void name() {
         User user = settingUser();
         Post post = settingPost(user);
         settingComments(user, post);
         entityManager.clear();
-
         Optional<Post> savedPost = postRepository.findById(1L);
         for (Comment comment : savedPost.get().getComments()) {
             System.out.println(comment.toString());
@@ -115,40 +113,36 @@ class PostRepositoryTest {
     @DisplayName("postID가 존재하지 않는경우 에러를 발생한다.")
     void findPostByIdWithCommentsTestIfHaveNotPost() {
         assertThrows(ResourceNotFoundException.class, () -> {
-            postRepository.findPostByIdWithComments(1L)
+            postRepository.findByPostId(1L)
                     .orElseThrow(() -> new ResourceNotFoundException("post", "postId", 1L));
         });
     }
 
     @Test
-    @DisplayName("join을 이용하여 데이터베이스 N+1 문제를 방지한다.")
-    void findPostByIdWithCommentsTest() {
-        User user = settingUser();
-        Post post = settingPost(user);
-        settingComments(user, post);
-        entityManager.clear();
-
-        Post post1 = postRepository.findPostByIdWithComments(1L).get();
-        for (Comment comment : post1.getComments()) {
-            System.out.println(comment.toString());
-            System.out.println(comment.getUser().toString());
-        }
-    }
-
-    // TODO : User fetchjoin을 아직하지 못했다.
-    @Test
     @Ignore
-    @DisplayName("N+1 문제 방지를 위해 comment 가져올 때 user도 같이 가져온다.")
+    @DisplayName("N+1 문제 방지를 위해 post가져올 때 comment와 user 모두 같이 가져온다.")
     void findPostByIdWithCommentsTest2() {
         User user = settingUser();
         Post post = settingPost(user);
         settingComments(user, post);
         entityManager.clear();
-
-        List<Comment> postByIdWithComments2 = postRepository.findPostByIdWithComments2(1L);
+        List<Comment> postByIdWithComments2 = postRepository.findPostByIdWithComments(1L);
         for (Comment comment : postByIdWithComments2) {
             System.out.println(comment.toString());
             System.out.println(comment.getUser().toString());
         }
+    }
+
+    @Test
+    @DisplayName("post를 id기반으로 가져올 떄 user도 함께 가져온다.")
+    void findPostAllById() {
+        User user = settingUser();
+        Post post = settingPost(user);
+        settingComments(user, post);
+        entityManager.clear();
+        Post post1 = postRepository.findByPostId(1L)
+                .orElseThrow(() -> new ResourceNotFoundException("post", "postId", 1L));
+        System.out.println(post1.getUser().getName());
+        System.out.println(post1.getHit());
     }
 }

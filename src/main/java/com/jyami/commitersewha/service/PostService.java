@@ -1,5 +1,6 @@
 package com.jyami.commitersewha.service;
 
+import com.jyami.commitersewha.domain.comment.Comment;
 import com.jyami.commitersewha.domain.post.Post;
 import com.jyami.commitersewha.domain.post.PostRepository;
 import com.jyami.commitersewha.domain.user.User;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.List;
+
 import static com.jyami.commitersewha.payload.ResponseMessage.CAN_NOT_UPDATED_THIS_ACCESS_USER;
 
 /**
@@ -27,21 +30,25 @@ public class PostService {
 
     public Page<PostResponse> getPostOutLineResponse(SearchRequest searchRequest) {
         return postRepository.findAllBySearchCondition(searchRequest)
-                .map(PostResponse::fromEntityToShotDto);
+                .map(PostResponse::fromEntityToDetailOnlyDto);
     }
 
     @Transactional
     public PostResponse createNewPost(User user, PostRequest postRequest) {
         Post post = postRepository.save(postRequest.toEntity(user));
-        return PostResponse.fromEntityToShotDto(post);
+        return PostResponse.fromEntityToDetailOnlyDto(post);
     }
 
     @Transactional
     public PostResponse getDetailPost(Long postId) {
-        Post post = postRepository.findPostByIdWithComments(postId)
-                .orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
-        post.addHitCount();
-        return PostResponse.fromEntityToLongDto(post);
+        List<Comment> postByIdWithComments = postRepository.findPostByIdWithComments(postId);
+        if (postByIdWithComments.size() == 0) {
+            Post post = findPostFromId(postId);
+            post.addHitCount();
+            return PostResponse.fromEntityToDetailOnlyDto(post);
+        }
+        postByIdWithComments.get(0).getPost().addHitCount();
+        return PostResponse.fromEntityWithCommentDto(postByIdWithComments);
     }
 
     @Transactional
@@ -52,7 +59,7 @@ public class PostService {
         postRequest.updateEntity(post);
 
         Post updatedPost = postRepository.save(post);
-        return PostResponse.fromEntityToLongDto(updatedPost);
+        return PostResponse.fromEntityToDetailOnlyDto(updatedPost);
     }
 
     @Transactional
@@ -64,7 +71,7 @@ public class PostService {
     }
 
     public Post findPostFromId(Long postId) {
-        return postRepository.findById(postId)
+        return postRepository.findByPostId(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post", "id", postId));
     }
 

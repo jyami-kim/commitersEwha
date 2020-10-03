@@ -12,9 +12,9 @@ import java.util.Optional;
  */
 public interface PostRepositoryCustom {
 
-    Optional<Post> findPostByIdWithComments(long postId);
+    Optional<Post> findByPostId(long postId);
 
-    List<Comment> findPostByIdWithComments2(long postId);
+    List<Comment> findPostByIdWithComments(long postId);
 
     Page<Post> findAllBySearchCondition(SearchRequest searchRequest);
 }

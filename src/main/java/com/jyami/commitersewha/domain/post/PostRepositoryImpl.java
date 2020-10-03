@@ -23,23 +23,20 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
 
     private final JPAQueryFactory jpaQueryFactory;
 
-    // TODO : 댓글 페이징 안 되어있음.
     @Override
-    public Optional<Post> findPostByIdWithComments(long postId) {
+    public Optional<Post> findByPostId(long postId) {
         Post post = jpaQueryFactory.selectFrom(QPost.post)
-                .leftJoin(QPost.post.comments, QComment.comment).fetchJoin()
-                .leftJoin(QPost.post.user, QUser.user).fetchJoin()
+                .leftJoin(QPost.post.user, QUser.user)
                 .where(QPost.post.postId.eq(postId))
-                .fetchFirst();
+                .fetchOne();
         return Optional.ofNullable(post);
     }
 
     @Override
-    public List<Comment> findPostByIdWithComments2(long postId) {
-        QComment comment = QComment.comment;
-        return jpaQueryFactory.selectFrom(comment)
-                .rightJoin(comment.post, QPost.post).fetchJoin()
-                .leftJoin(comment.post.user, QUser.user).fetchJoin()
+    public List<Comment> findPostByIdWithComments(long postId) {
+        return jpaQueryFactory.selectFrom(QComment.comment)
+                .join(QComment.comment.post, QPost.post).fetchJoin()
+                .leftJoin(QComment.comment.user, QUser.user).fetchJoin()
                 .where(QPost.post.postId.eq(postId))
                 .fetch();
     }
