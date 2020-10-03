@@ -8,9 +8,13 @@ import com.jyami.commitersewha.exception.NotAccessUserException;
 import com.jyami.commitersewha.exception.ResourceNotFoundException;
 import com.jyami.commitersewha.payload.request.CommentRequest;
 import com.jyami.commitersewha.payload.response.CommentResponse;
+import com.jyami.commitersewha.payload.response.LikeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Set;
 
 import static com.jyami.commitersewha.payload.ResponseMessage.CAN_NOT_UPDATED_THIS_ACCESS_USER;
 
@@ -39,7 +43,6 @@ public class CommentService {
         }
     }
 
-
     @Transactional
     public void deleteComment(Long userId, Long commentId) {
         Comment comment = commentRepository.findById(commentId)
@@ -52,5 +55,24 @@ public class CommentService {
         long authorId = comment.getUser().getUserId();
         if (authorId != accessUserId)
             throw new NotAccessUserException(CAN_NOT_UPDATED_THIS_ACCESS_USER);
+    }
+
+    @Transactional
+    public LikeResponse changeUserLikeStatus(User user, Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new ResourceNotFoundException("comment", "commentId", commentId));
+        boolean likeStatus = changeLikeStatus(user, comment);
+        commentRepository.save(comment);
+        return LikeResponse.ofCommentLike(user.getUserId(), comment.getPost().getPostId(), commentId, likeStatus);
+    }
+
+    private boolean changeLikeStatus(User user, Comment comment) {
+        Set<User> likesUser = comment.getLikesUser();
+        if (likesUser.contains(user)) {
+            comment.removeLikeUser(user);
+            return false;
+        }
+        comment.addLikeUser(user);
+        return true;
     }
 }

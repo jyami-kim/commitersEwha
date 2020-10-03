@@ -26,7 +26,8 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     @Override
     public Optional<Post> findByPostId(long postId) {
         Post post = jpaQueryFactory.selectFrom(QPost.post)
-                .leftJoin(QPost.post.user, QUser.user)
+                .join(QPost.post.user, QUser.user).fetchJoin()
+                .leftJoin(QPost.post.likesUser, QUser.user).fetchJoin()
                 .where(QPost.post.postId.eq(postId))
                 .fetchOne();
         return Optional.ofNullable(post);
@@ -37,6 +38,7 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
         return jpaQueryFactory.selectFrom(QComment.comment)
                 .join(QComment.comment.post, QPost.post).fetchJoin()
                 .leftJoin(QComment.comment.user, QUser.user).fetchJoin()
+                .leftJoin(QComment.comment.likesUser, QUser.user).fetchJoin()
                 .where(QPost.post.postId.eq(postId))
                 .fetch();
     }

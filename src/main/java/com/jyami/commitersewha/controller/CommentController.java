@@ -4,6 +4,7 @@ import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.request.CommentRequest;
 import com.jyami.commitersewha.payload.response.CommentResponse;
+import com.jyami.commitersewha.payload.response.LikeResponse;
 import com.jyami.commitersewha.security.CurrentUser;
 import com.jyami.commitersewha.security.UserPrincipal;
 import com.jyami.commitersewha.service.CommentService;
@@ -46,5 +47,14 @@ public class CommentController {
         log.info("---deleteComment success : {} => {} ", userPrincipal.getId(), commentId);
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_COMMENT_DELETE));
+    }
+
+    @PostMapping("{commentId}/like")
+    public ResponseEntity<?> createPostLike(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long commentId) {
+        User user = userService.getUserFromId(userPrincipal.getId());
+        LikeResponse likeResponse = commentService.changeUserLikeStatus(user, commentId);
+        log.info("---comment like status success change :{}", likeResponse);
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_CHANGE_LIKE_STATUS, likeResponse));
     }
 }

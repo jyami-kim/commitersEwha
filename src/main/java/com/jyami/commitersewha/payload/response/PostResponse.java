@@ -34,8 +34,7 @@ public final class PostResponse {
     @Builder.Default
     private List<CommentResponse> commentResponses = Collections.emptyList();
     private List<String> hashTags;
-
-    // TODO : 좋아요 기능 확장
+    private Integer postLikeSize;
 
     public static PostResponse fromEntityWithCommentDto(List<Comment> comments) {
         Post post = comments.get(0).getPost();
@@ -60,7 +59,7 @@ public final class PostResponse {
                 .build();
     }
 
-    public static PostResponse fromEntityToDetailOnlyDto(Post post) {
+    public static PostResponse fromEntityToWithoutComment(Post post) {
         User user = post.getUser();
         return PostResponse.builder()
                 .postId(post.getPostId())
@@ -73,6 +72,7 @@ public final class PostResponse {
                 .hit(post.getHit())
                 .createdDate(post.getCreatedDate())
                 .modifiedDate(post.getModifiedDate())
+                .postLikeSize(post.getLikesUser().size())
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package com.jyami.commitersewha.service;
 
+import com.google.common.collect.Sets;
 import com.jyami.commitersewha.domain.tag.DevStack;
 import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.domain.user.UserRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -32,13 +34,13 @@ public class UserService {
     @Transactional
     public UserInfoResponse nextSignUp(Long userId, UserUpdateRequest userUpdateRequest) {
         User user = getUserFromId(userId);
-        List<DevStack> allDevStacks = tagService.findAllBtDevStackId(userUpdateRequest.getDevStackIdList());
+        List<DevStack> allDevStacks = tagService.findAllBtDevStackId(Sets.newHashSet(userUpdateRequest.getDevStackIdList()));
         userUpdateRequest.updateUserInfo(user, allDevStacks);
         return UserInfoResponse.fromEntity(userRepository.save(user));
     }
 
     public User getUserFromId(Long userId) {
-        return userRepository.findById(userId)
+        return userRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
     }
 

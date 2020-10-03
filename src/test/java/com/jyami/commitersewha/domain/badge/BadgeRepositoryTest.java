@@ -1,4 +1,4 @@
-package com.jyami.commitersewha.domain;
+package com.jyami.commitersewha.domain.badge;
 
 import com.jyami.commitersewha.domain.tag.Badge;
 import com.jyami.commitersewha.domain.tag.BadgeRepository;

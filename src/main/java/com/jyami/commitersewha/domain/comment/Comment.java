@@ -6,6 +6,7 @@ import com.jyami.commitersewha.domain.user.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.*;
 
 /**
  * Created by jyami on 2020/09/30
@@ -36,4 +37,20 @@ public class Comment extends BaseTime {
     @JoinColumn(name = "userId")
     private User user;
 
+    @ManyToMany
+    @JoinTable(name = "comment_user_like_link")
+    @Builder.Default
+    private Set<User> likesUser = new HashSet<>();
+
+    public Set<User> getLikesUser() {
+        return Collections.unmodifiableSet(likesUser);
+    }
+
+    public void addLikeUser(User user) {
+        likesUser.add(user);
+    }
+
+    public void removeLikeUser(User user) {
+        likesUser.remove(user);
+    }
 }

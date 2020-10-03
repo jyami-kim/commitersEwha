@@ -30,6 +30,8 @@ public class CommentResponse {
 
     private LocalDateTime modifiedDate;
 
+    private Integer commentLikeSize;
+
     public static CommentResponse fromEntity(Comment comment){
         return CommentResponse.builder()
                 .commentId(comment.getCommentId())
@@ -39,6 +41,7 @@ public class CommentResponse {
                 .userId(comment.getUser().getUserId())
                 .createdDate(comment.getCreatedDate())
                 .modifiedDate(comment.getModifiedDate())
+                .commentLikeSize(comment.getLikesUser().size())
                 .build();
 
     }

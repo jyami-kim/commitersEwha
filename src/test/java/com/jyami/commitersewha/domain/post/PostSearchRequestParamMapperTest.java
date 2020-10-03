@@ -1,4 +1,4 @@
-package com.jyami.commitersewha.domain;
+package com.jyami.commitersewha.domain.post;
 
 import org.junit.jupiter.api.Test;
 

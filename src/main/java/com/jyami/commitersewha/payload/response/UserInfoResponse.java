@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by jyami on 2020/09/30
@@ -46,10 +47,10 @@ public final class UserInfoResponse {
     private String company;
 
     @Builder.Default
-    private List<Badge> badges = Collections.emptyList();
+    private Set<Badge> badges = Collections.emptySet();
 
     @Builder.Default
-    private List<DevStack> devStacks = Collections.emptyList();
+    private Set<DevStack> devStacks = Collections.emptySet();
 
     public static UserInfoResponse fromEntity(User user){
         return UserInfoResponse.builder()
@@ -64,8 +65,8 @@ public final class UserInfoResponse {
                 .isGraduate(user.isGraduate())
                 .job(user.getJob())
                 .company(user.getCompany())
-                .badges(user.getBadgeList())
-                .devStacks(user.getDevStackList())
+                .badges(user.getBadges())
+                .devStacks(user.getDevStacks())
                 .build();
     }
 }

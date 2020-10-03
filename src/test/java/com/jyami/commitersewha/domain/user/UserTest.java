@@ -1,6 +1,5 @@
 package com.jyami.commitersewha.domain.user;
 
-import com.jyami.commitersewha.domain.user.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

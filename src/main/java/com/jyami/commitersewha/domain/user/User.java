@@ -9,8 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by jyami on 2020/09/14
@@ -71,16 +70,36 @@ public class User extends BaseTime {
     private String company;
 
     @Setter
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_badge_link")
     @Builder.Default
-    private List<Badge> badgeList = Collections.emptyList();
+    private Set<Badge> badges = new HashSet<>();
 
     @Setter
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "user_dev_stack_link")
     @Builder.Default
-    private List<DevStack> devStackList = Collections.emptyList();
+    private Set<DevStack> devStacks = new HashSet<>();
+
+    public Set<Badge> getBadges() {
+        return Collections.unmodifiableSet(badges);
+    }
+
+    public Set<DevStack> getDevStacks() {
+        return Collections.unmodifiableSet(devStacks);
+    }
+
+    public void addBadges(List<Badge> baseList){
+        badges.addAll(baseList);
+    }
+
+    public void addDevStacks(List<DevStack> devStackList){
+        devStacks.addAll(devStackList);
+    }
+
+    public void deleteDevStacks(List<DevStack> devStackList){
+        devStacks.removeAll(devStackList);
+    }
 
     public static User toGoogleInfoEntity(OAuth2UserInfo oAuth2UserInfo) {
         String[] userInfo = devideName(oAuth2UserInfo.getName());

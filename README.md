@@ -11,6 +11,10 @@ mysql -u root -p
 intellij 기준 사용방법이다. generated 폴더를 ignore 처리를 해서 새 프로젝트에서 실행할 때 compile 과정을 통해 QClass를 만들어야 한다.
 
 
+### Trouble Shooting
+``org.hibernate.loader.MultipleBagFetchException: cannot simultaneously fetch multiple bags``
+> List를 같이 fetchJoin할 때 중복값때문에 그렇다. > Set으로 Entity를 바꾸었다.
+
 ### OAuth2 Login Flow
 
 1. OAuth2 login 플로우는 맨처음 frontend client 에서 엔드포인트에 서 요청을 보내면서 시작된다.

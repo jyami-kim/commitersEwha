@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Builder
+@ToString
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Badge {
 

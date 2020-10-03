@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by jyami on 2020/09/30
@@ -31,7 +32,7 @@ public class TagService {
         return badgeRepository.findAllById(badgeIds);
     }
 
-    public List<DevStack> findAllBtDevStackId(List<Long> devStacks) {
+    public List<DevStack> findAllBtDevStackId(Set<Long> devStacks) {
         return devStackRepository.findAllById(devStacks);
     }
 }

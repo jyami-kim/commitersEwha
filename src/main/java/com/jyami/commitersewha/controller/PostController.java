@@ -4,6 +4,7 @@ import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.request.PostRequest;
 import com.jyami.commitersewha.payload.request.SearchRequest;
+import com.jyami.commitersewha.payload.response.LikeResponse;
 import com.jyami.commitersewha.payload.response.PostResponse;
 import com.jyami.commitersewha.security.CurrentUser;
 import com.jyami.commitersewha.security.UserPrincipal;
@@ -72,6 +73,18 @@ public class PostController {
         log.info("---deletePost success : {} => {} ", userPrincipal.getId(), postId);
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_POST_DELETE, postId));
+    }
+
+    /*
+     * 좋아요 등록
+     */
+    @PostMapping("post/{postId}/like")
+    public ResponseEntity<?> createPostLike(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long postId) {
+        User user = userService.getUserFromId(userPrincipal.getId());
+        LikeResponse likeResponse = postService.changeUserLikeStatus(user, postId);
+        log.info("---post like status success change :{}", likeResponse);
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_CHANGE_LIKE_STATUS, likeResponse));
     }
 
 }
