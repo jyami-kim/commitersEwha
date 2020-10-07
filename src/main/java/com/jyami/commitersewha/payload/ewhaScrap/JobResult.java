@@ -20,11 +20,10 @@ public final class JobResult {
 
     private List<JobEwha> jobList = Collections.emptyList();
 
-    public static JobResult ewhaJobScraping(Document document){
+    public static JobResult ewhaJobScraping(Document document, String baseUrl) {
         List<JobEwha> jobEwhas = document.select("table tbody tr").stream()
-                .map(JobEwha::of)
+                .map(e -> JobEwha.of(e, baseUrl))
                 .collect(Collectors.toList());
         return new JobResult(jobEwhas);
     }
-
 }

@@ -1,14 +1,11 @@
 package com.jyami.commitersewha.controller;
 
-import com.jyami.commitersewha.config.EwhaProperties;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.ewhaScrap.JobResult;
 import com.jyami.commitersewha.payload.ewhaScrap.NotificationResult;
-import com.jyami.commitersewha.util.ScrapUtils;
-import jdk.nashorn.internal.objects.annotations.Getter;
+import com.jyami.commitersewha.service.ScrapingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.nodes.Document;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,19 +23,19 @@ import static com.jyami.commitersewha.payload.ResponseMessage.*;
 @Slf4j
 public class EwhaScrapingController {
 
-    private final EwhaProperties properties;
+    private final ScrapingService scrapingService;
 
     @GetMapping("ewha/job")
     public ResponseEntity<?> getEwhaJobInfo() {
-        Document crawlingResult = ScrapUtils.getCrawlingResult(properties.getScrapJobUrl());
-        JobResult jobResult = JobResult.ewhaJobScraping(crawlingResult);
+        JobResult jobResult = scrapingService.getJobResult();
         return ResponseEntity.ok().body(DefaultResponse.of(HttpStatus.OK, SCRAPING_EWHA_JOB_SUCCESS, jobResult));
     }
 
+
     @GetMapping("ewha/notification")
     public ResponseEntity<?> getEwhaNotificationInfo() {
-        Document crawlingResult = ScrapUtils.getCrawlingResult(properties.getScrapNotification());
-        NotificationResult notificationResult = NotificationResult.ewhaJobScraping(crawlingResult);
+        NotificationResult notificationResult = scrapingService.getNotificationResult();
         return ResponseEntity.ok().body(DefaultResponse.of(HttpStatus.OK, SCRAPING_EWHA_NOTIFICATION_SUCCESS, notificationResult));
     }
+
 }

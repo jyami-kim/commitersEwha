@@ -33,7 +33,7 @@ class JobResultTest {
     void scrapingEwhaJob() {
         mockScrapingServerSetting.createJobMockServer();
         Document crawlingResult = ScrapUtils.getCrawlingResult("http://localhost:9000/test/ewha/job");
-        JobResult jobResult = JobResult.ewhaJobScraping(crawlingResult);
+        JobResult jobResult = JobResult.ewhaJobScraping(crawlingResult, "http://ewha.com/");
         assertThat(jobResult.getJobList().size()).isEqualTo(15);
     }
 

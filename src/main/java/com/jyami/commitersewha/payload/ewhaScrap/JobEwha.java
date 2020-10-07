@@ -18,11 +18,11 @@ public class JobEwha {
     private String link;
     private boolean newBadge;
 
-    public static JobEwha of(Element element) {
+    public static JobEwha of(Element element, String baseUrl) {
         return JobEwha.builder()
                 .number(Integer.parseInt(element.select(".no").text()))
                 .title(element.select(".title").text())
-                .link(element.select(".title a").attr("href"))
+                .link(baseUrl + element.select(".title a").attr("href"))
                 .newBadge(!element.select(".title a img").isEmpty())
                 .build();
     }

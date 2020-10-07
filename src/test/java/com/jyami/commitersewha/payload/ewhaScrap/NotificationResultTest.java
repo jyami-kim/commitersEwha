@@ -32,7 +32,7 @@ class NotificationResultTest {
     void scrapingEwhaJob() {
         mockScrapingServerSetting.createNotificationMockServer();
         Document crawlingResult = ScrapUtils.getCrawlingResult("http://localhost:9000/test/ewha/notification");
-        NotificationResult notificationResult = NotificationResult.ewhaJobScraping(crawlingResult);
+        NotificationResult notificationResult = NotificationResult.ewhaNotificationScraping(crawlingResult);
         assertThat(notificationResult.getJobList().size()).isEqualTo(15);
     }
 

@@ -18,10 +18,10 @@ public final class NotificationResult {
 
     private List<NotificationEwha> jobList = Collections.emptyList();
 
-    public static NotificationResult ewhaJobScraping(Document document) {
+    public static NotificationResult ewhaNotificationScraping(Document document, String baseUrl) {
         List<NotificationEwha> notificationEwhas = document.select("table tbody tr").stream()
                 .filter(x -> x.select(".no img").isEmpty())
-                .map(NotificationEwha::of)
+                .map(e -> NotificationEwha.of(e, baseUrl))
                 .collect(Collectors.toList());
         return new NotificationResult(notificationEwhas);
     }

@@ -18,12 +18,12 @@ public class NotificationEwha {
     private String link;
     private boolean newBadge;
 
-    public static NotificationEwha of(Element element) {
+    public static NotificationEwha of(Element element, String baseUrl) {
         return NotificationEwha.builder()
                 .number(Integer.parseInt(element.select(".no").text()))
                 .type(element.select("td:nth-child(2)").text())
                 .title(element.select(".title").text())
-                .link(element.select(".title a").attr("href"))
+                .link(baseUrl + element.select(".title a").attr("href"))
                 .newBadge(!element.select(".title a img").isEmpty())
                 .build();
     }
