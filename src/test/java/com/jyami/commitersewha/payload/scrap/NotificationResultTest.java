@@ -1,4 +1,4 @@
-package com.jyami.commitersewha.payload.ewhaScrap;
+package com.jyami.commitersewha.payload.scrap;
 
 import com.jyami.commitersewha.util.MockScrapingServerSetting;
 import com.jyami.commitersewha.util.ScrapUtils;
@@ -12,11 +12,10 @@ import org.mockserver.integration.ClientAndServer;
 import static com.jyami.commitersewha.util.MockScrapingServerSetting.PORT;
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 /**
  * Created by jyami on 2020/10/07
  */
-class JobResultTest {
+class NotificationResultTest {
 
     private static ClientAndServer mockServer;
     private MockScrapingServerSetting mockScrapingServerSetting;
@@ -29,12 +28,12 @@ class JobResultTest {
     }
 
     @Test
-    @DisplayName("이화여대 취업페이지 크롤링")
+    @DisplayName("이화여대 공지사항 페이지 크롤링")
     void scrapingEwhaJob() {
-        mockScrapingServerSetting.createJobMockServer();
-        Document crawlingResult = ScrapUtils.getCrawlingResult("http://localhost:9000/test/ewha/job");
-        JobResult jobResult = JobResult.ewhaJobScraping(crawlingResult, "http://ewha.com/");
-        assertThat(jobResult.getJobList().size()).isEqualTo(15);
+        mockScrapingServerSetting.createNotificationMockServer();
+        Document crawlingResult = ScrapUtils.getCrawlingResult("http://localhost:9000/test/ewha/notification");
+        NotificationResult notificationResult = NotificationResult.ewhaNotificationScraping(crawlingResult, "http://ewha.com/");
+        assertThat(notificationResult.getJobList().size()).isEqualTo(15);
     }
 
     @AfterEach
@@ -42,5 +41,4 @@ class JobResultTest {
         mockServer.stop();
         System.out.println("mock server stop");
     }
-
 }

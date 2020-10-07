@@ -1,8 +1,9 @@
 package com.jyami.commitersewha.controller;
 
 import com.jyami.commitersewha.payload.DefaultResponse;
-import com.jyami.commitersewha.payload.ewhaScrap.JobResult;
-import com.jyami.commitersewha.payload.ewhaScrap.NotificationResult;
+import com.jyami.commitersewha.payload.scrap.BaekjoonResult;
+import com.jyami.commitersewha.payload.scrap.JobResult;
+import com.jyami.commitersewha.payload.scrap.NotificationResult;
 import com.jyami.commitersewha.service.ScrapingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,9 @@ import static com.jyami.commitersewha.payload.ResponseMessage.*;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class EwhaScrapingController {
+public class ScrapingController {
+
+    //TODO : react - 실제 페이지 찌르는 것 최소화하기
 
     private final ScrapingService scrapingService;
 
@@ -36,6 +39,12 @@ public class EwhaScrapingController {
     public ResponseEntity<?> getEwhaNotificationInfo() {
         NotificationResult notificationResult = scrapingService.getNotificationResult();
         return ResponseEntity.ok().body(DefaultResponse.of(HttpStatus.OK, SCRAPING_EWHA_NOTIFICATION_SUCCESS, notificationResult));
+    }
+
+    @GetMapping("baekjoon/rank")
+    public ResponseEntity<?> getBaekjoonRank() {
+        BaekjoonResult baekjoonResult = scrapingService.getBaekjoonResult();
+        return ResponseEntity.ok().body(DefaultResponse.of(HttpStatus.OK, SCRAPING_BAEKJOON_SUCCESS, baekjoonResult));
     }
 
 }

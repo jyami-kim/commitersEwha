@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="ko" class="ie8"> <![endif]-->
+<!--[if IE 9]>
+<html lang="ko" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="ko"> <!--<![endif]-->
+<head>
+    <title>대학교 랭킹 - 1 페이지</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="author" content="스타트링크 (Startlink)">
+    <meta name="keywords" content="ACM-ICPC, 프로그래밍, 온라인 저지, 정보올림피아드, 코딩, 알고리즘, 대회, 올림피아드, 자료구조">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="http://onlinejudgeimages.s3-ap-northeast-1.amazonaws.com/images/boj-og-1200.png">
+    <meta property="og:site_name" content="Baekjoon Online Judge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-config" content="none">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0076c0">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://ddo7jzca0m2vt.cloudfront.net/unify/css/style.css?version=20200923">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700|Open+Sans:400,400i,700,700i|Source+Code+Pro&amp;subset=korean"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://ddo7jzca0m2vt.cloudfront.net/css/connect.css?version=20200923">
+    <link rel="stylesheet" href="https://ddo7jzca0m2vt.cloudfront.net/css/result.css?version=20200923">
+    <link rel="stylesheet" href="https://ddo7jzca0m2vt.cloudfront.net/unify/css/custom.css?version=20200923">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://ddo7jzca0m2vt.cloudfront.net/unify/css/theme-colors/blue.css?version=20200923">
+    <link rel="stylesheet" href="https://ddo7jzca0m2vt.cloudfront.net/css/pace.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-10874097-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'UA-10874097-3');
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css"/>
+    <meta name="username" content="">
+
+    <link rel="stylesheet" href="https://ddo7jzca0m2vt.cloudfront.net/css/ranklist.css">
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-8806842758252812",
+            enable_page_level_ads: true
+        });
+    </script>
+
+
+</head>
+<body>
+<div class="wrapper">
+    <div class="header no-print">
+        <div class="topbar">
+            <div class="container">
+                <ul class="loginbar pull-right">
+                    <li><a href="/register">회원가입</a></li>
+                    <li class="topbar-devider"></li>
+                    <li><a href="/login?next=%2Franklist%2Funiversity">로그인</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="navbar navbar-default mega-menu" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-responsive-collapse"><span
+                            class="sr-only">Toggle navigation</span><span class="fa fa-bars"></span></button>
+                    <a class="navbar-brand" href="/"><img id="logo-header"
+                                                          src="https://d2gd6pc034wcta.cloudfront.net/images/logo@2x.png"
+                                                          alt="Logo" data-retina></a></div>
+                <div class="collapse navbar-collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown mega-menu-fullwidth "><a href="javascript:void(0);" class="dropdown-toggle"
+                                                                     data-toggle="dropdown">문제</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="mega-menu-content">
+                                        <div class="container">
+                                            <div class="row equal-height">
+                                                <div class="col-md-3 equal-height-in">
+                                                    <ul class="list-unstyled equal-height-list">
+                                                        <li><h3>문제</h3></li>
+                                                        <li><a href="/problemset">전체 문제</a></li>
+                                                        <li><a href="/category">문제 출처</a></li>
+                                                        <li><a href="/step">단계별로 풀어보기</a></li>
+                                                        <li><a href="/problem/tags">알고리즘 분류</a></li>
+                                                        <li><a href="/problem/added">새로 추가된 문제</a></li>
+                                                        <li><a href="/problem/added/1">새로 추가된 영어 문제</a></li>
+                                                        <li><a href="/problem/ranking">문제 순위</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-3 equal-height-in">
+                                                    <ul class="list-unstyled equal-height-list">
+                                                        <li><h3>문제</h3></li>
+                                                        <li><a href="/problem/only">푼 사람이 한 명인 문제</a></li>
+                                                        <li><a href="/problem/nobody">아무도 못 푼 문제</a></li>
+                                                        <li><a href="/problem/recent/submit">최근 제출된 문제</a></li>
+                                                        <li><a href="/problem/recent/accepted">최근 풀린 문제</a></li>
+                                                        <li><a href="/problem/random">랜덤</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-3 equal-height-in">
+                                                    <ul class="list-unstyled equal-height-list">
+                                                        <li><h3>출처</h3></li>
+                                                        <li><a href="/category/1">ICPC</a></li>
+                                                        <li><a href="/category/2">Olympiad</a></li>
+                                                        <li><a href="/category/55">한국정보올림피아드</a></li>
+                                                        <li><a href="/category/57">한국정보올림피아드시․도지역본선</a></li>
+                                                        <li><a href="/category/318">전국 대학생 프로그래밍 대회 동아리 연합</a></li>
+                                                        <li><a href="/category/5">대학교 대회</a></li>
+                                                        <li><a href="/category/428">카카오 코드 페스티벌</a></li>
+                                                        <li><a href="/category/215">Coder's High</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-3 equal-height-in">
+                                                    <ul class="list-unstyled equal-height-list">
+                                                        <li><h3>ICPC</h3></li>
+                                                        <li><a href="/category/7">Regionals</a></li>
+                                                        <li><a href="/category/4">World Finals</a></li>
+                                                        <li><a href="/category/211">Korea Regional</a></li>
+                                                        <li><a href="/category/34">Africa and the Middle East
+                                                            Regionals</a></li>
+                                                        <li><a href="/category/10">Europe Regionals</a></li>
+                                                        <li><a href="/category/103">Latin America Regionals</a></li>
+                                                        <li><a href="/category/8">North America Regionals</a></li>
+                                                        <li><a href="/category/92">South Pacific Regionals</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="/workbook/top">문제집</a></li>
+                        <li><a href="/contest/official/list">대회<span class='badge badge-red rounded-2x'>1</span></a>
+                        </li>
+                        <li><a href="/status">채점 현황</a></li>
+                        <li class="active"><a href="/ranklist">랭킹</a></li>
+                        <li><a href="/board/list/all">게시판</a></li>
+                        <li><a href="/group/list/all">그룹</a></li>
+                        <li><a href="/blog/list">블로그</a></li>
+                        <li><a href="/lectures">강의</a></li>
+                        <li class="search"><a href="#"><i class="fa fa-search search-btn"></i></a></li>
+                        <li>
+                            <div class="search-open">
+                                <div class="animated fadeInDown"><input type="text"
+                                                                        class="st-default-search-input form-control"
+                                                                        id="header-search"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form action="/logout" method="post" id="logout_form"><input type='hidden' value='%2Franklist%2Funiversity'
+                                                                 name="next"></form>
+
+    <div class="container content">
+        <div class="text-center no-print"><a href="https://recruit.nhn.com/ent/landing?#none"
+                                             onclick="App.trackOutboundLink('https://recruit.nhn.com/ent/landing?#none'); return false;"><img
+                class="visible-xs-block" src="https://upload.acmicpc.net/a30f0f39-655e-44ec-a436-a75076ab367b/"
+                style="width: 100%;"><img class="visible-sm-block"
+                                          src="https://upload.acmicpc.net/114e292d-3b2f-4350-9acf-10651430719f/"
+                                          style="width: 100%;"><img class="visible-md-block"
+                                                                    src="https://upload.acmicpc.net/f0839d40-ac3e-407c-8557-b7d72c2147b7/"
+                                                                    style="width: 100%;"><img class="visible-lg-block"
+                                                                                              src="https://upload.acmicpc.net/b2337005-4577-4796-8c6f-0c7b697ad91d/"
+                                                                                              style="width: 100%;"></a>
+        </div>
+        <div class="margin-bottom-20 no-print"></div>
+        <div class="row">
+            <div class="col-md-9">
+                <ul class="nav nav-pills">
+                    <li><a href="/ranklist">전체</a></li>
+                    <li><a href="/ranklist/language">언어</a></li>
+                    <li><a href="/ranklist/result">결과</a></li>
+                    <li><a href="/ranklist/contribute">기여</a></li>
+                    <li class="active"><a href="/ranklist/school">학교/회사</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="col-md-12" style="margin-top:10px;">
+                        <select id="school" name="school" data-placeholder="학교/회사를 선택해 주세요."
+                                class="col-md-12 chosen-select" data-no_results_text="없는 학교/회사 입니다.">
+                            <option value="school">전체</option>
+                            <option value="university" selected>대학교</option>
+                            <option value="high">고등학교</option>
+                            <option value="middle">중학교</option>
+                            <option value="elementary">초등학교</option>
+                            <option value="company">회사</option>
+                            <option value="etc">기타 단체</option>
+                            <option value="etcs">기타 학교</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="margin-bottom-20"></div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered sortable-table no-mathjax" id="ranklist">
+                        <thead>
+                        <tr>
+                            <th style="width:5%;" data-sort="int">등수</th>
+                            <th style="width:13%;" data-sort="string">학교/회사</th>
+                            <th style="width:56%;" data-sort="string">상태 메시지</th>
+                            <th style="width:6%;" data-sort="int">인원</th>
+                            <th style="width:7%;" data-sort="int">맞은 문제</th>
+                            <th style="width:7%;" data-sort="int">제출</th>
+                            <th style="width:8%;" data-sort="float">정답 비율</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><a href="/school/ranklist/299">서울대학교</a></td>
+                            <td></td>
+                            <td>764</td>
+                            <td><a href="/status?school_id=299&amp;result_id=4">12310</a></td>
+                            <td><a href="/status?school_id=299">560449</a></td>
+                            <td>43.380%</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><a href="/school/ranklist/394">KAIST</a></td>
+                            <td></td>
+                            <td>485</td>
+                            <td><a href="/status?school_id=394&amp;result_id=4">10772</a></td>
+                            <td><a href="/status?school_id=394">267351</a></td>
+                            <td>50.316%</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><a href="/school/ranklist/214">고려대학교</a></td>
+                            <td></td>
+                            <td>804</td>
+                            <td><a href="/status?school_id=214&amp;result_id=4">8393</a></td>
+                            <td><a href="/status?school_id=214">345086</a></td>
+                            <td>47.799%</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><a href="/school/ranklist/331">연세대학교</a></td>
+                            <td></td>
+                            <td>613</td>
+                            <td><a href="/status?school_id=331&amp;result_id=4">8178</a></td>
+                            <td><a href="/status?school_id=331">292312</a></td>
+                            <td>47.683%</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><a href="/school/ranklist/310">성균관대학교</a></td>
+                            <td></td>
+                            <td>822</td>
+                            <td><a href="/status?school_id=310&amp;result_id=4">7048</a></td>
+                            <td><a href="/status?school_id=310">308482</a></td>
+                            <td>48.477%</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td><a href="/school/ranklist/292">서강대학교</a></td>
+                            <td></td>
+                            <td>579</td>
+                            <td><a href="/status?school_id=292&amp;result_id=4">7039</a></td>
+                            <td><a href="/status?school_id=292">346496</a></td>
+                            <td>46.869%</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td><a href="/school/ranklist/323">숭실대학교</a></td>
+                            <td></td>
+                            <td>625</td>
+                            <td><a href="/status?school_id=323&amp;result_id=4">6943</a></td>
+                            <td><a href="/status?school_id=323">327860</a></td>
+                            <td>45.260%</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td><a href="/school/ranklist/425">한양대학교</a></td>
+                            <td></td>
+                            <td>674</td>
+                            <td><a href="/status?school_id=425&amp;result_id=4">6270</a></td>
+                            <td><a href="/status?school_id=425">360897</a></td>
+                            <td>46.696%</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td><a href="/school/ranklist/356">인하대학교</a></td>
+                            <td></td>
+                            <td>804</td>
+                            <td><a href="/status?school_id=356&amp;result_id=4">5795</a></td>
+                            <td><a href="/status?school_id=356">445247</a></td>
+                            <td>45.104%</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td><a href="/school/ranklist/328">아주대학교</a></td>
+                            <td></td>
+                            <td>670</td>
+                            <td><a href="/status?school_id=328&amp;result_id=4">4845</a></td>
+                            <td><a href="/status?school_id=328">264529</a></td>
+                            <td>42.334%</td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td><a href="/school/ranklist/611">Stanford University</a></td>
+                            <td></td>
+                            <td>3</td>
+                            <td><a href="/status?school_id=611&amp;result_id=4">4440</a></td>
+                            <td><a href="/status?school_id=611">18849</a></td>
+                            <td>35.865%</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td><a href="/school/ranklist/355">인천대학교</a></td>
+                            <td></td>
+                            <td>353</td>
+                            <td><a href="/status?school_id=355&amp;result_id=4">4311</a></td>
+                            <td><a href="/status?school_id=355">163252</a></td>
+                            <td>42.094%</td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td><a href="/school/ranklist/436">홍익대학교</a></td>
+                            <td></td>
+                            <td>635</td>
+                            <td><a href="/status?school_id=436&amp;result_id=4">4282</a></td>
+                            <td><a href="/status?school_id=436">231706</a></td>
+                            <td>46.838%</td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td><a href="/school/ranklist/202">경북대학교</a></td>
+                            <td></td>
+                            <td>440</td>
+                            <td><a href="/status?school_id=202&amp;result_id=4">4280</a></td>
+                            <td><a href="/status?school_id=202">224247</a></td>
+                            <td>42.292%</td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td><a href="/school/ranklist/229">국민대학교</a></td>
+                            <td></td>
+                            <td>504</td>
+                            <td><a href="/status?school_id=229&amp;result_id=4">3819</a></td>
+                            <td><a href="/status?school_id=229">185187</a></td>
+                            <td>46.339%</td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td><a href="/school/ranklist/426">한양대학교(ERICA)</a></td>
+                            <td></td>
+                            <td>408</td>
+                            <td><a href="/status?school_id=426&amp;result_id=4">3766</a></td>
+                            <td><a href="/status?school_id=426">163282</a></td>
+                            <td>51.849%</td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td><a href="/school/ranklist/391">POSTECH</a></td>
+                            <td></td>
+                            <td>178</td>
+                            <td><a href="/status?school_id=391&amp;result_id=4">3728</a></td>
+                            <td><a href="/status?school_id=391">67294</a></td>
+                            <td>48.588%</td>
+                        </tr>
+                        <tr>
+                            <td>18</td>
+                            <td><a href="/school/ranklist/409">한국항공대학교</a></td>
+                            <td></td>
+                            <td>246</td>
+                            <td><a href="/status?school_id=409&amp;result_id=4">3628</a></td>
+                            <td><a href="/status?school_id=409">121027</a></td>
+                            <td>45.871%</td>
+                        </tr>
+                        <tr>
+                            <td>19</td>
+                            <td><a href="/school/ranklist/282">부산대학교</a></td>
+                            <td></td>
+                            <td>275</td>
+                            <td><a href="/status?school_id=282&amp;result_id=4">3546</a></td>
+                            <td><a href="/status?school_id=282">122284</a></td>
+                            <td>41.893%</td>
+                        </tr>
+                        <tr>
+                            <td>20</td>
+                            <td><a href="/school/ranklist/399">한국기술교육대학교</a></td>
+                            <td></td>
+                            <td>255</td>
+                            <td><a href="/status?school_id=399&amp;result_id=4">3530</a></td>
+                            <td><a href="/status?school_id=399">111338</a></td>
+                            <td>37.020%</td>
+                        </tr>
+                        <tr>
+                            <td>21</td>
+                            <td><a href="/school/ranklist/359">전북대학교</a></td>
+                            <td></td>
+                            <td>297</td>
+                            <td><a href="/status?school_id=359&amp;result_id=4">3480</a></td>
+                            <td><a href="/status?school_id=359">167428</a></td>
+                            <td>44.601%</td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td><a href="/school/ranklist/295">서울과학기술대학교</a></td>
+                            <td></td>
+                            <td>269</td>
+                            <td><a href="/status?school_id=295&amp;result_id=4">3341</a></td>
+                            <td><a href="/status?school_id=295">115027</a></td>
+                            <td>48.006%</td>
+                        </tr>
+                        <tr>
+                            <td>23</td>
+                            <td><a href="/school/ranklist/302">서울시립대학교</a></td>
+                            <td></td>
+                            <td>278</td>
+                            <td><a href="/status?school_id=302&amp;result_id=4">3319</a></td>
+                            <td><a href="/status?school_id=302">117546</a></td>
+                            <td>46.107%</td>
+                        </tr>
+                        <tr>
+                            <td>24</td>
+                            <td><a href="/school/ranklist/224">광주과학기술원</a></td>
+                            <td></td>
+                            <td>89</td>
+                            <td><a href="/status?school_id=224&amp;result_id=4">3318</a></td>
+                            <td><a href="/status?school_id=224">31554</a></td>
+                            <td>53.838%</td>
+                        </tr>
+                        <tr>
+                            <td>25</td>
+                            <td><a href="/school/ranklist/358">전남대학교</a></td>
+                            <td></td>
+                            <td>189</td>
+                            <td><a href="/status?school_id=358&amp;result_id=4">3299</a></td>
+                            <td><a href="/status?school_id=358">75746</a></td>
+                            <td>45.610%</td>
+                        </tr>
+                        <tr>
+                            <td>26</td>
+                            <td><a href="/school/ranklist/193">강원대학교</a></td>
+                            <td></td>
+                            <td>213</td>
+                            <td><a href="/status?school_id=193&amp;result_id=4">3151</a></td>
+                            <td><a href="/status?school_id=193">65033</a></td>
+                            <td>49.547%</td>
+                        </tr>
+                        <tr>
+                            <td>27</td>
+                            <td><a href="/school/ranklist/368">중앙대학교</a></td>
+                            <td></td>
+                            <td>508</td>
+                            <td><a href="/status?school_id=368&amp;result_id=4">3144</a></td>
+                            <td><a href="/status?school_id=368">141623</a></td>
+                            <td>45.951%</td>
+                        </tr>
+                        <tr>
+                            <td>28</td>
+                            <td><a href="/school/ranklist/194">건국대학교</a></td>
+                            <td></td>
+                            <td>418</td>
+                            <td><a href="/status?school_id=194&amp;result_id=4">3025</a></td>
+                            <td><a href="/status?school_id=194">133638</a></td>
+                            <td>43.118%</td>
+                        </tr>
+                        <tr>
+                            <td>29</td>
+                            <td><a href="/school/ranklist/189">가톨릭대학교</a></td>
+                            <td></td>
+                            <td>160</td>
+                            <td><a href="/status?school_id=189&amp;result_id=4">3008</a></td>
+                            <td><a href="/status?school_id=189">98973</a></td>
+                            <td>48.540%</td>
+                        </tr>
+                        <tr>
+                            <td>30</td>
+                            <td><a href="/school/ranklist/260">동국대학교</a></td>
+                            <td></td>
+                            <td>373</td>
+                            <td><a href="/status?school_id=260&amp;result_id=4">2994</a></td>
+                            <td><a href="/status?school_id=260">139846</a></td>
+                            <td>46.254%</td>
+                        </tr>
+                        <tr>
+                            <td>31</td>
+                            <td><a href="/school/ranklist/211">경희대학교</a></td>
+                            <td></td>
+                            <td>407</td>
+                            <td><a href="/status?school_id=211&amp;result_id=4">2992</a></td>
+                            <td><a href="/status?school_id=211">137886</a></td>
+                            <td>44.957%</td>
+                        </tr>
+                        <tr>
+                            <td>32</td>
+                            <td><a href="/school/ranklist/288">상명대학교</a></td>
+                            <td></td>
+                            <td>230</td>
+                            <td><a href="/status?school_id=288&amp;result_id=4">2972</a></td>
+                            <td><a href="/status?school_id=288">104896</a></td>
+                            <td>42.385%</td>
+                        </tr>
+                        <tr>
+                            <td>33</td>
+                            <td><a href="/school/ranklist/386">충북대학교</a></td>
+                            <td></td>
+                            <td>190</td>
+                            <td><a href="/status?school_id=386&amp;result_id=4">2899</a></td>
+                            <td><a href="/status?school_id=386">96989</a></td>
+                            <td>47.759%</td>
+                        </tr>
+                        <tr>
+                            <td>34</td>
+                            <td><a href="/school/ranklist/385">충남대학교</a></td>
+                            <td></td>
+                            <td>298</td>
+                            <td><a href="/status?school_id=385&amp;result_id=4">2848</a></td>
+                            <td><a href="/status?school_id=385">94893</a></td>
+                            <td>49.220%</td>
+                        </tr>
+                        <tr>
+                            <td>35</td>
+                            <td><a href="/school/ranklist/279">부경대학교</a></td>
+                            <td></td>
+                            <td>168</td>
+                            <td><a href="/status?school_id=279&amp;result_id=4">2793</a></td>
+                            <td><a href="/status?school_id=279">72901</a></td>
+                            <td>44.969%</td>
+                        </tr>
+                        <tr>
+                            <td>36</td>
+                            <td><a href="/school/ranklist/272">명지대학교</a></td>
+                            <td></td>
+                            <td>199</td>
+                            <td><a href="/status?school_id=272&amp;result_id=4">2790</a></td>
+                            <td><a href="/status?school_id=272">64060</a></td>
+                            <td>41.645%</td>
+                        </tr>
+                        <tr>
+                            <td>37</td>
+                            <td><a href="/school/ranklist/222">광운대학교</a></td>
+                            <td></td>
+                            <td>435</td>
+                            <td><a href="/status?school_id=222&amp;result_id=4">2743</a></td>
+                            <td><a href="/status?school_id=222">129543</a></td>
+                            <td>43.717%</td>
+                        </tr>
+                        <tr>
+                            <td>38</td>
+                            <td><a href="/school/ranklist/405">한국외국어대학교</a></td>
+                            <td></td>
+                            <td>195</td>
+                            <td><a href="/status?school_id=405&amp;result_id=4">2722</a></td>
+                            <td><a href="/status?school_id=405">60107</a></td>
+                            <td>44.816%</td>
+                        </tr>
+                        <tr>
+                            <td>39</td>
+                            <td><a href="/school/ranklist/313">세종대학교</a></td>
+                            <td></td>
+                            <td>443</td>
+                            <td><a href="/status?school_id=313&amp;result_id=4">2665</a></td>
+                            <td><a href="/status?school_id=313">106996</a></td>
+                            <td>44.994%</td>
+                        </tr>
+                        <tr>
+                            <td>40</td>
+                            <td><a href="/school/ranklist/187">가천대학교</a></td>
+                            <td></td>
+                            <td>301</td>
+                            <td><a href="/status?school_id=187&amp;result_id=4">2573</a></td>
+                            <td><a href="/status?school_id=187">90784</a></td>
+                            <td>47.361%</td>
+                        </tr>
+                        <tr>
+                            <td>41</td>
+                            <td><a href="/school/ranklist/204">경상대학교</a></td>
+                            <td></td>
+                            <td>93</td>
+                            <td><a href="/status?school_id=204&amp;result_id=4">2391</a></td>
+                            <td><a href="/status?school_id=204">74774</a></td>
+                            <td>27.567%</td>
+                        </tr>
+                        <tr>
+                            <td>42</td>
+                            <td><a href="/school/ranklist/440">MIT</a></td>
+                            <td></td>
+                            <td>5</td>
+                            <td><a href="/status?school_id=440&amp;result_id=4">2351</a></td>
+                            <td><a href="/status?school_id=440">19883</a></td>
+                            <td>42.080%</td>
+                        </tr>
+                        <tr>
+                            <td>43</td>
+                            <td><a href="/school/ranklist/441">NHN NEXT</a></td>
+                            <td></td>
+                            <td>19</td>
+                            <td><a href="/status?school_id=441&amp;result_id=4">2344</a></td>
+                            <td><a href="/status?school_id=441">8306</a></td>
+                            <td>56.448%</td>
+                        </tr>
+                        <tr>
+                            <td>44</td>
+                            <td><a href="/school/ranklist/334">영남대학교</a></td>
+                            <td></td>
+                            <td>199</td>
+                            <td><a href="/status?school_id=334&amp;result_id=4">2306</a></td>
+                            <td><a href="/status?school_id=334">55858</a></td>
+                            <td>46.151%</td>
+                        </tr>
+                        <tr>
+                            <td>45</td>
+                            <td><a href="/school/ranklist/366">조선대학교</a></td>
+                            <td></td>
+                            <td>140</td>
+                            <td><a href="/status?school_id=366&amp;result_id=4">2306</a></td>
+                            <td><a href="/status?school_id=366">55917</a></td>
+                            <td>34.637%</td>
+                        </tr>
+                        <tr>
+                            <td>46</td>
+                            <td><a href="/school/ranklist/346">UNIST</a></td>
+                            <td></td>
+                            <td>171</td>
+                            <td><a href="/status?school_id=346&amp;result_id=4">2255</a></td>
+                            <td><a href="/status?school_id=346">35334</a></td>
+                            <td>47.025%</td>
+                        </tr>
+                        <tr>
+                            <td>47</td>
+                            <td><a href="/school/ranklist/243">단국대학교</a></td>
+                            <td></td>
+                            <td>200</td>
+                            <td><a href="/status?school_id=243&amp;result_id=4">2209</a></td>
+                            <td><a href="/status?school_id=243">67146</a></td>
+                            <td>41.359%</td>
+                        </tr>
+                        <tr>
+                            <td>48</td>
+                            <td><a href="/school/ranklist/308">성결대학교</a></td>
+                            <td></td>
+                            <td>121</td>
+                            <td><a href="/status?school_id=308&amp;result_id=4">2199</a></td>
+                            <td><a href="/status?school_id=308">40618</a></td>
+                            <td>52.310%</td>
+                        </tr>
+                        <tr>
+                            <td>49</td>
+                            <td><a href="/school/ranklist/267">동아대학교</a></td>
+                            <td></td>
+                            <td>175</td>
+                            <td><a href="/status?school_id=267&amp;result_id=4">2143</a></td>
+                            <td><a href="/status?school_id=267">67339</a></td>
+                            <td>47.388%</td>
+                        </tr>
+                        <tr>
+                            <td>50</td>
+                            <td><a href="/school/ranklist/246">DGIST</a></td>
+                            <td></td>
+                            <td>70</td>
+                            <td><a href="/status?school_id=246&amp;result_id=4">2139</a></td>
+                            <td><a href="/status?school_id=246">20046</a></td>
+                            <td>52.997%</td>
+                        </tr>
+                        <tr>
+                            <td>51</td>
+                            <td><a href="/school/ranklist/236">금오공과대학교</a></td>
+                            <td></td>
+                            <td>222</td>
+                            <td><a href="/status?school_id=236&amp;result_id=4">2117</a></td>
+                            <td><a href="/status?school_id=236">87454</a></td>
+                            <td>40.642%</td>
+                        </tr>
+                        <tr>
+                            <td>52</td>
+                            <td><a href="/school/ranklist/412">한동대학교</a></td>
+                            <td></td>
+                            <td>238</td>
+                            <td><a href="/status?school_id=412&amp;result_id=4">2072</a></td>
+                            <td><a href="/status?school_id=412">53546</a></td>
+                            <td>43.769%</td>
+                        </tr>
+                        <tr>
+                            <td>53</td>
+                            <td><a href="/school/ranklist/401">한국산업기술대학교</a></td>
+                            <td></td>
+                            <td>325</td>
+                            <td><a href="/status?school_id=401&amp;result_id=4">1937</a></td>
+                            <td><a href="/status?school_id=401">78824</a></td>
+                            <td>43.647%</td>
+                        </tr>
+                        <tr>
+                            <td>54</td>
+                            <td><a href="/school/ranklist/1146">University of Delaware</a></td>
+                            <td></td>
+                            <td>1</td>
+                            <td><a href="/status?school_id=1146&amp;result_id=4">1907</a></td>
+                            <td><a href="/status?school_id=1146">5266</a></td>
+                            <td>47.021%</td>
+                        </tr>
+                        <tr>
+                            <td>55</td>
+                            <td><a href="/school/ranklist/319">숙명여자대학교</a></td>
+                            <td></td>
+                            <td>205</td>
+                            <td><a href="/status?school_id=319&amp;result_id=4">1899</a></td>
+                            <td><a href="/status?school_id=319">48604</a></td>
+                            <td>47.953%</td>
+                        </tr>
+                        <tr>
+                            <td>56</td>
+                            <td><a href="/school/ranklist/198">경기대학교</a></td>
+                            <td></td>
+                            <td>146</td>
+                            <td><a href="/status?school_id=198&amp;result_id=4">1793</a></td>
+                            <td><a href="/status?school_id=198">41558</a></td>
+                            <td>44.933%</td>
+                        </tr>
+                        <tr>
+                            <td>57</td>
+                            <td><a href="/school/ranklist/332">연세대학교(원주)</a></td>
+                            <td></td>
+                            <td>58</td>
+                            <td><a href="/status?school_id=332&amp;result_id=4">1720</a></td>
+                            <td><a href="/status?school_id=332">16721</a></td>
+                            <td>51.028%</td>
+                        </tr>
+                        <tr>
+                            <td>58</td>
+                            <td><a href="/school/ranklist/422">한성대학교</a></td>
+                            <td></td>
+                            <td>116</td>
+                            <td><a href="/status?school_id=422&amp;result_id=4">1618</a></td>
+                            <td><a href="/status?school_id=422">25929</a></td>
+                            <td>46.941%</td>
+                        </tr>
+                        <tr>
+                            <td>59</td>
+                            <td><a href="/school/ranklist/424">한신대학교</a></td>
+                            <td></td>
+                            <td>64</td>
+                            <td><a href="/status?school_id=424&amp;result_id=4">1607</a></td>
+                            <td><a href="/status?school_id=424">22554</a></td>
+                            <td>44.164%</td>
+                        </tr>
+                        <tr>
+                            <td>60</td>
+                            <td><a href="/school/ranklist/322">순천향대학교</a></td>
+                            <td></td>
+                            <td>107</td>
+                            <td><a href="/status?school_id=322&amp;result_id=4">1521</a></td>
+                            <td><a href="/status?school_id=322">25614</a></td>
+                            <td>48.631%</td>
+                        </tr>
+                        <tr>
+                            <td>61</td>
+                            <td><a href="/school/ranklist/361">전주대학교</a></td>
+                            <td></td>
+                            <td>13</td>
+                            <td><a href="/status?school_id=361&amp;result_id=4">1497</a></td>
+                            <td><a href="/status?school_id=361">4994</a></td>
+                            <td>55.405%</td>
+                        </tr>
+                        <tr>
+                            <td>62</td>
+                            <td><a href="/school/ranklist/376">창원대학교</a></td>
+                            <td></td>
+                            <td>57</td>
+                            <td><a href="/status?school_id=376&amp;result_id=4">1469</a></td>
+                            <td><a href="/status?school_id=376">14226</a></td>
+                            <td>46.384%</td>
+                        </tr>
+                        <tr>
+                            <td>63</td>
+                            <td><a href="/school/ranklist/365">제주대학교</a></td>
+                            <td></td>
+                            <td>73</td>
+                            <td><a href="/status?school_id=365&amp;result_id=4">1433</a></td>
+                            <td><a href="/status?school_id=365">14378</a></td>
+                            <td>47.098%</td>
+                        </tr>
+                        <tr>
+                            <td>64</td>
+                            <td><a href="/school/ranklist/269">동의대학교</a></td>
+                            <td></td>
+                            <td>65</td>
+                            <td><a href="/status?school_id=269&amp;result_id=4">1428</a></td>
+                            <td><a href="/status?school_id=269">17260</a></td>
+                            <td>46.270%</td>
+                        </tr>
+                        <tr>
+                            <td>65</td>
+                            <td><a href="/school/ranklist/410">한국해양대학교</a></td>
+                            <td></td>
+                            <td>53</td>
+                            <td><a href="/status?school_id=410&amp;result_id=4">1420</a></td>
+                            <td><a href="/status?school_id=410">18191</a></td>
+                            <td>41.265%</td>
+                        </tr>
+                        <tr>
+                            <td>66</td>
+                            <td><a href="/school/ranklist/309">성공회대학교</a></td>
+                            <td></td>
+                            <td>197</td>
+                            <td><a href="/status?school_id=309&amp;result_id=4">1380</a></td>
+                            <td><a href="/status?school_id=309">39971</a></td>
+                            <td>49.955%</td>
+                        </tr>
+                        <tr>
+                            <td>67</td>
+                            <td><a href="/school/ranklist/215">고려대학교(세종)</a></td>
+                            <td></td>
+                            <td>84</td>
+                            <td><a href="/status?school_id=215&amp;result_id=4">1377</a></td>
+                            <td><a href="/status?school_id=215">19585</a></td>
+                            <td>47.768%</td>
+                        </tr>
+                        <tr>
+                            <td>68</td>
+                            <td><a href="/school/ranklist/205">경성대학교</a></td>
+                            <td></td>
+                            <td>64</td>
+                            <td><a href="/status?school_id=205&amp;result_id=4">1349</a></td>
+                            <td><a href="/status?school_id=205">14117</a></td>
+                            <td>48.593%</td>
+                        </tr>
+                        <tr>
+                            <td>69</td>
+                            <td><a href="/school/ranklist/352">이화여자대학교</a></td>
+                            <td></td>
+                            <td>210</td>
+                            <td><a href="/status?school_id=352&amp;result_id=4">1272</a></td>
+                            <td><a href="/status?school_id=352">32962</a></td>
+                            <td>47.768%</td>
+                        </tr>
+                        <tr>
+                            <td>70</td>
+                            <td><a href="/school/ranklist/347">울산대학교</a></td>
+                            <td></td>
+                            <td>50</td>
+                            <td><a href="/status?school_id=347&amp;result_id=4">1268</a></td>
+                            <td><a href="/status?school_id=347">14155</a></td>
+                            <td>43.102%</td>
+                        </tr>
+                        <tr>
+                            <td>71</td>
+                            <td><a href="/school/ranklist/226">광주대학교</a></td>
+                            <td></td>
+                            <td>4</td>
+                            <td><a href="/status?school_id=226&amp;result_id=4">1057</a></td>
+                            <td><a href="/status?school_id=226">3175</a></td>
+                            <td>48.181%</td>
+                        </tr>
+                        <tr>
+                            <td>72</td>
+                            <td><a href="/school/ranklist/348">원광대학교</a></td>
+                            <td></td>
+                            <td>17</td>
+                            <td><a href="/status?school_id=348&amp;result_id=4">1056</a></td>
+                            <td><a href="/status?school_id=348">14189</a></td>
+                            <td>42.909%</td>
+                        </tr>
+                        <tr>
+                            <td>73</td>
+                            <td><a href="/school/ranklist/318">수원대학교</a></td>
+                            <td></td>
+                            <td>43</td>
+                            <td><a href="/status?school_id=318&amp;result_id=4">1052</a></td>
+                            <td><a href="/status?school_id=318">13574</a></td>
+                            <td>41.478%</td>
+                        </tr>
+                        <tr>
+                            <td>74</td>
+                            <td><a href="/school/ranklist/434">호서대학교</a></td>
+                            <td></td>
+                            <td>59</td>
+                            <td><a href="/status?school_id=434&amp;result_id=4">1019</a></td>
+                            <td><a href="/status?school_id=434">9788</a></td>
+                            <td>38.477%</td>
+                        </tr>
+                        <tr>
+                            <td>75</td>
+                            <td><a href="/school/ranklist/392">한경대학교</a></td>
+                            <td></td>
+                            <td>18</td>
+                            <td><a href="/status?school_id=392&amp;result_id=4">1014</a></td>
+                            <td><a href="/status?school_id=392">4930</a></td>
+                            <td>51.995%</td>
+                        </tr>
+                        <tr>
+                            <td>76</td>
+                            <td><a href="/school/ranklist/311">성신여자대학교</a></td>
+                            <td></td>
+                            <td>75</td>
+                            <td><a href="/status?school_id=311&amp;result_id=4">985</a></td>
+                            <td><a href="/status?school_id=311">11190</a></td>
+                            <td>45.889%</td>
+                        </tr>
+                        <tr>
+                            <td>77</td>
+                            <td><a href="/school/ranklist/287">삼육대학교</a></td>
+                            <td></td>
+                            <td>20</td>
+                            <td><a href="/status?school_id=287&amp;result_id=4">978</a></td>
+                            <td><a href="/status?school_id=287">8293</a></td>
+                            <td>37.803%</td>
+                        </tr>
+                        <tr>
+                            <td>78</td>
+                            <td><a href="/school/ranklist/262">동덕여자대학교</a></td>
+                            <td></td>
+                            <td>74</td>
+                            <td><a href="/status?school_id=262&amp;result_id=4">942</a></td>
+                            <td><a href="/status?school_id=262">12222</a></td>
+                            <td>42.272%</td>
+                        </tr>
+                        <tr>
+                            <td>79</td>
+                            <td><a href="/school/ranklist/275">목포대학교</a></td>
+                            <td></td>
+                            <td>30</td>
+                            <td><a href="/status?school_id=275&amp;result_id=4">938</a></td>
+                            <td><a href="/status?school_id=275">7038</a></td>
+                            <td>45.423%</td>
+                        </tr>
+                        <tr>
+                            <td>80</td>
+                            <td><a href="/school/ranklist/231">군산대학교</a></td>
+                            <td></td>
+                            <td>35</td>
+                            <td><a href="/status?school_id=231&amp;result_id=4">937</a></td>
+                            <td><a href="/status?school_id=231">9499</a></td>
+                            <td>44.357%</td>
+                        </tr>
+                        <tr>
+                            <td>81</td>
+                            <td><a href="/school/ranklist/304">서울여자대학교</a></td>
+                            <td></td>
+                            <td>110</td>
+                            <td><a href="/status?school_id=304&amp;result_id=4">934</a></td>
+                            <td><a href="/status?school_id=304">15995</a></td>
+                            <td>45.984%</td>
+                        </tr>
+                        <tr>
+                            <td>82</td>
+                            <td><a href="/school/ranklist/525">Kyoto University</a></td>
+                            <td></td>
+                            <td>10</td>
+                            <td><a href="/status?school_id=525&amp;result_id=4">920</a></td>
+                            <td><a href="/status?school_id=525">5761</a></td>
+                            <td>41.573%</td>
+                        </tr>
+                        <tr>
+                            <td>83</td>
+                            <td><a href="/school/ranklist/289">상명대학교(천안)</a></td>
+                            <td></td>
+                            <td>39</td>
+                            <td><a href="/status?school_id=289&amp;result_id=4">912</a></td>
+                            <td><a href="/status?school_id=289">9650</a></td>
+                            <td>40.803%</td>
+                        </tr>
+                        <tr>
+                            <td>84</td>
+                            <td><a href="/school/ranklist/258">대진대학교</a></td>
+                            <td></td>
+                            <td>29</td>
+                            <td><a href="/status?school_id=258&amp;result_id=4">902</a></td>
+                            <td><a href="/status?school_id=258">6802</a></td>
+                            <td>44.231%</td>
+                        </tr>
+                        <tr>
+                            <td>85</td>
+                            <td><a href="/school/ranklist/395">한국교원대학교</a></td>
+                            <td></td>
+                            <td>7</td>
+                            <td><a href="/status?school_id=395&amp;result_id=4">900</a></td>
+                            <td><a href="/status?school_id=395">4283</a></td>
+                            <td>43.953%</td>
+                        </tr>
+                        <tr>
+                            <td>86</td>
+                            <td><a href="/school/ranklist/416">한림대학교</a></td>
+                            <td></td>
+                            <td>26</td>
+                            <td><a href="/status?school_id=416&amp;result_id=4">885</a></td>
+                            <td><a href="/status?school_id=416">5095</a></td>
+                            <td>50.141%</td>
+                        </tr>
+                        <tr>
+                            <td>87</td>
+                            <td><a href="/school/ranklist/353">인제대학교</a></td>
+                            <td></td>
+                            <td>62</td>
+                            <td><a href="/status?school_id=353&amp;result_id=4">873</a></td>
+                            <td><a href="/status?school_id=353">9784</a></td>
+                            <td>47.695%</td>
+                        </tr>
+                        <tr>
+                            <td>88</td>
+                            <td><a href="/school/ranklist/321">순천대학교</a></td>
+                            <td></td>
+                            <td>27</td>
+                            <td><a href="/status?school_id=321&amp;result_id=4">836</a></td>
+                            <td><a href="/status?school_id=321">6955</a></td>
+                            <td>42.685%</td>
+                        </tr>
+                        <tr>
+                            <td>89</td>
+                            <td><a href="/school/ranklist/293">서경대학교</a></td>
+                            <td></td>
+                            <td>51</td>
+                            <td><a href="/status?school_id=293&amp;result_id=4">819</a></td>
+                            <td><a href="/status?school_id=293">11744</a></td>
+                            <td>42.975%</td>
+                        </tr>
+                        <tr>
+                            <td>90</td>
+                            <td><a href="/school/ranklist/213">계명대학교</a></td>
+                            <td></td>
+                            <td>60</td>
+                            <td><a href="/status?school_id=213&amp;result_id=4">775</a></td>
+                            <td><a href="/status?school_id=213">10045</a></td>
+                            <td>43.030%</td>
+                        </tr>
+                        <tr>
+                            <td>91</td>
+                            <td><a href="/school/ranklist/259">덕성여자대학교</a></td>
+                            <td></td>
+                            <td>66</td>
+                            <td><a href="/status?school_id=259&amp;result_id=4">755</a></td>
+                            <td><a href="/status?school_id=259">14177</a></td>
+                            <td>39.645%</td>
+                        </tr>
+                        <tr>
+                            <td>92</td>
+                            <td><a href="/school/ranklist/273">목원대학교</a></td>
+                            <td></td>
+                            <td>1</td>
+                            <td><a href="/status?school_id=273&amp;result_id=4">712</a></td>
+                            <td><a href="/status?school_id=273">1768</a></td>
+                            <td>54.421%</td>
+                        </tr>
+                        <tr>
+                            <td>93</td>
+                            <td><a href="/school/ranklist/1004">UC Berkeley</a></td>
+                            <td></td>
+                            <td>4</td>
+                            <td><a href="/status?school_id=1004&amp;result_id=4">655</a></td>
+                            <td><a href="/status?school_id=1004">1656</a></td>
+                            <td>45.753%</td>
+                        </tr>
+                        <tr>
+                            <td>94</td>
+                            <td><a href="/school/ranklist/199">경남과학기술대학교</a></td>
+                            <td></td>
+                            <td>12</td>
+                            <td><a href="/status?school_id=199&amp;result_id=4">650</a></td>
+                            <td><a href="/status?school_id=199">4099</a></td>
+                            <td>43.750%</td>
+                        </tr>
+                        <tr>
+                            <td>95</td>
+                            <td><a href="/school/ranklist/219">공주대학교</a></td>
+                            <td></td>
+                            <td>43</td>
+                            <td><a href="/status?school_id=219&amp;result_id=4">650</a></td>
+                            <td><a href="/status?school_id=219">5718</a></td>
+                            <td>47.908%</td>
+                        </tr>
+                        <tr>
+                            <td>96</td>
+                            <td><a href="/school/ranklist/122">인하공업전문대학</a></td>
+                            <td></td>
+                            <td>17</td>
+                            <td><a href="/status?school_id=122&amp;result_id=4">645</a></td>
+                            <td><a href="/status?school_id=122">2817</a></td>
+                            <td>47.273%</td>
+                        </tr>
+                        <tr>
+                            <td>97</td>
+                            <td><a href="/school/ranklist/990">Waseda University</a></td>
+                            <td></td>
+                            <td>1</td>
+                            <td><a href="/status?school_id=990&amp;result_id=4">642</a></td>
+                            <td><a href="/status?school_id=990">818</a></td>
+                            <td>81.108%</td>
+                        </tr>
+                        <tr>
+                            <td>98</td>
+                            <td><a href="/school/ranklist/192">강릉원주대학교</a></td>
+                            <td></td>
+                            <td>37</td>
+                            <td><a href="/status?school_id=192&amp;result_id=4">641</a></td>
+                            <td><a href="/status?school_id=192">8550</a></td>
+                            <td>38.429%</td>
+                        </tr>
+                        <tr>
+                            <td>99</td>
+                            <td><a href="/school/ranklist/578">UCSD</a></td>
+                            <td></td>
+                            <td>3</td>
+                            <td><a href="/status?school_id=578&amp;result_id=4">638</a></td>
+                            <td><a href="/status?school_id=578">1578</a></td>
+                            <td>58.051%</td>
+                        </tr>
+                        <tr>
+                            <td>100</td>
+                            <td><a href="/school/ranklist/471">University of Waterloo</a></td>
+                            <td></td>
+                            <td>8</td>
+                            <td><a href="/status?school_id=471&amp;result_id=4">627</a></td>
+                            <td><a href="/status?school_id=471">2085</a></td>
+                            <td>51.132%</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="text-center">
+                    <ul class="pagination">
+                        <li><a href="/ranklist/university">처음</a></li>
+                        <li class="active"><a href="/ranklist/university/1">1</a></li>
+                        <li><a href="/ranklist/university/2" id="next_page">2</a></li>
+                        <li><a href="/ranklist/university/3">3</a></li>
+                        <li><a href="/ranklist/university/3">마지막</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12"><p><span class="label label-info">내가 없는데요?</span> 이메일 인증을 받은 사람만 랭킹에 나옵니다.</p>
+                <p><span class="label label-info">내 정보가 이상한데요?</span> 학교 정보는 3분에 한 번 업데이트 됩니다.</p></div>
+        </div>
+        <div class="margin-bottom-20"></div>
+        <div style="width: 100%;" class="no-print">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                 style="display:block;"
+                 data-ad-client="ca-pub-8806842758252812"
+                 data-ad-slot="1129585289"
+                 data-ad-format="auto"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        <div class="margin-bottom-20 no-print"></div>
+
+    </div>
+
+    <div class="footer-v3 no-print">
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3 md-margin-bottom-40">
+                        <div class="thumb-headline"><h2>Baekjoon Online Judge</h2></div>
+                        <ul class="list-unstyled simple-list margin-bottom-10">
+                            <li><a href="/about">소개</a></li>
+                            <li><a href="/news">뉴스</a></li>
+                            <li><a href="/live">생중계</a></li>
+                            <li><a href="/poll">설문조사</a></li>
+                            <li><a href="/blog">블로그</a></li>
+                            <li><a href="/calendar">캘린더</a></li>
+                            <li><a href="/slack">Slack</a></li>
+                            <li><a href="/donate">기부하기</a></li>
+                            <li><a href="https://github.com/Startlink/BOJ-Feature-Request">기능 추가 요청</a></li>
+                            <li><a href="https://github.com/Startlink/BOJ-spj">스페셜 저지 제작</a></li>
+                            <li><a href="/labs">실험실</a></li>
+                        </ul>
+                        <div class="thumb-headline"><h2>채점 현황</h2></div>
+                        <ul class="list-unstyled simple-list">
+                            <li><a href="/status">채점 현황</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3 md-margin-bottom-40">
+                        <div class="thumb-headline"><h2>문제</h2></div>
+                        <ul class="list-unstyled simple-list margin-bottom-10">
+                            <li><a href="/problemset">문제</a></li>
+                            <li><a href="/step">단계별로 풀어보기</a></li>
+                            <li><a href="/problem/tags">알고리즘 분류</a></li>
+                            <li><a href="/problem/added">새로 추가된 문제</a></li>
+                            <li><a href="/problem/added/1">새로 추가된 영어 문제</a></li>
+                            <li><a href="/problem/ranking">문제 순위</a></li>
+                            <li><a href="/problem/recent/submit">최근 제출된 문제</a></li>
+                            <li><a href="/problem/recent/accepted">최근 풀린 문제</a></li>
+                            <li><a href="/change">재채점 및 문제 수정</a></li>
+                        </ul>
+                        <div class="thumb-headline"><h2>유저 대회 / 고등학교 대회</h2></div>
+                        <ul class="list-inline simple-list margin-bottom">
+                            <li><a href="/category/353">FunctionCup</a></li>
+                            <li><a href="/category/319">kriiicon</a></li>
+                            <li><a href="/category/420">구데기컵</a></li>
+                            <li><a href="/category/358">꼬마컵</a></li>
+                            <li><a href="/category/421">네블컵</a></li>
+                            <li><a href="/category/413">소프트콘</a></li>
+                            <li><a href="/category/416">웰노운컵</a></li>
+                            <li><a href="/category/detail/1743">HYEA Cup</a></li>
+                            <li><a href="/category/364">경기과학고등학교</a></li>
+                            <li><a href="/category/417">대구과학고등학교</a></li>
+                            <li><a href="/category/429">부산일과학고</a></li>
+                            <li><a href="/category/435">서울과학고등학교</a></li>
+                            <li><a href="/category/394">선린인터넷고등학교</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3 md-margin-bottom-40">
+                        <div class="thumb-headline"><h2>출처</h2></div>
+                        <ul class="list-unstyled simple-list  margin-bottom-10">
+                            <li><a href="/category/1">ICPC</a></li>
+                            <li><a href="/category/211">ICPC Korea Regional</a></li>
+                            <li><a href="/category/2">Olympiad</a></li>
+                            <li><a href="/category/55">한국정보올림피아드</a></li>
+                            <li><a href="/category/57">한국정보올림피아드시․도지역본선</a></li>
+                            <li><a href="/category/318">전국 대학생 프로그래밍 대회 동아리 연합</a></li>
+                            <li><a href="/category/5">대학교 대회</a></li>
+                            <li><a href="/category/428">카카오 코드 페스티벌</a></li>
+                            <li><a href="/category/215">Coder's High</a></li>
+                        </ul>
+                        <div class="thumb-headline"><h2>대학교 대회</h2></div>
+                        <ul class="list-inline simple-list">
+                            <li><a href="/category/320">KAIST</a></li>
+                            <li><a href="/category/426">POSTECH</a></li>
+                            <li><a href="/category/341">고려대학교</a></li>
+                            <li><a href="/category/434">광주과학기술원</a></li>
+                            <li><a href="/category/361">국민대학교</a></li>
+                            <li><a href="/category/83">서강대학교</a></li>
+                            <li><a href="/category/354">서울대학교</a></li>
+                            <li><a href="/category/352">숭실대학교</a></li>
+                            <li><a href="/category/408">아주대학교</a></li>
+                            <li><a href="/category/334">연세대학교</a></li>
+                            <li><a href="/category/336">인하대학교</a></li>
+                            <li><a href="/category/347">전북대학교</a></li>
+                            <li><a href="/category/400">중앙대학교</a></li>
+                            <li><a href="/category/402">충남대학교</a></li>
+                            <li><a href="/category/418">한양대 ERICA</a></li>
+                            <li><a href="/category/363">홍익대학교</a></li>
+                            <li><a href="/category/409">경인지역 6개대학 연합 프로그래밍 경시대회</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3 md-margin-bottom-40">
+                        <div class="thumb-headline"><h2>도움말</h2></div>
+                        <ul class="list-unstyled simple-list margin-bottom-10">
+                            <li><a href="/help/judge">채점 도움말 및 채점 환경</a></li>
+                            <li><a href="/help/problem">문제 스타일 안내</a></li>
+                            <li><a href="/help/language">컴파일 또는 실행 옵션, 컴파일러 버전, 언어 도움말</a></li>
+                            <li><a href="/help/workbook">문제집 도움말</a></li>
+                            <li><a href="/help/contest">대회 개최 안내</a></li>
+                            <li><a href="/help/problem-add">문제 출제 안내</a></li>
+                            <li><a href="/help/rule">이용 규칙</a></li>
+                            <li><a href="/help/stat">통계 도움말</a></li>
+                            <li><a href="/help/question">질문 도움말</a></li>
+                            <li><a href="/help/faq">자주묻는 질문</a></li>
+                            <li><a href="/help/lecture">강의 안내</a></li>
+                            <li><a href="/help/short">짧은 주소 안내</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-sm-12"><p>&copy; 2020 All Rights Reserved. <a
+                                href="https://startlink.io">주식회사 스타트링크</a>&nbsp;|&nbsp;<a href="/terms">서비스 약관</a>&nbsp;|&nbsp;<a
+                                href="/privacy">개인정보 보호</a>&nbsp;|&nbsp;<a href="/terms/payment">결제 이용 약관</a>&nbsp;|&nbsp;<a
+                                href="https://boj.startlink.help/hc/ko">도움말</a>&nbsp;|&nbsp;<a
+                                href="http://startl.ink/2pmlJaY">광고 문의</a>&nbsp;|&nbsp;<a
+                                href="https://github.com/Startlink/update-note/blob/master/boj.md">업데이트 노트</a>&nbsp;|&nbsp;<a
+                                href="https://github.com/Startlink/update-note/blob/master/boj-issues.md">이슈</a>&nbsp;|&nbsp;<a
+                                href="https://github.com/Startlink/update-note/blob/master/boj-todo.md">TODO</a></p>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <ul class="social-icons pull-right">
+                                <li><a href="https://www.facebook.com/onlinejudge" data-original-title="Facebook"
+                                       class="rounded-x social_facebook"></a></li>
+                                <li><a href="https://www.twitter.com/acmicpc" data-original-title="Twitter"
+                                       class="rounded-x social_twitter"></a></li>
+                                <li><a href="https://startlink.blog" data-original-title="Wordpress"
+                                       class="rounded-x social_wordpress"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12"><a href="https://startlink.io" class="hidden-xs"><img
+                                src="https://d2gd6pc034wcta.cloudfront.net/logo/startlink-logo-white-only.png"
+                                class="pull-right startlink-logo"></a>
+                            <ul class="list-unstyled simple-list">
+                                <li>사업자 등록 번호: 541-88-00682</li>
+                                <li>대표자명: 최백준</li>
+                                <li>주소: 서울시 서초구 서초대로74길 29 서초파라곤 412호</li>
+                                <li>전화번호: 02-521-0487 (이메일로 연락 주세요)</li>
+                                <li>이메일: <a href="mailto:contacts@startlink.io">contacts@startlink.io</a></li>
+                                <li>통신판매신고번호: 제 2017-서울서초-2193 호</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-12"><p id="no-acm-icpc"></p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '322026491226049',
+                cookie: true,
+                xfbml: true,
+                version: 'v2.8'
+            });
+        };
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/ko_KR/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window,
+            document, 'script', '//connect.facebook.net/en_US/fbevents.js');
+
+        fbq('init', '1670563073163149');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=1670563073163149&ev=PageView&noscript=1"/></noscript>
+
+    <script>(function (a, b, c, d, e) {
+        e = a.createElement(b);
+        a = a.getElementsByTagName(b)[0];
+        e.async = 1;
+        e.src = c;
+        a.parentNode.insertBefore(e, a)
+    })(document, 'script', '//nondescriptstocking.com/eff94d498b4eb54046bc0dcf786e6535c7c5bafdadaedee4e01dc2129e6c137c07fd52c5dbb534cb2733a4c8a9a654d10de516a5e4926720850d2c7dc2b2');</script>
+
+    <script src="//static.getclicky.com/js" type="text/javascript"></script>
+    <script type="text/javascript">try {
+        clicky.init(101095264);
+    } catch (e) {
+    }</script>
+    <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101095264ns.gif"/></p></noscript>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.1/jquery-migrate.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/locale/ko.js"></script>
+    <script type="text/javascript"
+            src="https://ddo7jzca0m2vt.cloudfront.net/unify/js/app.min.js?version=20200923"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            App.init();
+        });
+    </script>
+    <!--[if lt IE 9]>
+    <script src="https://ddo7jzca0m2vt.cloudfront.net/unify/plugins/respond.js"></script>
+    <script src="https://ddo7jzca0m2vt.cloudfront.net/unify/plugins/html5shiv.js"></script>
+    <script src="https://ddo7jzca0m2vt.cloudfront.net/unify/js/plugins/placeholder-IE-fixes.js"></script>
+    <![endif]-->
+
+
+    <script>!function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+        if (!d.getElementById(id)) {
+            js = d.createElement(s);
+            js.id = id;
+            js.src = p + '://platform.twitter.com/widgets.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }
+    }(document, 'script', 'twitter-wjs');</script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+
+    <script src="https://js.pusher.com/4.2/pusher.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	showProcessingMessages: false,
+	messageStyle: "none",
+	extensions: ["tex2jax.js"],
+	jax: ["input/TeX", "output/SVG"],
+	tex2jax: {
+		inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+		displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+		processEscapes: true,
+		preview: ["수식"],
+		ignoreClass: "no-mathjax|redactor-editor",
+		processClass: 'mathjax'
+	},
+	"SVG": { 
+		availableFonts: ["TeX", "STIX"], 
+		linebreaks: { 
+			automatic: true, 
+			width: "container" 
+		},
+		preferredFont: "TeX",
+		showMathMenu: false,
+		scale: 90,
+		undefinedFamily: "'Open Sans', 'Apple SD Gothic Neo', 'Noto Sans CJK KR', 'Noto Sans KR', '나눔바른고딕', '나눔고딕', '맑은고딕', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+	},
+	TeX: { equationNumbers: { autoNumber: "AMS" } } ,
+});
+
+    </script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script>
+
+    <script src="https://ddo7jzca0m2vt.cloudfront.net/bower/stupidtable/stupidtable.js"></script>
+    <script type="text/javascript" src="https://ddo7jzca0m2vt.cloudfront.net/js/table-util.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/keymaster/1.6.1/keymaster.min.js"></script>
+    <script type="text/javascript" src="https://ddo7jzca0m2vt.cloudfront.net/js/keyboard-navigation.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".chosen-select").chosen();
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('#language').change(function (e) {
+                e.preventDefault();
+                document.location.href = "/ranklist/language/" + $(this).val();
+            });
+            $('#result').change(function (e) {
+                e.preventDefault();
+                document.location.href = "/ranklist/result/" + $(this).val();
+            });
+            $('#contribute').change(function (e) {
+                e.preventDefault();
+                document.location.href = "/ranklist/contribute/" + $(this).val();
+            });
+            $('#school').change(function (e) {
+                e.preventDefault();
+                document.location.href = "/ranklist/" + $(this).val();
+            });
+        });
+    </script>
+
+</body>
+</html>

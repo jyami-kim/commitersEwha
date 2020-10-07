@@ -32,5 +32,6 @@ public final class ResponseMessage {
 
     public static final String SCRAPING_EWHA_NOTIFICATION_SUCCESS = "이화 홈페이지 공지사항 사이트 결과 조회 성공";
     public static final String SCRAPING_EWHA_JOB_SUCCESS = "이화 홈페이지 취업 게시물 결과 조회 성공";
+    public static final String SCRAPING_BAEKJOON_SUCCESS = "백준 사이트 이화여대 랭킹 조회 성공";
 
 }

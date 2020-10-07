@@ -1,4 +1,4 @@
-package com.jyami.commitersewha.payload.ewhaScrap;
+package com.jyami.commitersewha.payload.scrap;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

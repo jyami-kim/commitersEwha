@@ -17,7 +17,7 @@ public final class ScrapUtils {
     public static Document getCrawlingResult(String url) {
         try {
             return Jsoup.connect(url)
-                    .timeout(2000)
+                    .timeout(4000)
                     .get();
         } catch (IOException e) {
             throw new ScrapingException("scraping 실패 : " + url);

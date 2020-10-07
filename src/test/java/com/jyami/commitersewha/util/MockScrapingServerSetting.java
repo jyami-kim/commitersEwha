@@ -15,6 +15,21 @@ import static org.mockserver.model.HttpResponse.response;
 public class MockScrapingServerSetting {
     public static final int PORT = 9000;
 
+    public void creatRankMockServer() {
+        new MockServerClient("localhost", PORT)
+                .when(
+                        request()
+                                .withMethod("GET")
+                                .withPath("/test/baekjoon/rank")
+                )
+                .respond(
+                        response()
+                                .withStatusCode(200)
+                                .withBody(readHtmlFile("baekjoonRank.html"))
+                );
+
+    }
+
     public void createJobMockServer() {
         new MockServerClient("localhost", PORT)
                 .when(
