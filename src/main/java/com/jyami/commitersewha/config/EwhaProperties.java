@@ -12,6 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "ewha")
 @Setter
 public class EwhaProperties {
+    private String baseUrl;
     private String scrapJobUrl;
     private String scrapNotification;
 }

@@ -46,8 +46,9 @@ dependencies {
 
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 	implementation 'org.jsoup:jsoup:1.11.3'
+	testCompile group: 'org.mock-server', name: 'mockserver-netty', version: '5.8.1'
 
-	// swagger
+// swagger
 	compile 'io.springfox:springfox-swagger2:2.9.2'
 	compile 'io.springfox:springfox-swagger-ui:2.9.2'
 

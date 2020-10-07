@@ -30,4 +30,7 @@ public final class ResponseMessage {
     public static final String GET_ALL_BADGE_LIST = "현재 모든 뱃지 리스트 조회 성공";
     public static final String GET_ALL_DEV_STACK_LIST = "현재 모든 DEV STACK 태그 리스 조회 성공";
 
+    public static final String SCRAPING_EWHA_NOTIFICATION_SUCCESS = "이화 홈페이지 공지사항 사이트 결과 조회 성공";
+    public static final String SCRAPING_EWHA_JOB_SUCCESS = "이화 홈페이지 취업 게시물 결과 조회 성공";
+
 }
