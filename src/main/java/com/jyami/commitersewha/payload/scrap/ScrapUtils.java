@@ -1,4 +1,4 @@
-package com.jyami.commitersewha.util;
+package com.jyami.commitersewha.payload.scrap;
 
 import com.jyami.commitersewha.exception.ScrapingException;
 import org.jsoup.Jsoup;

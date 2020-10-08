@@ -24,7 +24,7 @@ import static com.jyami.commitersewha.payload.ResponseMessage.*;
 @Slf4j
 public class ScrapingController {
 
-    //TODO : react - 실제 페이지 찌르는 것 최소화하기
+    //TODO : redis - 실제 페이지 찌르는 것 최소화하기
 
     private final ScrapingService scrapingService;
 

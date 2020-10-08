@@ -5,13 +5,11 @@ import com.jyami.commitersewha.exception.ScrapingException;
 import com.jyami.commitersewha.payload.scrap.BaekjoonResult;
 import com.jyami.commitersewha.payload.scrap.JobResult;
 import com.jyami.commitersewha.payload.scrap.NotificationResult;
-import com.jyami.commitersewha.util.ScrapUtils;
+import com.jyami.commitersewha.payload.scrap.ScrapUtils;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 /**
  * Created by jyami on 2020/10/07

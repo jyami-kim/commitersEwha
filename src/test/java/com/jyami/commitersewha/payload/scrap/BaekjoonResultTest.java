@@ -1,10 +1,6 @@
 package com.jyami.commitersewha.payload.scrap;
 
-import com.jyami.commitersewha.config.ScrapingProperties;
-import com.jyami.commitersewha.exception.ScrapingException;
-import com.jyami.commitersewha.service.ScrapingService;
 import com.jyami.commitersewha.util.MockScrapingServerSetting;
-import com.jyami.commitersewha.util.ScrapUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.junit.jupiter.api.AfterEach;

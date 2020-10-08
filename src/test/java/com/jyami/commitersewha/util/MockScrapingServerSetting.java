@@ -1,10 +1,6 @@
 package com.jyami.commitersewha.util;
 
-import org.apache.commons.io.IOUtils;
 import org.mockserver.client.MockServerClient;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
@@ -25,7 +21,7 @@ public class MockScrapingServerSetting {
                 .respond(
                         response()
                                 .withStatusCode(200)
-                                .withBody(readHtmlFile("baekjoonRank.html"))
+                                .withBody(TestResourceLoader.readFile("baekjoonRank.html"))
                 );
 
     }
@@ -40,7 +36,7 @@ public class MockScrapingServerSetting {
                 .respond(
                         response()
                                 .withStatusCode(200)
-                                .withBody(readHtmlFile("ewhaJob.html"))
+                                .withBody(TestResourceLoader.readFile("ewhaJob.html"))
                 );
 
     }
@@ -55,19 +51,9 @@ public class MockScrapingServerSetting {
                 .respond(
                         response()
                                 .withStatusCode(200)
-                                .withBody(readHtmlFile("ewhaNotification.html"))
+                                .withBody(TestResourceLoader.readFile("ewhaNotification.html"))
                 );
     }
 
-    private byte[] readHtmlFile(String filePath) {
-        InputStream resourceAsStream = getClass().getClassLoader()
-                .getResourceAsStream(filePath);
-        try {
-            assert resourceAsStream != null;
-            return IOUtils.toByteArray(resourceAsStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("file IO 실패");
-        }
-    }
+
 }
