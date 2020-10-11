@@ -9,12 +9,15 @@ import java.util.Map;
  */
 public class OAuth2UserInfoFactory {
 
-    private static String GOOGLE = "google";
+    private static final String GOOGLE = "google";
+    private static final String GITHUB = "github";
 
     public static OAuth2UserInfo getOAuth2UserInfo(String registrationId, Map<String, Object> attributes) {
         if (registrationId.equalsIgnoreCase(GOOGLE)) {
             return new GoogleOAuth2UserInfo(attributes);
-        } else {
+        } else if (registrationId.equalsIgnoreCase(GITHUB)) {
+            return new GithubOAuth2UserInfo(attributes);
+        }{
             throw new OAuth2AuthenticationProcessingException("Sorry! Login with " + registrationId + " is not supported yet.");
         }
     }
