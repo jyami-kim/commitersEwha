@@ -2,6 +2,9 @@ package com.jyami.commitersewha.security.oauth2;
 
 import com.jyami.commitersewha.config.AppProperties;
 import com.jyami.commitersewha.exception.BadRequestException;
+import com.jyami.commitersewha.exception.NotAccessUserException;
+import com.jyami.commitersewha.security.GithubUserPrincipal;
+import com.jyami.commitersewha.security.GoogleUserPrincipal;
 import com.jyami.commitersewha.security.TokenProvider;
 import com.jyami.commitersewha.util.CookieUtils;
 import lombok.RequiredArgsConstructor;
@@ -49,13 +52,22 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
             throw new BadRequestException("Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
         }
-
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-        String token = tokenProvider.createToken(authentication);
 
-        return UriComponentsBuilder.fromUriString(targetUrl)
-                .queryParam("token", token)
-                .build().toUriString();
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof GoogleUserPrincipal) {
+            String token = tokenProvider.createToken((GoogleUserPrincipal) authentication.getPrincipal());
+            return UriComponentsBuilder.fromUriString(targetUrl)
+                    .queryParam("google-token", token)
+                    .build().toUriString();
+        }
+        if (principal instanceof GithubUserPrincipal) {
+            String token = tokenProvider.createToken((GithubUserPrincipal) authentication.getPrincipal());
+            return UriComponentsBuilder.fromUriString(targetUrl)
+                    .queryParam("google-token", token)
+                    .build().toUriString();
+        }
+        throw new NotAccessUserException("올바르지 않은 유저 접근입니다.");
     }
 
     protected void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {

@@ -5,10 +5,11 @@ import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 
 
 /**
@@ -20,15 +21,26 @@ import java.util.Date;
 public class TokenProvider {
     private final AppProperties appProperties;
 
-    public String createToken(Authentication authentication) {
-
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+    public String createToken(GoogleUserPrincipal googleUserPrincipal) {
 
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
 
         return Jwts.builder()
-                .setSubject(Long.toString(userPrincipal.getId()))
+                .setSubject(Long.toString(googleUserPrincipal.getId()))
+                .setIssuedAt(now)
+                .setExpiration(expiryDate)
+                .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())
+                .compact();
+    }
+
+    public String createToken(GithubUserPrincipal githubUserPrincipal) {
+
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
+
+        return Jwts.builder()
+                .setSubject(Long.toString(githubUserPrincipal.getId()))
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())

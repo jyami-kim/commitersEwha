@@ -6,7 +6,7 @@ import com.jyami.commitersewha.payload.request.CommentRequest;
 import com.jyami.commitersewha.payload.response.CommentResponse;
 import com.jyami.commitersewha.payload.response.LikeResponse;
 import com.jyami.commitersewha.security.CurrentUser;
-import com.jyami.commitersewha.security.UserPrincipal;
+import com.jyami.commitersewha.security.GoogleUserPrincipal;
 import com.jyami.commitersewha.service.CommentService;
 import com.jyami.commitersewha.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +32,9 @@ public class CommentController {
     private final UserService userService;
 
     @PostMapping("")
-    public ResponseEntity<?> createComment(@CurrentUser UserPrincipal userPrincipal,
+    public ResponseEntity<?> createComment(@CurrentUser GoogleUserPrincipal googleUserPrincipal,
                                            @Valid @RequestBody CommentRequest commentRequest) {
-        User user = userService.getUserFromId(userPrincipal.getId());
+        User user = userService.getUserFromId(googleUserPrincipal.getId());
         CommentResponse commentResponse = commentService.createComment(user, commentRequest);
         log.info("---createComment success :{} - {}", user.getUserId(), commentResponse.toString());
         return ResponseEntity.ok()
@@ -42,16 +42,16 @@ public class CommentController {
     }
 
     @PostMapping("{commentId}")
-    public ResponseEntity<?> deleteComment(@CurrentUser UserPrincipal userPrincipal, @PathVariable long commentId) {
-        commentService.deleteComment(userPrincipal.getId(), commentId);
-        log.info("---deleteComment success : {} => {} ", userPrincipal.getId(), commentId);
+    public ResponseEntity<?> deleteComment(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable long commentId) {
+        commentService.deleteComment(googleUserPrincipal.getId(), commentId);
+        log.info("---deleteComment success : {} => {} ", googleUserPrincipal.getId(), commentId);
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_COMMENT_DELETE));
     }
 
     @PostMapping("{commentId}/like")
-    public ResponseEntity<?> createPostLike(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long commentId) {
-        User user = userService.getUserFromId(userPrincipal.getId());
+    public ResponseEntity<?> createPostLike(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable Long commentId) {
+        User user = userService.getUserFromId(googleUserPrincipal.getId());
         LikeResponse likeResponse = commentService.changeUserLikeStatus(user, commentId);
         log.info("---comment like status success change :{}", likeResponse);
         return ResponseEntity.ok()

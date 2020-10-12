@@ -7,7 +7,7 @@ import com.jyami.commitersewha.payload.request.SearchRequest;
 import com.jyami.commitersewha.payload.response.LikeResponse;
 import com.jyami.commitersewha.payload.response.PostResponse;
 import com.jyami.commitersewha.security.CurrentUser;
-import com.jyami.commitersewha.security.UserPrincipal;
+import com.jyami.commitersewha.security.GoogleUserPrincipal;
 import com.jyami.commitersewha.service.PostService;
 import com.jyami.commitersewha.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +42,8 @@ public class PostController {
     }
 
     @PostMapping("post")
-    public ResponseEntity<?> createPost(@CurrentUser UserPrincipal userPrincipal, @RequestBody PostRequest postRequest) {
-        User user = userService.getUserFromId(userPrincipal.getId());
+    public ResponseEntity<?> createPost(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @RequestBody PostRequest postRequest) {
+        User user = userService.getUserFromId(googleUserPrincipal.getId());
         PostResponse postResponse = postService.createNewPost(user, postRequest);
         log.info("---createPost success :{} - {}", user.getUserId(), postResponse);
         return ResponseEntity.ok()
@@ -51,26 +51,26 @@ public class PostController {
     }
 
     @GetMapping("post/{postId}")
-    public ResponseEntity<?> getPostDetailWithComments(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long postId) {
+    public ResponseEntity<?> getPostDetailWithComments(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable Long postId) {
         PostResponse postResponse = postService.getDetailPost(postId);
-        log.info("---getPost success : viewer {} => {}", userPrincipal.getId(), postResponse);
+        log.info("---getPost success : viewer {} => {}", googleUserPrincipal.getId(), postResponse);
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(HttpStatus.OK, GET_POST_DETAIL, postResponse));
     }
 
     @PutMapping("post")
-    public ResponseEntity<?> updatePost(@CurrentUser UserPrincipal userPrincipal,
+    public ResponseEntity<?> updatePost(@CurrentUser GoogleUserPrincipal googleUserPrincipal,
                                         @Valid @RequestBody PostRequest postRequest) {
-        PostResponse postResponse = postService.updatePost(userPrincipal.getId(), postRequest);
+        PostResponse postResponse = postService.updatePost(googleUserPrincipal.getId(), postRequest);
         log.info("---updatePost success : {} ", postResponse);
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_POST_UPDATE, postResponse));
     }
 
     @DeleteMapping("post/{postId}")
-    public ResponseEntity<?> deletePost(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long postId) {
-        postService.deletePost(userPrincipal.getId(), postId);
-        log.info("---deletePost success : {} => {} ", userPrincipal.getId(), postId);
+    public ResponseEntity<?> deletePost(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable Long postId) {
+        postService.deletePost(googleUserPrincipal.getId(), postId);
+        log.info("---deletePost success : {} => {} ", googleUserPrincipal.getId(), postId);
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_POST_DELETE, postId));
     }
@@ -79,8 +79,8 @@ public class PostController {
      * 좋아요 등록
      */
     @PostMapping("post/{postId}/like")
-    public ResponseEntity<?> createPostLike(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long postId) {
-        User user = userService.getUserFromId(userPrincipal.getId());
+    public ResponseEntity<?> createPostLike(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable Long postId) {
+        User user = userService.getUserFromId(googleUserPrincipal.getId());
         LikeResponse likeResponse = postService.changeUserLikeStatus(user, postId);
         log.info("---post like status success change :{}", likeResponse);
         return ResponseEntity.ok()

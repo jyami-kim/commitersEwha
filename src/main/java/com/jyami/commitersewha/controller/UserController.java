@@ -5,7 +5,7 @@ import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.request.UserUpdateRequest;
 import com.jyami.commitersewha.payload.response.UserInfoResponse;
 import com.jyami.commitersewha.security.CurrentUser;
-import com.jyami.commitersewha.security.UserPrincipal;
+import com.jyami.commitersewha.security.GoogleUserPrincipal;
 import com.jyami.commitersewha.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,34 +28,34 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("me")
-    public ResponseEntity<?> getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-        log.info("-- current user info : {}", userPrincipal.toString());
-        UserInfoResponse currentUser = userService.getCurrentUser(userPrincipal.getId());
+    public ResponseEntity<?> getCurrentUser(@CurrentUser GoogleUserPrincipal googleUserPrincipal) {
+        log.info("-- current user info : {}", googleUserPrincipal.toString());
+        UserInfoResponse currentUser = userService.getCurrentUser(googleUserPrincipal.getId());
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(HttpStatus.OK, GET_CURRENT_USER_INFO, currentUser));
     }
 
     @PostMapping
-    public ResponseEntity<?> nextSignUp(@CurrentUser UserPrincipal userPrincipal,
+    public ResponseEntity<?> nextSignUp(@CurrentUser GoogleUserPrincipal googleUserPrincipal,
                                         @RequestBody UserUpdateRequest userUpdateRequest) {
-        UserInfoResponse user = userService.nextSignUp(userPrincipal.getId(), userUpdateRequest);
-        log.info("-- complete user signup : {}", userPrincipal.getId());
+        UserInfoResponse user = userService.nextSignUp(googleUserPrincipal.getId(), userUpdateRequest);
+        log.info("-- complete user signup : {}", googleUserPrincipal.getId());
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_USER_SIGNUP, user));
     }
 
     @PutMapping()
-    public ResponseEntity<?> updateUserInfo(@CurrentUser UserPrincipal userPrincipal,
+    public ResponseEntity<?> updateUserInfo(@CurrentUser GoogleUserPrincipal googleUserPrincipal,
                                             @RequestBody UserUpdateRequest userUpdateRequest) {
-        UserInfoResponse user = userService.nextSignUp(userPrincipal.getId(), userUpdateRequest);
-        log.info("-- complete user info update : {}", userPrincipal.getId());
+        UserInfoResponse user = userService.nextSignUp(googleUserPrincipal.getId(), userUpdateRequest);
+        log.info("-- complete user info update : {}", googleUserPrincipal.getId());
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(HttpStatus.OK, UPDATE_USER_INFO, user));
     }
 
     @GetMapping
-    public ResponseEntity<?> getUserInfo(@CurrentUser UserPrincipal userPrincipal, @RequestParam("user") String userSubId) {
-        log.info("-- see user info : {} => {}", userPrincipal.getId(), userSubId);
+    public ResponseEntity<?> getUserInfo(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @RequestParam("user") String userSubId) {
+        log.info("-- see user info : {} => {}", googleUserPrincipal.getId(), userSubId);
         User user = userService.getUserFromSubId(userSubId);
         UserInfoResponse userInfo = UserInfoResponse.fromEntity(user);
         return ResponseEntity.ok()

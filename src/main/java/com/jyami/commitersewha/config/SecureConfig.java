@@ -4,6 +4,8 @@ import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.security.RestAuthenticationEntryPoint;
 import com.jyami.commitersewha.security.TokenAuthenticationFilter;
 import com.jyami.commitersewha.security.oauth2.*;
+import com.jyami.commitersewha.security.oauth2.service.CustomOAuth2UserService;
+import com.jyami.commitersewha.security.oauth2.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
