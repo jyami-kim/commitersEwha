@@ -1,6 +1,8 @@
 package com.jyami.commitersewha.config;
 
 import com.jyami.commitersewha.domain.user.User;
+import com.jyami.commitersewha.domain.user.UserRepository;
+import com.jyami.commitersewha.security.CustomAuthorizationRequestResolver;
 import com.jyami.commitersewha.security.RestAuthenticationEntryPoint;
 import com.jyami.commitersewha.security.TokenAuthenticationFilter;
 import com.jyami.commitersewha.security.oauth2.*;
@@ -21,6 +23,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -35,6 +38,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomUserDetailsService customUserDetailsService;
     private final CustomOAuth2UserService customOAuth2UserService;
+    private final ClientRegistrationRepository clientRegistrationRepository;
 
     @Autowired
     private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
@@ -105,7 +109,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/**", "/oauth2/**")
                 .permitAll()
                 .antMatchers("/api/user/**", "api/post/**", "api/comment/**")
-                    .hasAnyAuthority(User.Role.ADMIN.name(), User.Role.USER.name())
+                .hasAnyAuthority(User.Role.ADMIN.name(), User.Role.USER.name())
 //                    .hasAnyRole(Role.ADMIN.name(), Role.USER.name())
 //                    .authenticated() // 이후 role로 변경하기
                 .anyRequest()
@@ -113,6 +117,7 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .oauth2Login()
                 .authorizationEndpoint()
+                .authorizationRequestResolver(new CustomAuthorizationRequestResolver(clientRegistrationRepository))
                 .baseUri("/oauth2/authorize")
                 .authorizationRequestRepository(cookieOAuth2AuthorizationRequestRepository())
                 .and()
