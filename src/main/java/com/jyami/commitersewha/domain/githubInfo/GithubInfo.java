@@ -5,10 +5,8 @@ import com.jyami.commitersewha.security.oauth2.user.OAuth2UserInfo;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by jyami on 2020/10/12
@@ -35,13 +33,19 @@ public class GithubInfo {
 
     private String providerId;
 
-    public static GithubInfo toGithubInfoEntity(OAuth2UserInfo oAuth2UserInfo) {
+    @OneToOne
+    @JoinColumn(name = "infoId")
+    @NotNull
+    private User user;
+
+    public static GithubInfo toGithubInfoEntity(OAuth2UserInfo oAuth2UserInfo, User user) {
 
         return GithubInfo.builder()
                 .email(oAuth2UserInfo.getEmail())
                 .providerId(oAuth2UserInfo.getId())
                 .name(oAuth2UserInfo.getName())
                 .imageUrl(oAuth2UserInfo.getImageUrl())
+                .user(user)
                 .build();
     }
 

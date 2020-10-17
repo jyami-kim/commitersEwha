@@ -8,8 +8,6 @@ import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequest
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Created by jyami on 2020/10/12
@@ -18,7 +16,7 @@ import java.util.Map;
 public class CustomAuthorizationRequestResolver implements OAuth2AuthorizationRequestResolver {
 
     private final OAuth2AuthorizationRequestResolver defaultAuthorizationRequestResolver;
-    private final String TOKEN_HEADER = "google-token";
+    public static final String GOOGLE_TOKEN_HEADER = "google-token";
 
 
     public CustomAuthorizationRequestResolver(ClientRegistrationRepository clientRegistrationRepository) {
@@ -30,29 +28,26 @@ public class CustomAuthorizationRequestResolver implements OAuth2AuthorizationRe
     @Override
     public OAuth2AuthorizationRequest resolve(HttpServletRequest request) {
         OAuth2AuthorizationRequest authorizationRequest = this.defaultAuthorizationRequestResolver.resolve(request);
-        String googleToken = request.getHeader(TOKEN_HEADER);
-        return authorizationRequest != null ? customAuthorizationRequest(authorizationRequest, googleToken) : null;
+        String googleToken = request.getHeader(GOOGLE_TOKEN_HEADER);
+        return authorizationRequest != null ? customAuthorizationRequest(request, authorizationRequest, googleToken) : null;
     }
 
     @Override
     public OAuth2AuthorizationRequest resolve(HttpServletRequest request, String clientRegistrationId) {
         OAuth2AuthorizationRequest authorizationRequest =
                 this.defaultAuthorizationRequestResolver.resolve(request, clientRegistrationId);
-        String googleToken = request.getHeader(TOKEN_HEADER);
-        return authorizationRequest != null ? customAuthorizationRequest(authorizationRequest, googleToken) : null;
+        String googleToken = request.getHeader(GOOGLE_TOKEN_HEADER);
+        return authorizationRequest != null ? customAuthorizationRequest(request, authorizationRequest, googleToken) : null;
     }
 
-    private OAuth2AuthorizationRequest customAuthorizationRequest(OAuth2AuthorizationRequest authorizationRequest, String googleToken) {
-        Map<String, Object> additionalParameters = new LinkedHashMap<>(authorizationRequest.getAdditionalParameters());
+    private OAuth2AuthorizationRequest customAuthorizationRequest(HttpServletRequest httpServletRequest, OAuth2AuthorizationRequest authorizationRequest, String googleToken) {
         if (authorizationRequest.getAttribute("registration_id").equals("github")) {
             if (googleToken == null) {
                 throw new NotAccessUserException("google login이 안되어있습니다.");
             }
-            additionalParameters.put(TOKEN_HEADER, googleToken);
+            httpServletRequest.getSession().setAttribute(GOOGLE_TOKEN_HEADER, googleToken);
         }
 
-        return OAuth2AuthorizationRequest.from(authorizationRequest)
-                .additionalParameters(additionalParameters)
-                .build();
+        return OAuth2AuthorizationRequest.from(authorizationRequest).build();
     }
 }

@@ -35,5 +35,6 @@ public final class ResponseMessage {
     public static final String SCRAPING_BAEKJOON_SUCCESS = "백준 사이트 이화여대 랭킹 조회 성공";
 
     public static final String RSS_CONTENTS_SUCCESS = "기술블로그 RSS 조회 성공";
+    public static final String NOT_HAVE_CURRENT_GOOGLE_LOGINED_USER = "현재 세션에 로그인 되어있는 google 유저가 없습니다.";
 
 }
