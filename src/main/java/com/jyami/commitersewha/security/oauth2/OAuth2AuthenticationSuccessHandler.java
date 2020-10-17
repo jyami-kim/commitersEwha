@@ -64,7 +64,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         if (principal instanceof GithubUserPrincipal) {
             String token = tokenProvider.createToken((GithubUserPrincipal) authentication.getPrincipal());
             return UriComponentsBuilder.fromUriString(targetUrl)
-                    .queryParam("google-token", token)
+                    .queryParam("github-token", token)
                     .build().toUriString();
         }
         throw new NotAccessUserException("올바르지 않은 유저 접근입니다.");

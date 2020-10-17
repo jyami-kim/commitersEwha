@@ -34,7 +34,7 @@ public class GithubInfo {
     private String providerId;
 
     @OneToOne
-    @JoinColumn(name = "infoId")
+    @JoinColumn(name = "userId")
     @NotNull
     private User user;
 
