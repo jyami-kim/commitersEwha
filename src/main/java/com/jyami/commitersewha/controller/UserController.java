@@ -2,6 +2,7 @@ package com.jyami.commitersewha.controller;
 
 import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.payload.DefaultResponse;
+import com.jyami.commitersewha.payload.ResponseCode;
 import com.jyami.commitersewha.payload.request.UserUpdateRequest;
 import com.jyami.commitersewha.payload.response.UserInfoResponse;
 import com.jyami.commitersewha.security.CurrentUser;
@@ -32,7 +33,7 @@ public class UserController {
         log.info("-- current user info : {}", googleUserPrincipal.toString());
         UserInfoResponse currentUser = userService.getCurrentUser(googleUserPrincipal.getId());
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, GET_CURRENT_USER_INFO, currentUser));
+                .body(DefaultResponse.of(ResponseCode.OK, GET_CURRENT_USER_INFO, currentUser));
     }
 
     @PostMapping
@@ -41,7 +42,7 @@ public class UserController {
         UserInfoResponse user = userService.nextSignUp(googleUserPrincipal.getId(), userUpdateRequest);
         log.info("-- complete user signup : {}", googleUserPrincipal.getId());
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_USER_SIGNUP, user));
+                .body(DefaultResponse.of(ResponseCode.OK, SUCCESS_USER_SIGNUP, user));
     }
 
     @PutMapping()
@@ -50,7 +51,7 @@ public class UserController {
         UserInfoResponse user = userService.nextSignUp(googleUserPrincipal.getId(), userUpdateRequest);
         log.info("-- complete user info update : {}", googleUserPrincipal.getId());
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, UPDATE_USER_INFO, user));
+                .body(DefaultResponse.of(ResponseCode.OK, UPDATE_USER_INFO, user));
     }
 
     @GetMapping
@@ -59,7 +60,7 @@ public class UserController {
         User user = userService.getUserFromSubId(userSubId);
         UserInfoResponse userInfo = UserInfoResponse.fromEntity(user);
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, GET_USER_INFO, userInfo));
+                .body(DefaultResponse.of(ResponseCode.OK, GET_USER_INFO, userInfo));
     }
 
 

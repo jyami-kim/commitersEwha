@@ -1,7 +1,6 @@
 package com.jyami.commitersewha.config;
 
 import com.jyami.commitersewha.domain.user.User;
-import com.jyami.commitersewha.domain.user.UserRepository;
 import com.jyami.commitersewha.security.CustomAuthorizationRequestResolver;
 import com.jyami.commitersewha.security.RestAuthenticationEntryPoint;
 import com.jyami.commitersewha.security.TokenAuthenticationFilter;
@@ -127,8 +126,8 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
                 .userInfoEndpoint()
                 .userService(customOAuth2UserService)
                 .and()
-                .successHandler(oAuth2AuthenticationSuccessHandler)
-                .failureHandler(oAuth2AuthenticationFailureHandler);
+                .successHandler(oAuth2AuthenticationSuccessHandler);
+//                .failureHandler(oAuth2AuthenticationFailureHandler);
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

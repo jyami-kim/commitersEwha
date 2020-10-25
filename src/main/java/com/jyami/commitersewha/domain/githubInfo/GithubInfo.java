@@ -33,6 +33,9 @@ public class GithubInfo {
 
     private String providerId;
 
+    @Setter
+    private String token;
+
     @OneToOne
     @JoinColumn(name = "userId")
     @NotNull

@@ -2,6 +2,7 @@ package com.jyami.commitersewha.controller;
 
 import com.jyami.commitersewha.domain.tag.Badge;
 import com.jyami.commitersewha.payload.DefaultResponse;
+import com.jyami.commitersewha.payload.ResponseCode;
 import com.jyami.commitersewha.service.TagService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class BadgeController {
     @GetMapping("")
     public ResponseEntity<?> getAllBadges() {
         List<Badge> allBadges = tagService.getAllBadges();
-        return ResponseEntity.ok().body(DefaultResponse.of(HttpStatus.OK, GET_ALL_BADGE_LIST, allBadges));
+        return ResponseEntity.ok().body(DefaultResponse.of(ResponseCode.OK, GET_ALL_BADGE_LIST, allBadges));
     }
 
 }

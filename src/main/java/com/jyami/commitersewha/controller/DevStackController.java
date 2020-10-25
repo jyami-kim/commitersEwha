@@ -2,6 +2,7 @@ package com.jyami.commitersewha.controller;
 
 import com.jyami.commitersewha.domain.tag.DevStack;
 import com.jyami.commitersewha.payload.DefaultResponse;
+import com.jyami.commitersewha.payload.ResponseCode;
 import com.jyami.commitersewha.service.TagService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,6 @@ public class DevStackController {
     @GetMapping("")
     public ResponseEntity<?> getAllDevStackList() {
         List<DevStack> allDevStacks = tagService.getAllDevStacks();
-        return ResponseEntity.ok().body(DefaultResponse.of(HttpStatus.OK, GET_ALL_DEV_STACK_LIST, allDevStacks));
+        return ResponseEntity.ok().body(DefaultResponse.of(ResponseCode.OK, GET_ALL_DEV_STACK_LIST, allDevStacks));
     }
 }

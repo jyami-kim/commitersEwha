@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 /**
@@ -18,7 +19,7 @@ public final class DefaultResponse<T> {
 
 
     public static final DefaultResponse FAIL_DEFAULT_RES
-            = DefaultResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, ResponseMessage.INTERNAL_SERVER_ERROR);
+            = DefaultResponse.of(ResponseCode.INTERNAL_SERVER_ERROR, ResponseMessage.INTERNAL_SERVER_ERROR);
     private int status;
     private String message;
     private T response;
@@ -34,17 +35,11 @@ public final class DefaultResponse<T> {
         this.response = response;
     }
 
-    public static DefaultResponse<?> of(HttpStatus httpStatus, String message) {
-        int status = Optional.ofNullable(httpStatus)
-                .orElse(HttpStatus.OK)
-                .value();
+    public static DefaultResponse<?> of(@NotNull int status, String message) {
         return new DefaultResponse<>(status, message, null);
     }
 
-    public static <T> DefaultResponse<T> of(HttpStatus httpStatus, String message, T response) {
-        int status = Optional.ofNullable(httpStatus)
-                .orElse(HttpStatus.OK)
-                .value();
+    public static <T> DefaultResponse<T> of(@NotNull int status, String message, T response) {
         return new DefaultResponse<>(status, message, response);
     }
 }

@@ -1,9 +1,8 @@
 package com.jyami.commitersewha.security.oauth2.user;
 
 import com.jyami.commitersewha.exception.OAuth2AuthenticationProcessingException;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,9 +10,12 @@ import java.util.Map;
  */
 public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
 
-    public GoogleOAuth2UserInfo(Map<String, Object> attributes) {
+    private List<String> domain;
+
+    public GoogleOAuth2UserInfo(Map<String, Object> attributes, List<String> domain) {
         super(attributes);
-        if (!this.getEmail().contains("@ewhain.net")) {
+        this.domain = domain;
+        if (!this.domain.contains(this.getEmail())) {
             throw new OAuth2AuthenticationProcessingException("This Email is not EWHA students thing");
         }
     }

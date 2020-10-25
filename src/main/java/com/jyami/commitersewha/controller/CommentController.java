@@ -2,6 +2,7 @@ package com.jyami.commitersewha.controller;
 
 import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.payload.DefaultResponse;
+import com.jyami.commitersewha.payload.ResponseCode;
 import com.jyami.commitersewha.payload.request.CommentRequest;
 import com.jyami.commitersewha.payload.response.CommentResponse;
 import com.jyami.commitersewha.payload.response.LikeResponse;
@@ -38,7 +39,7 @@ public class CommentController {
         CommentResponse commentResponse = commentService.createComment(user, commentRequest);
         log.info("---createComment success :{} - {}", user.getUserId(), commentResponse.toString());
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_COMMENT_CREATE, commentResponse));
+                .body(DefaultResponse.of(ResponseCode.OK, SUCCESS_COMMENT_CREATE, commentResponse));
     }
 
     @PostMapping("{commentId}")
@@ -46,7 +47,7 @@ public class CommentController {
         commentService.deleteComment(googleUserPrincipal.getId(), commentId);
         log.info("---deleteComment success : {} => {} ", googleUserPrincipal.getId(), commentId);
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_COMMENT_DELETE));
+                .body(DefaultResponse.of(ResponseCode.OK, SUCCESS_COMMENT_DELETE));
     }
 
     @PostMapping("{commentId}/like")
@@ -55,6 +56,6 @@ public class CommentController {
         LikeResponse likeResponse = commentService.changeUserLikeStatus(user, commentId);
         log.info("---comment like status success change :{}", likeResponse);
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_CHANGE_LIKE_STATUS, likeResponse));
+                .body(DefaultResponse.of(ResponseCode.OK, SUCCESS_CHANGE_LIKE_STATUS, likeResponse));
     }
 }

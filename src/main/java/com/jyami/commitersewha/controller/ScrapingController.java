@@ -1,6 +1,7 @@
 package com.jyami.commitersewha.controller;
 
 import com.jyami.commitersewha.payload.DefaultResponse;
+import com.jyami.commitersewha.payload.ResponseCode;
 import com.jyami.commitersewha.payload.scrap.BaekjoonResult;
 import com.jyami.commitersewha.payload.scrap.JobResult;
 import com.jyami.commitersewha.payload.scrap.NotificationResult;
@@ -31,20 +32,20 @@ public class ScrapingController {
     @GetMapping("ewha/job")
     public ResponseEntity<?> getEwhaJobInfo() {
         JobResult jobResult = scrapingService.getJobResult();
-        return ResponseEntity.ok().body(DefaultResponse.of(HttpStatus.OK, SCRAPING_EWHA_JOB_SUCCESS, jobResult));
+        return ResponseEntity.ok().body(DefaultResponse.of(ResponseCode.OK, SCRAPING_EWHA_JOB_SUCCESS, jobResult));
     }
 
 
     @GetMapping("ewha/notification")
     public ResponseEntity<?> getEwhaNotificationInfo() {
         NotificationResult notificationResult = scrapingService.getNotificationResult();
-        return ResponseEntity.ok().body(DefaultResponse.of(HttpStatus.OK, SCRAPING_EWHA_NOTIFICATION_SUCCESS, notificationResult));
+        return ResponseEntity.ok().body(DefaultResponse.of(ResponseCode.OK, SCRAPING_EWHA_NOTIFICATION_SUCCESS, notificationResult));
     }
 
     @GetMapping("baekjoon/rank")
     public ResponseEntity<?> getBaekjoonRank() {
         BaekjoonResult baekjoonResult = scrapingService.getBaekjoonResult();
-        return ResponseEntity.ok().body(DefaultResponse.of(HttpStatus.OK, SCRAPING_BAEKJOON_SUCCESS, baekjoonResult));
+        return ResponseEntity.ok().body(DefaultResponse.of(ResponseCode.OK, SCRAPING_BAEKJOON_SUCCESS, baekjoonResult));
     }
 
 }

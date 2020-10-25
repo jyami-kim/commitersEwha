@@ -1,6 +1,7 @@
 package com.jyami.commitersewha.controller;
 
 import com.jyami.commitersewha.payload.DefaultResponse;
+import com.jyami.commitersewha.payload.ResponseCode;
 import com.jyami.commitersewha.payload.request.SearchRequest;
 import com.jyami.commitersewha.payload.response.PostResponse;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,6 @@ public class TestController {
     public ResponseEntity<?> getAllPostWithPage(SearchRequest searchRequest) {
         log.info("---getAllPage : parameter = {}", searchRequest);
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, GET_POST_LIST));
+                .body(DefaultResponse.of(ResponseCode.OK, GET_POST_LIST));
     }
 }

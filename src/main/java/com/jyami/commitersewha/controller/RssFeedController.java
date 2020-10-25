@@ -1,6 +1,7 @@
 package com.jyami.commitersewha.controller;
 
 import com.jyami.commitersewha.payload.DefaultResponse;
+import com.jyami.commitersewha.payload.ResponseCode;
 import com.jyami.commitersewha.payload.rssFeed.RssFeedResult;
 import com.jyami.commitersewha.service.RssFeedService;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class RssFeedController {
     public ResponseEntity<?> getAllPostWithPage() {
         List<RssFeedResult> allRssFeedResult = rssFeedService.getAllRssFeedResult();
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, RSS_CONTENTS_SUCCESS, allRssFeedResult));
+                .body(DefaultResponse.of(ResponseCode.OK, RSS_CONTENTS_SUCCESS, allRssFeedResult));
     }
 
 }

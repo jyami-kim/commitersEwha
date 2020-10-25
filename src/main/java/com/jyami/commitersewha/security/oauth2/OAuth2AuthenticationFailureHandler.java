@@ -1,5 +1,6 @@
 package com.jyami.commitersewha.security.oauth2;
 
+import com.jyami.commitersewha.exception.OAuth2AuthenticationProcessingException;
 import com.jyami.commitersewha.util.CookieUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +30,17 @@ public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationF
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        String targetUrl = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
-                .map(Cookie::getName)
-                .orElse("/");
+//        String targetUrl = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
+//                .map(Cookie::getName)
+//                .orElse("/");
 
-        targetUrl = UriComponentsBuilder.fromUriString(targetUrl)
-                .queryParam("error", exception.getLocalizedMessage())
-                .build()
-                .toUriString();
-
+//        targetUrl = UriComponentsBuilder.fromUriString(targetUrl)
+//                .queryParam("error", exception.getLocalizedMessage())
+//                .build()
+//                .toUriString();
+//
         repository.removeAuthorizationRequestCookies(request, response);
-
-        getRedirectStrategy().sendRedirect(request, response, targetUrl);
+//
+//        getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 }

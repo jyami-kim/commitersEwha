@@ -2,6 +2,7 @@ package com.jyami.commitersewha.controller;
 
 import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.payload.DefaultResponse;
+import com.jyami.commitersewha.payload.ResponseCode;
 import com.jyami.commitersewha.payload.request.PostRequest;
 import com.jyami.commitersewha.payload.request.SearchRequest;
 import com.jyami.commitersewha.payload.response.LikeResponse;
@@ -38,7 +39,7 @@ public class PostController {
         log.info("---getAllPage : parameter = {}", searchRequest);
         Page<PostResponse> postOutLineResponse = postService.getPostOutLineResponse(searchRequest);
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, GET_POST_LIST, postOutLineResponse));
+                .body(DefaultResponse.of(ResponseCode.OK, GET_POST_LIST, postOutLineResponse));
     }
 
     @PostMapping("post")
@@ -47,7 +48,7 @@ public class PostController {
         PostResponse postResponse = postService.createNewPost(user, postRequest);
         log.info("---createPost success :{} - {}", user.getUserId(), postResponse);
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_POST_CREATE, postResponse));
+                .body(DefaultResponse.of(ResponseCode.OK, SUCCESS_POST_CREATE, postResponse));
     }
 
     @GetMapping("post/{postId}")
@@ -55,7 +56,7 @@ public class PostController {
         PostResponse postResponse = postService.getDetailPost(postId);
         log.info("---getPost success : viewer {} => {}", googleUserPrincipal.getId(), postResponse);
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, GET_POST_DETAIL, postResponse));
+                .body(DefaultResponse.of(ResponseCode.OK, GET_POST_DETAIL, postResponse));
     }
 
     @PutMapping("post")
@@ -64,7 +65,7 @@ public class PostController {
         PostResponse postResponse = postService.updatePost(googleUserPrincipal.getId(), postRequest);
         log.info("---updatePost success : {} ", postResponse);
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_POST_UPDATE, postResponse));
+                .body(DefaultResponse.of(ResponseCode.OK, SUCCESS_POST_UPDATE, postResponse));
     }
 
     @DeleteMapping("post/{postId}")
@@ -72,7 +73,7 @@ public class PostController {
         postService.deletePost(googleUserPrincipal.getId(), postId);
         log.info("---deletePost success : {} => {} ", googleUserPrincipal.getId(), postId);
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_POST_DELETE, postId));
+                .body(DefaultResponse.of(ResponseCode.OK, SUCCESS_POST_DELETE, postId));
     }
 
     /*
@@ -84,7 +85,7 @@ public class PostController {
         LikeResponse likeResponse = postService.changeUserLikeStatus(user, postId);
         log.info("---post like status success change :{}", likeResponse);
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(HttpStatus.OK, SUCCESS_CHANGE_LIKE_STATUS, likeResponse));
+                .body(DefaultResponse.of(ResponseCode.OK, SUCCESS_CHANGE_LIKE_STATUS, likeResponse));
     }
 
 }

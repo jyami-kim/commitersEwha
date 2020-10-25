@@ -6,7 +6,6 @@ import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.domain.user.UserRepository;
 import com.jyami.commitersewha.exception.NotAccessUserException;
 import com.jyami.commitersewha.security.GithubUserPrincipal;
-import com.jyami.commitersewha.security.GoogleUserPrincipal;
 import com.jyami.commitersewha.security.TokenProvider;
 import com.jyami.commitersewha.security.oauth2.user.GithubOAuth2UserInfo;
 import com.jyami.commitersewha.security.oauth2.user.OAuth2UserInfo;
@@ -33,15 +32,14 @@ public final class GithubOAuth2UserProcess extends OAuth2UserProcess {
     private final HttpServletRequest request;
     private final TokenProvider tokenProvider;
 
-
     @Override
     OAuth2User getOauth2UserInfoAndProcess(OAuth2UserRequest oAuth2UserRequest, Map<String, Object> oAuth2User) {
 
-        GithubOAuth2UserInfo googleOAuth2UserInfo = new GithubOAuth2UserInfo(oAuth2User);
-
-        GithubInfo githubInfo = githubInfoRepository.findByEmail(googleOAuth2UserInfo.getEmail())
-                .map(value -> updateExistingUser(value, googleOAuth2UserInfo))
-                .orElseGet(() -> registerNewUserAsGithub(googleOAuth2UserInfo));
+        GithubOAuth2UserInfo githubOAuth2UserInfo = new GithubOAuth2UserInfo(oAuth2User);
+        String tokenValue = oAuth2UserRequest.getAccessToken().getTokenValue();
+        GithubInfo githubInfo = githubInfoRepository.findByEmail(githubOAuth2UserInfo.getEmail())
+                .map(value -> updateExistingUser(value, tokenValue, githubOAuth2UserInfo))
+                .orElseGet(() -> registerNewUserAsGithub(tokenValue, githubOAuth2UserInfo));
 
         return GithubUserPrincipal.create(githubInfo, oAuth2User);
     }
@@ -56,15 +54,17 @@ public final class GithubOAuth2UserProcess extends OAuth2UserProcess {
                 .orElseThrow(() -> new NotAccessUserException(NOT_HAVE_CURRENT_GOOGLE_LOGINED_USER));
     }
 
-    private GithubInfo updateExistingUser(GithubInfo existedInfo, OAuth2UserInfo oAuth2UserInfo) {
+    private GithubInfo updateExistingUser(GithubInfo existedInfo, String token, OAuth2UserInfo oAuth2UserInfo) {
         existedInfo.setName(oAuth2UserInfo.getName());
         existedInfo.setImageUrl(oAuth2UserInfo.getImageUrl());
+        existedInfo.setToken(token);
         return githubInfoRepository.save(existedInfo);
     }
 
-    private GithubInfo registerNewUserAsGithub(OAuth2UserInfo newInfo) {
+    private GithubInfo registerNewUserAsGithub(String token, OAuth2UserInfo newInfo) {
         User currentUsersWithGoogleToken = getCurrentUsersWithGoogleToken();
         GithubInfo githubInfo = GithubInfo.toGithubInfoEntity(newInfo, currentUsersWithGoogleToken);
+        githubInfo.setToken(token);
         return githubInfoRepository.save(githubInfo);
     }
 }

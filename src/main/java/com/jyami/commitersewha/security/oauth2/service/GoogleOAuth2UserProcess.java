@@ -1,5 +1,6 @@
 package com.jyami.commitersewha.security.oauth2.service;
 
+import com.jyami.commitersewha.config.AppProperties;
 import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.domain.user.UserRepository;
 import com.jyami.commitersewha.security.GoogleUserPrincipal;
@@ -20,10 +21,11 @@ import java.util.Map;
 public final class GoogleOAuth2UserProcess extends OAuth2UserProcess {
 
     private final UserRepository userRepository;
+    private final AppProperties appProperties;
 
     @Override
     OAuth2User getOauth2UserInfoAndProcess(OAuth2UserRequest oAuth2UserRequest, Map<String, Object> oAuth2User) {
-        GoogleOAuth2UserInfo googleOAuth2UserInfo = new GoogleOAuth2UserInfo(oAuth2User);
+        GoogleOAuth2UserInfo googleOAuth2UserInfo = new GoogleOAuth2UserInfo(oAuth2User, appProperties.getDomain());
 
         User user = userRepository.findByEmail(googleOAuth2UserInfo.getEmail())
                 .map(value -> updateExistingUser(value, googleOAuth2UserInfo))

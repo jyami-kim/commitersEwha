@@ -58,7 +58,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         if (principal instanceof GoogleUserPrincipal) {
             String token = tokenProvider.createToken((GoogleUserPrincipal) authentication.getPrincipal());
             return UriComponentsBuilder.fromUriString(targetUrl)
-                    .queryParam("google-token", token)
+                    .queryParam("token", token)
                     .build().toUriString();
         }
         if (principal instanceof GithubUserPrincipal) {
