@@ -41,12 +41,12 @@ public class CustomAuthorizationRequestResolver implements OAuth2AuthorizationRe
     }
 
     private OAuth2AuthorizationRequest customAuthorizationRequest(HttpServletRequest httpServletRequest, OAuth2AuthorizationRequest authorizationRequest, String googleToken) {
-        if (authorizationRequest.getAttribute("registration_id").equals("github")) {
-            if (googleToken == null) {
-                throw new NotAccessUserException("google login이 안되어있습니다.");
-            }
-            httpServletRequest.getSession().setAttribute(GOOGLE_TOKEN_HEADER, googleToken);
-        }
+//        if (authorizationRequest.getAttribute("registration_id").equals("github")) {
+//            if (googleToken == null) {
+//                throw new NotAccessUserException("google login이 안되어있습니다.");
+//            }
+//            httpServletRequest.getSession().setAttribute(GOOGLE_TOKEN_HEADER, googleToken);
+//        }
 
         return OAuth2AuthorizationRequest.from(authorizationRequest).build();
     }
