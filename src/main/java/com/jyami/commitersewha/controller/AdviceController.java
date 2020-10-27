@@ -1,6 +1,6 @@
 package com.jyami.commitersewha.controller;
 
-import com.jyami.commitersewha.exception.OAuth2AuthenticationProcessingException;
+import com.jyami.commitersewha.exception.NotAccessUserException;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.ResponseCode;
 import lombok.extern.slf4j.Slf4j;
@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class AdviceController {
 
-    @ExceptionHandler({OAuth2AuthenticationProcessingException.class, InternalAuthenticationServiceException.class})
+    @ExceptionHandler({NotAccessUserException.class, InternalAuthenticationServiceException.class})
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     public DefaultResponse<?> unAuthentication(Exception e) {
-        return DefaultResponse.of(ResponseCode.DOMAIN_ERROR, e.getMessage());
+        return DefaultResponse.of(ResponseCode.AUTHENTICATION_ERROR, e.getMessage());
     }
 }

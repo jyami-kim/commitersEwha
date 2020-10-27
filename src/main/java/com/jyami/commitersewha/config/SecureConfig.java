@@ -126,8 +126,8 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
                 .userInfoEndpoint()
                 .userService(customOAuth2UserService)
                 .and()
-                .successHandler(oAuth2AuthenticationSuccessHandler);
-//                .failureHandler(oAuth2AuthenticationFailureHandler);
+                .successHandler(oAuth2AuthenticationSuccessHandler)
+                .failureHandler(oAuth2AuthenticationFailureHandler);
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
