@@ -1,1 +1,5 @@
 rootProject.name = 'commiters-ewha'
+include 'commiters-ewha-api'
+include 'commiters-ewha-batch'
+include 'commiters-ewha-core'
+

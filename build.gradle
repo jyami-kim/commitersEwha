@@ -1,98 +1,57 @@
 buildscript {
 	ext {
-		querydslPluginVersion = '1.0.10' // 플러그인 버전
+		springBootVersion = '2.3.2.RELEASE'
 	}
 	repositories {
-		maven { url "https://plugins.gradle.org/m2/" } // 플러그인 저장소
+		mavenCentral()
 	}
 	dependencies {
-		classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslPluginVersion}") // querydsl 플러그인 의존성 등록
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE"
 	}
 }
 
+subprojects {
+	group 'com.jyami'
+	version '1.0'
 
-plugins {
-	id 'org.springframework.boot' version '2.3.2.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-	id 'java'
-}
+	apply plugin: 'java'
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
 
+	sourceCompatibility = 1.8
 
-group = 'com.jyami'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
+	repositories {
+		mavenCentral()
 	}
-}
 
-repositories {
-	mavenCentral()
-}
-
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'mysql:mysql-connector-java'
-	annotationProcessor 'org.projectlombok:lombok'
-
-	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
-
-	//parser
-	implementation 'org.jsoup:jsoup:1.11.3'
-	compile group: 'com.rometools', name: 'rome', version: '1.5.0'
-	testCompile group: 'org.mock-server', name: 'mockserver-netty', version: '5.8.1'
-
-	// swagger
-	compile 'io.springfox:springfox-swagger2:2.9.2'
-	compile 'io.springfox:springfox-swagger-ui:2.9.2'
-
-	// querydsl
-	compile("com.querydsl:querydsl-jpa")
-	compile("com.querydsl:querydsl-apt")
-
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
-	testImplementation 'org.springframework.security:spring-security-test'
-	testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.0'
-
-}
-
-// querydsl 적용
-apply plugin: "com.ewerk.gradle.plugins.querydsl" // Plugin 적용
-def querydslSrcDir = 'src/main/generated' // QClass 생성 위치
-
-querydsl {
-	library = "com.querydsl:querydsl-apt"
-	jpa = true
-	querydslSourcesDir = querydslSrcDir
-}
-
-sourceSets {
-	main {
-		java {
-			srcDirs = ['src/main/java', querydslSrcDir]
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
 		}
 	}
+
+	dependencies {
+		testCompile group: 'junit', name: 'junit', version: '4.12'
+	}
+
+	test {
+		useJUnitPlatform()
+	}
+
 }
 
-compileQuerydsl{
-	options.annotationProcessorPath = configurations.querydsl
+project(':commiters-ewha-api') {
+	dependencies {
+		compile project(path: '::commiters-ewha-core', configuration: 'default')
+	}
 }
 
-configurations {
-	querydsl.extendsFrom compileClasspath
+project(':commiters-ewha-batch') {
+	dependencies {
+		compile project(path: '::commiters-ewha-core', configuration: 'default')
+	}
 }
 
-test {
-	useJUnitPlatform()
-}
+
+
