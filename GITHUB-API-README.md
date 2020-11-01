@@ -65,15 +65,32 @@ https://api.github.com/repos/study-mouse/studymouse-server/stats/contributors
 
 author 이 list로 나온다. 해당하는 author 필터후에 weeks 가져오기
 
-이때는 주별로 add / deletion / commit 만 나온다.
+이때는 주별로 add / delete / commit 만 나온다.
 
+
+```shell script
+ /repos/{owner}/{repo}/stats/contributors
+https://api.github.com/repos/java-Bom/ReadingRecord/stats/contributors
+```
+주별 add, delete, commit 수가 적혀져있다.
+
+주별 통계 낼 때 좋을 것 같다.
 
 
 ##### commit으로 가져오기
 
 ```
 https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#statistics-exclude-some-types-of-commits
+https://api.github.com/repos/java-Bom/ReadingRecord/commits?author=mjung1798&page=2
 ```
+
+| Name     | Description                                                  |
+| -------- | ------------------------------------------------------------ |
+| author   | email, id                                                    |
+| since    | Only show notifications updated after the given time. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. |
+| until    | Only commits before this date will be returned. This is a timestamp in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format: `YYYY-MM-DDTHH:MM:SSZ`. |
+| per_page | Results per page (max 100)                                   |
 
 statistics api를 가져오기엔 사람별로 보여주지 않고 organization 기준으로 가져옴.
 개인 repository에서도 contribution이 되기 때문에 개인의 데이터가 아님
+

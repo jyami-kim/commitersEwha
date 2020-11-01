@@ -12,12 +12,12 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class GithubRestTemplateConfiguration {
 
-    private final GithubProperties shoppingProperties;
+    private final GithubProperties githubProperties;
 
     @Bean
     public GithubRestTemplate shoppingSearchRestTemplate() {
         log.debug("[GITHUB] restTemplate builder create bean.");
-        RestTemplate shoppingSearch = GithubRestTemplateBuilder.getGithubDefaultSetting(shoppingProperties);
+        RestTemplate shoppingSearch = GithubRestTemplateBuilder.getGithubDefaultSetting(githubProperties);
         return new GithubRestTemplate(shoppingSearch);
     }
 

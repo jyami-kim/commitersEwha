@@ -52,4 +52,8 @@ public class GithubInfo {
                 .build();
     }
 
+    public String getToken() {
+        return "token " + token;
+    }
+
 }

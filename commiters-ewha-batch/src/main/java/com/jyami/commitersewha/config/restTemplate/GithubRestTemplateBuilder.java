@@ -16,7 +16,7 @@ class GithubRestTemplateBuilder {
                 .setConnectTimeout(properties.getConnectionTimeout())
                 .setReadTimeout(properties.getReadTimeout())
                 .rootUri(properties.getHost())
-                .defaultHeader(HttpHeaders.ACCEPT, "*/*")
+                .defaultHeader(HttpHeaders.ACCEPT, "application/vnd.github.v3+json")
                 .errorHandler(new RestTemplateErrorHandler())
                 .build();
     }
