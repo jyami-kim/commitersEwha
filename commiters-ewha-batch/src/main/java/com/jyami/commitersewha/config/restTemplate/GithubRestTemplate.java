@@ -1,13 +1,19 @@
 package com.jyami.commitersewha.config.restTemplate;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.jyami.commitersewha.config.payload.CommitResponse;
+import com.jyami.commitersewha.config.payload.CommitStatisticResponse;
+import com.jyami.commitersewha.config.payload.RepositoryResponse;
+import com.jyami.commitersewha.config.payload.UserDetailResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 /**
  * Created by jyami on 2020/11/01
@@ -21,20 +27,21 @@ public class GithubRestTemplate {
         this.restTemplate = restTemplate;
     }
 
-    public ResponseEntity<JsonNode> getUserRepositories(String accessToken, int page) {
+    public ResponseEntity<List<RepositoryResponse>> getUserRepositories(String accessToken, int page) {
         String requestUrl = UriComponentsBuilder.fromUriString("/user/repos")
                 .queryParam("page", page)
                 .queryParam("sort", "created")
                 .build().toUriString();
         log.info("[REPOS] : {}", requestUrl);
-        return restTemplate.exchange(requestUrl, HttpMethod.GET, getEntityWithHeader(accessToken), JsonNode.class);
+        return restTemplate.exchange(requestUrl, HttpMethod.GET, getEntityWithHeader(accessToken),
+                new ParameterizedTypeReference<List<RepositoryResponse>>(){});
     }
 
-    public ResponseEntity<JsonNode> getUserDetailInfo(String accessToken) {
-        return restTemplate.exchange("/user", HttpMethod.GET, getEntityWithHeader(accessToken), JsonNode.class);
+    public ResponseEntity<UserDetailResponse> getUserDetailInfo(String accessToken) {
+        return restTemplate.exchange("/user", HttpMethod.GET, getEntityWithHeader(accessToken), UserDetailResponse.class);
     }
 
-    public ResponseEntity<JsonNode> getReposCommitStat(String accessToken, int page, String owner, String repo) {
+    public ResponseEntity<List<CommitStatisticResponse>> getReposCommitStat(String accessToken, int page, String owner, String repo) {
         String requestUrl = UriComponentsBuilder.fromUriString("/repos")
                 .path("/{owner}")
                 .path("/{repo}")
@@ -43,10 +50,12 @@ public class GithubRestTemplate {
                 .queryParam("sort", "created")
                 .buildAndExpand(owner, repo).toUriString();
         log.info("[STAT] : {}", requestUrl);
-        return restTemplate.exchange(requestUrl, HttpMethod.GET, getEntityWithHeader(accessToken), JsonNode.class);
+
+        return restTemplate.exchange(requestUrl, HttpMethod.GET, getEntityWithHeader(accessToken),
+                new ParameterizedTypeReference<List<CommitStatisticResponse>>(){});
     }
 
-    public ResponseEntity<JsonNode> getReposCommitList(String accessToken, int page, String owner, String repo, String author) {
+    public ResponseEntity<List<CommitResponse>> getReposCommitList(String accessToken, int page, String owner, String repo, String author) {
         String requestUrl = UriComponentsBuilder.fromUriString("/repos")
                 .path("/{owner}")
                 .path("/{repo}")
@@ -55,7 +64,8 @@ public class GithubRestTemplate {
                 .queryParam("author", author)
                 .buildAndExpand(owner, repo).toUriString();
         log.info("[COMMIT] : {}", requestUrl);
-        return restTemplate.exchange(requestUrl, HttpMethod.GET, getEntityWithHeader(accessToken), JsonNode.class);
+        return restTemplate.exchange(requestUrl, HttpMethod.GET, getEntityWithHeader(accessToken),
+                new ParameterizedTypeReference<List<CommitResponse>>(){});
     }
 
     private HttpEntity<String> getEntityWithHeader(String accessToken) {
