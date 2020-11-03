@@ -47,7 +47,7 @@ public class GithubRestTemplate {
                 .path("/{repo}")
                 .path("/stats/contributors")
                 .queryParam("page", page)
-                .queryParam("sort", "created")
+                .queryParam("sort", "updated")
                 .buildAndExpand(owner, repo).toUriString();
         log.info("[STAT] : {}", requestUrl);
 

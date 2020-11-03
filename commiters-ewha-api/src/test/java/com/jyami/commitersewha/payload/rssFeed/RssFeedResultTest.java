@@ -1,5 +1,6 @@
 package com.jyami.commitersewha.payload.rssFeed;
 
+import com.jyami.commitersewha.domain.rssFeed.FeedType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,7 +31,7 @@ class RssFeedResultTest {
         mockRssFeedServerSetting.creatBlogMockServer();
         String url = "http://localhost:9000/mock/kakaoenterprise/rss";
 
-        RssFeedResult parsing = RssFeedResult.parsing(RssFeedParser.parsingEntry(url));
+        RssFeedResult parsing = RssFeedResult.parsing(RssFeedParser.parsingEntry(url), FeedType.OVERSEA);
 
         assertThat(parsing.getBlogName()).isEqualTo("카카오엔터프라이즈 기술블로그 Tech&(테크앤)");
         assertThat(parsing.getFeedContents().size()).isEqualTo(10);

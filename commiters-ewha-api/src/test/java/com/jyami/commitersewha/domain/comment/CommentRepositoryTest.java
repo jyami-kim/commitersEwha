@@ -25,7 +25,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @DataJpaTest
 @ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
 @Import(TestConfig.class)
 class CommentRepositoryTest {
 
