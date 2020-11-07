@@ -23,7 +23,7 @@ class UserTest {
     @DisplayName("기본설정되어있는 이름을 이용해 개인정보를 분리한다")
     void name() {
         String googleName = "김민정(엘텍공과대학 소프트웨어학부)";
-        String[] userInfo = User.devideName(googleName);
+        String[] userInfo = User.divideName(googleName);
         assertThat(userInfo[0]).isEqualTo("김민정");
         assertThat(userInfo[1]).isEqualTo("엘텍공과대학 소프트웨어학부");
     }

@@ -3,13 +3,15 @@ package com.jyami.commitersewha.domain.user;
 import com.jyami.commitersewha.domain.BaseTime;
 import com.jyami.commitersewha.domain.tag.Badge;
 import com.jyami.commitersewha.domain.tag.DevStack;
-import com.jyami.commitersewha.security.oauth2.user.OAuth2UserInfo;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by jyami on 2020/09/14
@@ -101,25 +103,11 @@ public class User extends BaseTime {
         devStacks.removeAll(devStackList);
     }
 
-    public static User toGoogleInfoEntity(OAuth2UserInfo oAuth2UserInfo) {
-        String[] userInfo = devideName(oAuth2UserInfo.getName());
-        return User.builder()
-                .subId(emailToSubId(oAuth2UserInfo.getEmail()))
-                .email(oAuth2UserInfo.getEmail())
-                .providerId(oAuth2UserInfo.getId())
-                .defaultMajor(userInfo[1])
-                .name(userInfo[0])
-                .imageUrl(oAuth2UserInfo.getImageUrl())
-                .emailVerified(oAuth2UserInfo.getEmailVerified())
-                .role(Role.USER)
-                .build();
-    }
-
     public static String emailToSubId(String email) {
         return email.split("@")[0];
     }
 
-    protected static String[] devideName(String googleName) {
+    public static String[] divideName(String googleName) {
         int start = googleName.indexOf('(');
         int end = googleName.indexOf(')');
         return new String[]{googleName.substring(0, start), googleName.substring(start + 1, end)};

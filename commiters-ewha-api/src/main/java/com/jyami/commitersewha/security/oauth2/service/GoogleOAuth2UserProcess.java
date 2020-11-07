@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+import static com.jyami.commitersewha.domain.user.User.divideName;
+import static com.jyami.commitersewha.domain.user.User.emailToSubId;
+
 /**
  * Created by jyami on 2020/10/12
  */
@@ -41,7 +44,21 @@ public final class GoogleOAuth2UserProcess extends OAuth2UserProcess {
     }
 
     private User registerNewUserAsGoogle(OAuth2UserInfo oAuth2UserInfo) {
-        User user = User.toGoogleInfoEntity(oAuth2UserInfo);
+        User user = toGoogleInfoEntity(oAuth2UserInfo);
         return userRepository.save(user);
+    }
+
+    private static User toGoogleInfoEntity(OAuth2UserInfo oAuth2UserInfo) {
+        String[] userInfo = User.divideName(oAuth2UserInfo.getName());
+        return User.builder()
+                .subId(emailToSubId(oAuth2UserInfo.getEmail()))
+                .email(oAuth2UserInfo.getEmail())
+                .providerId(oAuth2UserInfo.getId())
+                .defaultMajor(userInfo[1])
+                .name(userInfo[0])
+                .imageUrl(oAuth2UserInfo.getImageUrl())
+                .emailVerified(oAuth2UserInfo.getEmailVerified())
+                .role(User.Role.USER)
+                .build();
     }
 }

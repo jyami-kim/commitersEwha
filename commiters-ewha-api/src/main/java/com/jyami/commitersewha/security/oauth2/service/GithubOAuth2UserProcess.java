@@ -63,8 +63,19 @@ public final class GithubOAuth2UserProcess extends OAuth2UserProcess {
 
     private GithubInfo registerNewUserAsGithub(String token, OAuth2UserInfo newInfo) {
         User currentUsersWithGoogleToken = getCurrentUsersWithGoogleToken();
-        GithubInfo githubInfo = GithubInfo.toGithubInfoEntity(newInfo, currentUsersWithGoogleToken);
+        GithubInfo githubInfo = toGithubInfoEntity(newInfo, currentUsersWithGoogleToken);
         githubInfo.setToken(token);
         return githubInfoRepository.save(githubInfo);
     }
+
+    private static GithubInfo toGithubInfoEntity(OAuth2UserInfo oAuth2UserInfo, User user) {
+        return GithubInfo.builder()
+                .email(oAuth2UserInfo.getEmail())
+                .providerId(oAuth2UserInfo.getId())
+                .name(oAuth2UserInfo.getName())
+                .imageUrl(oAuth2UserInfo.getImageUrl())
+                .user(user)
+                .build();
+    }
+
 }
