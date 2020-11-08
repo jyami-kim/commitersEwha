@@ -1,4 +1,4 @@
-package com.jyami.commitersewha.config.exception;
+package com.jyami.commitersewha.exception;
 
 /**
  * Created by jyami on 2020/11/01

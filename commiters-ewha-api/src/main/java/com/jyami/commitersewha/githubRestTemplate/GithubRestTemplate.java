@@ -1,9 +1,9 @@
-package com.jyami.commitersewha.config.restTemplate;
+package com.jyami.commitersewha.githubRestTemplate;
 
-import com.jyami.commitersewha.config.payload.CommitResponse;
-import com.jyami.commitersewha.config.payload.CommitStatisticResponse;
-import com.jyami.commitersewha.config.payload.RepositoryResponse;
-import com.jyami.commitersewha.config.payload.UserDetailResponse;
+import com.jyami.commitersewha.githubRestTemplate.response.CommitResponse;
+import com.jyami.commitersewha.githubRestTemplate.response.CommitStatisticResponse;
+import com.jyami.commitersewha.githubRestTemplate.response.RepositoryResponse;
+import com.jyami.commitersewha.githubRestTemplate.response.UserDetailResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;

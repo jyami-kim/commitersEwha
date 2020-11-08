@@ -15,6 +15,8 @@ buildscript {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
@@ -23,12 +25,24 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.11.3'
     compile group: 'com.rometools', name: 'rome', version: '1.5.0'
     testCompile group: 'org.mock-server', name: 'mockserver-netty', version: '5.8.1'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
+    runtimeOnly 'mysql:mysql-connector-java'
+    runtimeOnly 'com.h2database:h2'
+
+    // querydsl
+    compile("com.querydsl:querydsl-jpa")
+    compile("com.querydsl:querydsl-apt")
+
+
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     testImplementation 'org.springframework.security:spring-security-test'
     testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.0'
+
+
 
 }
 

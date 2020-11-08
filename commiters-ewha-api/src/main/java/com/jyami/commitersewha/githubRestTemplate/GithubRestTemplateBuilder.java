@@ -1,8 +1,7 @@
-package com.jyami.commitersewha.config.restTemplate;
+package com.jyami.commitersewha.githubRestTemplate;
 
 import com.google.common.net.HttpHeaders;
 import com.jyami.commitersewha.config.GithubProperties;
-import com.jyami.commitersewha.config.handler.RestTemplateErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 

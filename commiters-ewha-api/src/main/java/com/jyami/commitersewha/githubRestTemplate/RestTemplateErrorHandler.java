@@ -1,21 +1,21 @@
-package com.jyami.commitersewha.config.handler;
+package com.jyami.commitersewha.githubRestTemplate;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-
-/**
- * Created by jyami on 2020/11/01
- */
-
-import com.jyami.commitersewha.config.exception.RestTemplateResponseException;
+import com.jyami.commitersewha.exception.RestTemplateResponseException;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.ResponseErrorHandler;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
 import static org.springframework.http.HttpStatus.Series.CLIENT_ERROR;
 import static org.springframework.http.HttpStatus.Series.SERVER_ERROR;
+
+/**
+ * Created by jyami on 2020/11/01
+ */
 
 @Slf4j
 @NoArgsConstructor

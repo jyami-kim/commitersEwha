@@ -1,4 +1,4 @@
-package com.jyami.commitersewha.config.payload;
+package com.jyami.commitersewha.githubRestTemplate.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

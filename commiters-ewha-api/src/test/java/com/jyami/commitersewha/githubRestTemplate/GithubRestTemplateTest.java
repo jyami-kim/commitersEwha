@@ -1,27 +1,19 @@
-package com.jyami.commitersewha.config.restTemplate;
+package com.jyami.commitersewha.githubRestTemplate;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.jyami.commitersewha.config.payload.CommitResponse;
-import com.jyami.commitersewha.config.payload.CommitStatisticResponse;
-import com.jyami.commitersewha.config.payload.RepositoryResponse;
-import com.jyami.commitersewha.config.payload.UserDetailResponse;
+import com.jyami.commitersewha.githubRestTemplate.response.CommitResponse;
+import com.jyami.commitersewha.githubRestTemplate.response.CommitStatisticResponse;
+import com.jyami.commitersewha.githubRestTemplate.response.RepositoryResponse;
+import com.jyami.commitersewha.githubRestTemplate.response.UserDetailResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.Properties;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by jyami on 2020/11/02

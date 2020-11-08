@@ -1,4 +1,4 @@
-package com.jyami.commitersewha.config.restTemplate;
+package com.jyami.commitersewha.githubRestTemplate;
 
 import com.jyami.commitersewha.config.GithubProperties;
 import lombok.RequiredArgsConstructor;

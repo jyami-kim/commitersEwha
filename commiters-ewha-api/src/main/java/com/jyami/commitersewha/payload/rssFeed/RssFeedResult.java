@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @ToString
 public class RssFeedResult {
     private String blogName;
+    @Builder.Default
     private List<RssFeedContents> feedContents = Collections.emptyList();
     private boolean isError;
     private FeedType feedType;
