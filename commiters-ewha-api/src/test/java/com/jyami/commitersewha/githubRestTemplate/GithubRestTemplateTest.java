@@ -1,6 +1,6 @@
 package com.jyami.commitersewha.githubRestTemplate;
 
-import com.jyami.commitersewha.githubRestTemplate.response.CommitResponse;
+import com.jyami.commitersewha.githubRestTemplate.response.GithubCommitResponse;
 import com.jyami.commitersewha.githubRestTemplate.response.CommitStatisticResponse;
 import com.jyami.commitersewha.githubRestTemplate.response.RepositoryResponse;
 import com.jyami.commitersewha.githubRestTemplate.response.UserDetailResponse;
@@ -49,7 +49,7 @@ class GithubRestTemplateTest {
 
     @Test
     void getReposCommitList() {
-        ResponseEntity<List<CommitResponse>> reposCommitList = githubRestTemplate.getReposCommitList(accessToken, 1, "java-Bom", "ReadingRecord", "mjung1798");
+        ResponseEntity<List<GithubCommitResponse>> reposCommitList = githubRestTemplate.getReposCommitList(accessToken, 1, "java-Bom", "ReadingRecord", "mjung1798");
         reposCommitList.getBody().forEach(System.out::println);
     }
 }

@@ -10,11 +10,12 @@ import java.util.Map;
  */
 public class GoogleOAuth2UserInfo extends OAuth2UserInfo {
 
-    public GoogleOAuth2UserInfo(Map<String, Object> attributes, List<String> domain) {
+    public GoogleOAuth2UserInfo(Map<String, Object> attributes, List<String> domains) {
         super(attributes);
-        if (!domain.contains(this.getEmail())) {
-            throw new OAuth2AuthenticationProcessingException("This Email is not EWHA students thing");
-        }
+        domains.stream()
+                .filter(domain -> this.getEmail().contains(domain))
+                .findAny()
+                .orElseThrow(() -> new OAuth2AuthenticationProcessingException("This Email is not EWHA students thing"));
     }
 
     @Override

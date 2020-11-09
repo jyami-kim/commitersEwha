@@ -7,7 +7,9 @@ import java.util.Optional;
 /**
  * Created by jyami on 2020/10/12
  */
-public interface GithubInfoRepository extends JpaRepository<GithubInfo, Long> {
+public interface GithubInfoRepository extends JpaRepository<GithubInfo, Long>, GithubInfoCustom {
+
+    Optional<GithubInfo> findByAuthorId(String authorId);
 
     Optional<GithubInfo> findByEmail(String email);
 }

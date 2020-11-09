@@ -38,6 +38,7 @@ class UserRepositoryTest {
 
     @Autowired
     private BadgeRepository badgeRepository;
+
     @Autowired
     private DevStackRepository devStackRepository;
 

@@ -1,6 +1,6 @@
 package com.jyami.commitersewha.githubRestTemplate;
 
-import com.jyami.commitersewha.githubRestTemplate.response.CommitResponse;
+import com.jyami.commitersewha.githubRestTemplate.response.GithubCommitResponse;
 import com.jyami.commitersewha.githubRestTemplate.response.CommitStatisticResponse;
 import com.jyami.commitersewha.githubRestTemplate.response.RepositoryResponse;
 import com.jyami.commitersewha.githubRestTemplate.response.UserDetailResponse;
@@ -30,7 +30,7 @@ public class GithubRestTemplate {
     public ResponseEntity<List<RepositoryResponse>> getUserRepositories(String accessToken, int page) {
         String requestUrl = UriComponentsBuilder.fromUriString("/user/repos")
                 .queryParam("page", page)
-                .queryParam("sort", "created")
+                .queryParam("sort", "updated")
                 .build().toUriString();
         log.info("[REPOS] : {}", requestUrl);
         return restTemplate.exchange(requestUrl, HttpMethod.GET, getEntityWithHeader(accessToken),
@@ -55,7 +55,7 @@ public class GithubRestTemplate {
                 new ParameterizedTypeReference<List<CommitStatisticResponse>>(){});
     }
 
-    public ResponseEntity<List<CommitResponse>> getReposCommitList(String accessToken, int page, String owner, String repo, String author) {
+    public ResponseEntity<List<GithubCommitResponse>> getReposCommitList(String accessToken, int page, String owner, String repo, String author) {
         String requestUrl = UriComponentsBuilder.fromUriString("/repos")
                 .path("/{owner}")
                 .path("/{repo}")
@@ -65,7 +65,7 @@ public class GithubRestTemplate {
                 .buildAndExpand(owner, repo).toUriString();
         log.info("[COMMIT] : {}", requestUrl);
         return restTemplate.exchange(requestUrl, HttpMethod.GET, getEntityWithHeader(accessToken),
-                new ParameterizedTypeReference<List<CommitResponse>>(){});
+                new ParameterizedTypeReference<List<GithubCommitResponse>>(){});
     }
 
     private HttpEntity<String> getEntityWithHeader(String accessToken) {

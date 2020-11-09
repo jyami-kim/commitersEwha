@@ -1,5 +1,6 @@
 package com.jyami.commitersewha.domain.githubInfo;
 
+import com.jyami.commitersewha.domain.BaseTime;
 import com.jyami.commitersewha.domain.user.User;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Builder(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @DynamicUpdate
-public class GithubInfo {
+public class GithubInfo extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +27,8 @@ public class GithubInfo {
 
     @Setter
     private String name;
+
+    private String authorId;
 
     private String email;
 
