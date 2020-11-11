@@ -28,13 +28,13 @@ public class CommitStatisticResponse {
     @JsonIgnoreProperties
     public static class Statistic{
         @JsonProperty("w")
-        private Long week; //UNIX Time
+        private long week; //UNIX Time
         @JsonProperty("a")
-        private Long additions;
+        private long additions;
         @JsonProperty("d")
-        private Long deletions;
-        @JsonProperty("s")
-        private Long commits;
+        private long deletions;
+        @JsonProperty("c")
+        private long commits;
     }
 
     @ToString

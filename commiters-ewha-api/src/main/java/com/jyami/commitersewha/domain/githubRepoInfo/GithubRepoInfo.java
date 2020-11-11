@@ -32,9 +32,12 @@ public class GithubRepoInfo extends BaseTime {
     private int watchersCount;
     private int forksCount;
 
-    private int additions;
-    private int deletions;
-    private int commits;
+    @Setter
+    private long additions;
+    @Setter
+    private long deletions;
+    @Setter
+    private long commits;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "infoId")

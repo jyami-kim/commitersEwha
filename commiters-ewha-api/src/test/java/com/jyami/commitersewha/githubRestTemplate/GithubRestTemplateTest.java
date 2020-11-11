@@ -43,7 +43,8 @@ class GithubRestTemplateTest {
 
     @Test
     void getReposCommitStat() {
-        ResponseEntity<List<CommitStatisticResponse>> reposCommitStat = githubRestTemplate.getReposCommitStat(accessToken, 1, "java-Bom", "ReadingRecord");
+        // /repos/junctionxseoulzapzep/zepzap-server/stats/contributors
+        ResponseEntity<List<CommitStatisticResponse>> reposCommitStat = githubRestTemplate.getReposCommitStat(accessToken, "junctionxseoulzapzep", "zepzap-server");
         reposCommitStat.getBody().forEach(System.out::println);
     }
 

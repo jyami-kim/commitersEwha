@@ -41,13 +41,11 @@ public class GithubRestTemplate {
         return restTemplate.exchange("/user", HttpMethod.GET, getEntityWithHeader(accessToken), UserDetailResponse.class);
     }
 
-    public ResponseEntity<List<CommitStatisticResponse>> getReposCommitStat(String accessToken, int page, String owner, String repo) {
+    public ResponseEntity<List<CommitStatisticResponse>> getReposCommitStat(String accessToken, String owner, String repo) {
         String requestUrl = UriComponentsBuilder.fromUriString("/repos")
                 .path("/{owner}")
                 .path("/{repo}")
                 .path("/stats/contributors")
-                .queryParam("page", page)
-                .queryParam("sort", "updated")
                 .buildAndExpand(owner, repo).toUriString();
         log.info("[STAT] : {}", requestUrl);
 

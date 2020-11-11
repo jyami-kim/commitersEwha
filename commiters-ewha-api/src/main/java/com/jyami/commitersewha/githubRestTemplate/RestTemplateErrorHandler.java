@@ -31,7 +31,7 @@ public class RestTemplateErrorHandler implements ResponseErrorHandler {
         if (hasError(httpResponse)) {
             String responseBody = IOUtils.toString(httpResponse.getBody(), StandardCharsets.UTF_8.name());
             log.info("API CALL ERROR {}: {}", httpResponse.getRawStatusCode(), httpResponse.getStatusText());
-            throw new RestTemplateResponseException(responseBody);
+            throw new RestTemplateResponseException(responseBody, httpResponse.getRawStatusCode());
         }
     }
 

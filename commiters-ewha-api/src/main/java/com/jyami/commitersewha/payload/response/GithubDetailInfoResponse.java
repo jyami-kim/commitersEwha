@@ -1,6 +1,5 @@
 package com.jyami.commitersewha.payload.response;
 
-import com.jyami.commitersewha.domain.comment.Comment;
 import com.jyami.commitersewha.domain.githubInfo.GithubInfo;
 import lombok.*;
 
@@ -17,7 +16,7 @@ public class GithubDetailInfoResponse {
     private String name;
     private String email;
     private String imageUrl;
-    private String providerId;
+    private Long providerId;
     private String authorId;
 
     public static GithubDetailInfoResponse fromEntity(GithubInfo githubInfo) {

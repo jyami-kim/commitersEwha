@@ -35,7 +35,7 @@ public class GithubInfo extends BaseTime {
     @Setter
     private String imageUrl;
 
-    private String providerId;
+    private Long providerId;
 
     @Setter
     private String token;

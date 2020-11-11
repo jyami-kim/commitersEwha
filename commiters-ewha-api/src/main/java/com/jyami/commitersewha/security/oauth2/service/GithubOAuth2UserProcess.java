@@ -71,7 +71,7 @@ public final class GithubOAuth2UserProcess extends OAuth2UserProcess {
     private static GithubInfo toGithubInfoEntity(OAuth2UserInfo oAuth2UserInfo, User user) {
         return GithubInfo.builder()
                 .email(oAuth2UserInfo.getEmail())
-                .providerId(oAuth2UserInfo.getId())
+                .providerId(Long.parseLong(oAuth2UserInfo.getId()))
                 .name(oAuth2UserInfo.getName())
                 .imageUrl(oAuth2UserInfo.getImageUrl())
                 .user(user)
