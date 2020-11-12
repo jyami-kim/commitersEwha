@@ -1,6 +1,5 @@
 package com.jyami.commitersewha.domain.githubRepoInfo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jyami.commitersewha.domain.BaseTime;
 import com.jyami.commitersewha.domain.githubInfo.GithubInfo;
 import lombok.*;
@@ -20,7 +19,6 @@ import javax.persistence.*;
 public class GithubRepoInfo extends BaseTime {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long repoInfoId;
 
     private String name;

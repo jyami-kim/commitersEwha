@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @JsonIgnoreProperties
 public class RepositoryResponse {
+    private Long id;
     private String name;
     @JsonProperty("full_name")
     private String fullName;
@@ -39,6 +40,7 @@ public class RepositoryResponse {
 
     public GithubRepoInfo toEntity(GithubInfo githubInfo) {
         return GithubRepoInfo.builder()
+                .repoInfoId(this.id)
                 .name(this.name)
                 .owner(owner())
                 .htmlUrl(this.htmlUrl)

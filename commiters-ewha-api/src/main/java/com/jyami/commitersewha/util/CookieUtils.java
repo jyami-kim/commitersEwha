@@ -1,6 +1,5 @@
 package com.jyami.commitersewha.util;
 
-import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.util.SerializationUtils;
 
 import javax.servlet.http.Cookie;
