@@ -30,7 +30,7 @@ class RssFeedParserTest {
     }
 
     @Test
-    @Disabled
+//    @Disabled
     @DisplayName("feedParser의 기능을 학습한다.")
     void learnFeedParserFeature() throws IOException, FeedException {
         String url = "https://d2.naver.com/d2.atom";

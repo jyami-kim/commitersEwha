@@ -1,10 +1,15 @@
 package com.jyami.commitersewha.payload.rssFeed;
 
+import com.jyami.commitersewha.domain.rssFeed.FeedType;
+import com.jyami.commitersewha.domain.rssFeed.RssFeed;
 import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndEntry;
 import lombok.*;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -22,32 +27,49 @@ public class RssFeedContents implements Comparable<RssFeedContents> {
     private String company;
     private String title;
     private String link;
-    private Date date;
+    private String date;
     private String description;
+    private String color;
+    private FeedType feedType;
+    private String image;
 
-    public static RssFeedContents of(String company, SyndEntry entry) {
-
+    public static RssFeedContents of(RssFeed rssFeed, SyndEntry entry) {
+        String description = disposeDescription(entry);
         return RssFeedContents.builder()
-                .company(company)
+                .company(rssFeed.getName())
+                .color(rssFeed.getColor())
+                .feedType(rssFeed.getFeedType())
                 .title(entry.getTitle())
-                .link(disPoseLink(company, entry))
+                .link(disposeLink(rssFeed.getName(), entry))
                 .date(disPoseDate(entry))
-                .description(parsingAndLimitText(disPoseDescription(entry)))
+                .description(parsingText(description))
+                .image(disposeImage(description))
                 .build();
     }
 
-    private static Date disPoseDate(SyndEntry entry) {
-        return entry.getPublishedDate() != null ? entry.getPublishedDate() : entry.getUpdatedDate();
+    private static String disPoseDate(SyndEntry entry) {
+        Date date = entry.getPublishedDate() != null ? entry.getPublishedDate() : entry.getUpdatedDate();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+        return format.format(date);
     }
 
-    private static String disPoseLink(String company, SyndEntry entry) {
-        if (company.equals("Amazon")) {
-            return "https://developer.amazon.com/blogs/" + entry.getLink();
+    private static String disposeImage(String html){
+        Document parse = Jsoup.parse(html);
+        Element element = parse.selectFirst("img");
+        if(element != null){
+            return element.attr("src");
+        }
+        return null;
+    }
+
+    private static String disposeLink(String company, SyndEntry entry) {
+        if (company.equals("Amazon Developer")) {
+            return "https://developer.amazon.com" + entry.getLink();
         }
         return entry.getLink();
     }
 
-    private static String disPoseDescription(SyndEntry entry) {
+    private static String disposeDescription(SyndEntry entry) {
         SyndContent descriptionEntry = entry.getDescription();
         String description = "";
         if (descriptionEntry != null) {
@@ -58,7 +80,7 @@ public class RssFeedContents implements Comparable<RssFeedContents> {
         return description;
     }
 
-    protected static String parsingAndLimitText(String html) {
+    protected static String parsingText(String html) {
         String description = Jsoup.parse(html).text();
         if (description.length() > LIMIT_TEXT) {
             return description.substring(0, LIMIT_TEXT);

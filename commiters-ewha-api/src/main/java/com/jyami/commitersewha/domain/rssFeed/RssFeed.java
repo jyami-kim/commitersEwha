@@ -25,6 +25,8 @@ public class RssFeed {
 
     private String name;
 
+    private String color;
+
     @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
     private FeedType feedType;

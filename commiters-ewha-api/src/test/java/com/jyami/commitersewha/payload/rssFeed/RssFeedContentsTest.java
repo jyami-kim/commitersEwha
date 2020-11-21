@@ -14,7 +14,7 @@ class RssFeedContentsTest {
     void parsingDescription() {
         byte[] bytes = TestResourceLoader.readFile("kakao_rss_description.html");
         String html = new String(bytes, StandardCharsets.UTF_8);
-        String result = RssFeedContents.parsingAndLimitText(html);
+        String result = RssFeedContents.parsingText(html);
         System.out.println(result);
     }
 }
