@@ -23,7 +23,7 @@ public class MockRssFeedServerSetting {
                 .respond(
                         response()
                                 .withStatusCode(200)
-                                .withBody(TestResourceLoader.readFile("kakaoenterprise.xml"))
+                                .withBody(TestResourceLoader.readFile("kakao_rss.xml"))
                 );
 
     }

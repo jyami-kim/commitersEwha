@@ -33,12 +33,12 @@ class RssFeedParserTest {
     @Disabled
     @DisplayName("feedParser의 기능을 학습한다.")
     void learnFeedParserFeature() throws IOException, FeedException {
-        String url = "https://tech.kakaoenterprise.com/rss";
+        String url = "https://d2.naver.com/d2.atom";
         SyndFeed feed = new SyndFeedInput().build(new XmlReader(new URL(url)));
         System.out.println("================" + feed.getTitle() + "================");
         for (int i = 0; i < feed.getEntries().size(); i++) {
             SyndEntry entry = feed.getEntries().get(i);
-            System.out.println(entry.getTitle() + " => " + entry.getLink());
+            System.out.println(entry.getTitle() + " => " + entry.getLink() + ":" + entry.getPublishedDate());
         }
     }
 

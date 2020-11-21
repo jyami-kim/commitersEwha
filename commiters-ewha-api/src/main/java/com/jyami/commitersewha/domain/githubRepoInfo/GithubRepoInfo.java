@@ -41,4 +41,8 @@ public class GithubRepoInfo extends BaseTime {
     @JoinColumn(name = "infoId")
     private GithubInfo githubInfo;
 
+    public void set(){
+
+    }
+
 }

@@ -55,16 +55,29 @@ public class GithubInfoService {
                 .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "userId", userId));
         String token = githubInfo.getToken();
 
+
+//        getUpdatedCommits(token, x, githubInfo.getAuthorId(), startDate)
+
+//        List<GithubCommitResponse> updatedCommits = ;
+
+    }
+
+    protected void updateDateRepository(String token, LocalDateTime startDate, GithubInfo githubInfo) {
+
         List<GithubRepoInfo> githubRepoInfos = validateStatusAndGetBody(githubRestTemplate.getUserRepositories(token, 1)).stream()
                 .filter(x -> x.getUpdatedAt().isAfter(startDate))
                 .map(x -> x.toEntity(githubInfo))
                 .collect(Collectors.toList());
 
+        List<Long> ids = githubRepoInfos.stream()
+                .map(GithubRepoInfo::getRepoInfoId)
+                .collect(Collectors.toList());
 
+//        githubRepoInfoRepository.findAllById(ids)
+//                .stream()
+//                .map(x -> x.())
 
-//        getUpdatedCommits(token, x, githubInfo.getAuthorId(), startDate)
-
-        List<GithubCommitResponse> updatedCommits = ;
+//        githubRepoInfoRepository.findAll().li
 
     }
 

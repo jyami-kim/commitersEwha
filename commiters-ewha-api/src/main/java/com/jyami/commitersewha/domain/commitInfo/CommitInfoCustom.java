@@ -8,5 +8,4 @@ import java.util.List;
  */
 public interface CommitInfoCustom {
     List<GithubCommitInfo> findBetweenTime(LocalDateTime startTime, LocalDateTime endTime, Long githubInfoId);
-
 }

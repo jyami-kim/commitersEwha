@@ -2,11 +2,10 @@ package com.jyami.commitersewha.controller;
 
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.ResponseCode;
-import com.jyami.commitersewha.payload.rssFeed.RssFeedResult;
+import com.jyami.commitersewha.payload.rssFeed.RssFeedContents;
 import com.jyami.commitersewha.service.RssFeedService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +30,7 @@ public class RssFeedController {
 
     @GetMapping("")
     public ResponseEntity<?> getAllPostWithPage() {
-        List<RssFeedResult> allRssFeedResult = rssFeedService.getAllRssFeedResult();
+        List<RssFeedContents> allRssFeedResult = rssFeedService.getAllRssFeedResult();
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(ResponseCode.OK, RSS_CONTENTS_SUCCESS, allRssFeedResult));
     }

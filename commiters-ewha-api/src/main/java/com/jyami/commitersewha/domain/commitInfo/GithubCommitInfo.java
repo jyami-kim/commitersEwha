@@ -19,11 +19,9 @@ import java.time.LocalDateTime;
 public class GithubCommitInfo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long commitId;
+    private String sha;
     private String htmlUrl;
     private String commitMessage;
-    private String nodeId;
     private LocalDateTime date;
 
     @ManyToOne(fetch = FetchType.LAZY)

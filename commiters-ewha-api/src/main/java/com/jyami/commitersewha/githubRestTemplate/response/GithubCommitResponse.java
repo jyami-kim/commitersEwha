@@ -24,8 +24,7 @@ public class GithubCommitResponse {
     @JsonProperty("html_url")
     private String htmlUrl;
     private Commit commit;
-    @JsonProperty("node_id")
-    private String nodeId;
+    private String sha;
 
     @ToString
     @Getter
@@ -48,7 +47,7 @@ public class GithubCommitResponse {
     public GithubCommitInfo toEntity(GithubInfo githubInfo) {
         return GithubCommitInfo.builder()
                 .commitMessage(resizeCommitMessage())
-                .nodeId(this.nodeId)
+                .sha(this.sha)
                 .htmlUrl(this.htmlUrl)
                 .githubInfo(githubInfo)
                 .date(this.commit.author.date)
