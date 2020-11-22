@@ -50,6 +50,8 @@ public class RepositoryResponse {
                 .watchersCount(this.watchersCount)
                 .forksCount(this.forksCount)
                 .githubInfo(githubInfo)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
                 .build();
     }
 

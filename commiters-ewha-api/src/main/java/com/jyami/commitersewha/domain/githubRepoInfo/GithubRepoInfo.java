@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * Created by jyami on 2020/11/09
@@ -16,7 +17,8 @@ import javax.persistence.*;
 @Builder(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @DynamicUpdate
-public class GithubRepoInfo extends BaseTime {
+@ToString
+public class GithubRepoInfo {
 
     @Id
     private long repoInfoId;
@@ -37,12 +39,12 @@ public class GithubRepoInfo extends BaseTime {
     @Setter
     private long commits;
 
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "infoId")
     private GithubInfo githubInfo;
-
-    public void set(){
-
-    }
 
 }

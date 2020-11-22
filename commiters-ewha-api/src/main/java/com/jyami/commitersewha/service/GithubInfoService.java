@@ -55,7 +55,7 @@ public class GithubInfoService {
                 .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "userId", userId));
         String token = githubInfo.getToken();
 
-
+        updateDateRepository(token, startDate, githubInfo);
 //        getUpdatedCommits(token, x, githubInfo.getAuthorId(), startDate)
 
 //        List<GithubCommitResponse> updatedCommits = ;
@@ -64,20 +64,28 @@ public class GithubInfoService {
 
     protected void updateDateRepository(String token, LocalDateTime startDate, GithubInfo githubInfo) {
 
-        List<GithubRepoInfo> githubRepoInfos = validateStatusAndGetBody(githubRestTemplate.getUserRepositories(token, 1)).stream()
+//        Map<Long, GithubRepoInfo> githubRepoInfoMap = validateStatusAndGetBody(githubRestTemplate.getUserRepositories(token, 1)).stream()
+//                .filter(x -> x.getUpdatedAt().isAfter(startDate))
+//                .map(x -> x.toEntity(githubInfo))
+//                .collect(Collectors.toMap(GithubRepoInfo::getRepoInfoId, x -> x));
+
+        List<GithubRepoInfo> collect = validateStatusAndGetBody(githubRestTemplate.getUserRepositories(token, 1)).stream()
                 .filter(x -> x.getUpdatedAt().isAfter(startDate))
                 .map(x -> x.toEntity(githubInfo))
                 .collect(Collectors.toList());
 
-        List<Long> ids = githubRepoInfos.stream()
-                .map(GithubRepoInfo::getRepoInfoId)
-                .collect(Collectors.toList());
+        log.info(collect.toString());
 
-//        githubRepoInfoRepository.findAllById(ids)
-//                .stream()
-//                .map(x -> x.())
+        githubRepoInfoRepository.saveAll(collect);
 
-//        githubRepoInfoRepository.findAll().li
+//        List<GithubRepoInfo> allById = githubRepoInfoRepository.findAllById(githubRepoInfoMap.keySet());
+//
+//        for(GithubRepoInfo githubRepoInfo: allById){
+//            if(githubRepoInfoMap.containsKey(githubInfo.getId())){
+//
+//            }
+//        }
+
 
     }
 

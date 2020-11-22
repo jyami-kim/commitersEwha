@@ -4,9 +4,12 @@ import com.jyami.commitersewha.domain.BaseTime;
 import com.jyami.commitersewha.domain.user.User;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 /**
  * Created by jyami on 2020/10/12

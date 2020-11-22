@@ -9,11 +9,17 @@ import com.jyami.commitersewha.payload.response.PostResponse;
 import com.jyami.commitersewha.security.CurrentUser;
 import com.jyami.commitersewha.security.GoogleUserPrincipal;
 import com.jyami.commitersewha.service.GithubInfoService;
+import com.jyami.commitersewha.util.TimeUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import static com.jyami.commitersewha.payload.ResponseMessage.*;
 
@@ -44,6 +50,15 @@ public class GithubInfoController {
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(ResponseCode.OK, SAVE_GITHUB_REPOSITORY_INFO_SUCCESS));
     }
+
+    @PostMapping("update/{startDate}") // YYYY-MM-dd
+    public ResponseEntity<?> updateGithubRepositoryInfo(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable String startDate){
+        log.info("---updateGithubInfo : userId = {} date = {}", googleUserPrincipal.getId(), startDate);
+        githubInfoService.updateDateInfo(TimeUtils.getStartDate(startDate), googleUserPrincipal.getId());
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(ResponseCode.OK, SAVE_GITHUB_REPOSITORY_INFO_SUCCESS));
+    }
+
 
 //    @GetMapping("newInformation")
 //    public ResponseEntity<?> saveNewGithubInfo(@CurrentUser GoogleUserPrincipal googleUserPrincipal) {
