@@ -1,6 +1,7 @@
 package com.jyami.commitersewha.controller;
 
 import com.jyami.commitersewha.domain.commitInfo.GithubCommitInfo;
+import com.jyami.commitersewha.domain.commitInfo.dto.CommitMap;
 import com.jyami.commitersewha.domain.githubInfo.GithubInfo;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.ResponseCode;
@@ -23,6 +24,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.jyami.commitersewha.payload.ResponseMessage.*;
 
@@ -59,13 +61,14 @@ public class GithubInfoController {
         log.info("---updateGithubInfo : userId = {} date = {}", googleUserPrincipal.getId(), startDate);
         HashMap<String, List<GithubCommitInfo>> updateDataInfo = githubInfoService.updateDateInfo(TimeUtils.getStartDate(startDate), googleUserPrincipal.getId());
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(ResponseCode.OK, SAVE_GITHUB_REPOSITORY_INFO_SUCCESS, updateDataInfo));
+                .body(DefaultResponse.of(ResponseCode.OK, UPDATE_GITHUB_INFO_SUCCESS, updateDataInfo));
     }
 
-
-//    @GetMapping("newInformation")
-//    public ResponseEntity<?> saveNewGithubInfo(@CurrentUser GoogleUserPrincipal googleUserPrincipal) {
-//        log.info("---saveNewGithubInfo : parameter = {}", googleUserPrincipal.getId());
-//        return null;
-//    }
+    @GetMapping("commitMap/{authorId}")
+    public ResponseEntity<?> saveNewGithubInfo(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable String authorId) {
+        log.info("---commitMap : search {} => {}", googleUserPrincipal.getId(), authorId);
+        List<CommitMap> commitMapCount = githubInfoService.findCommitMapCount(authorId);
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(ResponseCode.OK, FIND_COMMIT_SUCCESS, commitMapCount));
+    }
 }

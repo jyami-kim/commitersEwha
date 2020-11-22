@@ -26,4 +26,8 @@ public class TimeUtils {
     public static LocalDateTime getTodayEndTime() {
         return getEndDate(LocalDate.now());
     }
+
+    public static LocalDateTime getThisYearStartTime() {
+        return getStartDate(LocalDate.now().minusWeeks(52));
+    }
 }

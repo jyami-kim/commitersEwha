@@ -41,6 +41,7 @@ public final class ResponseMessage {
     public static final String GITHUB_REST_CALL_ERROR = "github OK status 값을 받지 못했습니다.";
 
     public static final String SAVE_GITHUB_REPOSITORY_INFO_SUCCESS = "github repository 정보 저장 성공";
-    public static final String 보 = "github 정 시간에 따른 없데이트 성공";
+    public static final String UPDATE_GITHUB_INFO_SUCCESS = "시간에 따른 github 정보 없데이트 성공";
+    public static final String FIND_COMMIT_SUCCESS = "나열된 커밋맵 찾기 성공";
 
 }

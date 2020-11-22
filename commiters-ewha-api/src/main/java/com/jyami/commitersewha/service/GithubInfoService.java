@@ -2,6 +2,7 @@ package com.jyami.commitersewha.service;
 
 import com.jyami.commitersewha.domain.commitInfo.GithubCommitInfo;
 import com.jyami.commitersewha.domain.commitInfo.CommitInfoRepository;
+import com.jyami.commitersewha.domain.commitInfo.dto.CommitMap;
 import com.jyami.commitersewha.domain.githubInfo.GithubInfo;
 import com.jyami.commitersewha.domain.githubInfo.GithubInfoRepository;
 import com.jyami.commitersewha.domain.githubRepoInfo.GithubRepoInfo;
@@ -51,14 +52,18 @@ public class GithubInfoService {
         return GithubDetailInfoResponse.fromEntity(githubInfo);
     }
 
+    public List<CommitMap> findCommitMapCount(String authorId) {
+        GithubInfo githubInfo = githubInfoRepository.findByAuthorId(authorId)
+                .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
+        return commitInfoRepository.findCommitMapCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), githubInfo.getId());
+    }
+
     @Transactional
     public HashMap<String, List<GithubCommitInfo>> updateDateInfo(LocalDateTime startDate, Long userId) { // endDate는 무조껀 오늘 날짜
         GithubInfo githubInfo = githubInfoRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "userId", userId));
         String token = githubInfo.getToken();
-
         List<GithubRepoInfo> updateRepositoryInfo = updateDateRepository(token, startDate, githubInfo);
-
         return updateCommitInfo(token, updateRepositoryInfo, githubInfo, startDate);
     }
 
@@ -84,11 +89,16 @@ public class GithubInfoService {
                 .collect(Collectors.toList());
 
         List<GithubCommitInfo> saveData = commitInfoRepository.saveAll(githubCommitInfos);
-        githubCommitInfos.removeAll(betweenTime);
-        commitInfoRepository.deleteAll(githubCommitInfos);
+
+        List<GithubCommitInfo> removeData = betweenTime.stream()
+                .filter(x -> !saveData.contains(betweenTime))
+                .collect(Collectors.toList());
+
+        commitInfoRepository.deleteAll(removeData);
+
         return new HashMap<String, List<GithubCommitInfo>>() {{
             put("saveData", saveData);
-            put("deleteData", githubCommitInfos);
+            put("deleteData", removeData);
         }};
     }
 
@@ -207,7 +217,6 @@ public class GithubInfoService {
         }
         return repositoryResponses;
     }
-
 
     protected <T> List<T> validateStatusAndGetBody(ResponseEntity<List<T>> responseEntity) {
         if (responseEntity.getStatusCode() != HttpStatus.OK) {

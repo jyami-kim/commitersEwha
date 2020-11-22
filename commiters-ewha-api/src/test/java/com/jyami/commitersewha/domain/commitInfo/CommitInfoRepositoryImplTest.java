@@ -1,5 +1,6 @@
 package com.jyami.commitersewha.domain.commitInfo;
 
+import com.jyami.commitersewha.domain.commitInfo.dto.CommitMap;
 import com.jyami.commitersewha.domain.githubInfo.GithubInfo;
 import com.jyami.commitersewha.domain.githubInfo.GithubInfoRepository;
 import com.jyami.commitersewha.domain.user.User;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jyami on 2020/11/12
@@ -69,7 +71,14 @@ class CommitInfoRepositoryImplTest {
                 .githubInfo(mjung1798)
                 .build();
 
-        commitInfoRepository.saveAll(Arrays.asList(commitInfo, commitInfo2));
+        GithubCommitInfo commitInfo3 = GithubCommitInfo.builder()
+                .sha("bbb")
+                .date(LocalDateTime.of(2020, 11, 11, 12, 1))
+                .commitMessage("세번째 커밋")
+                .githubInfo(mjung1798)
+                .build();
+
+        commitInfoRepository.saveAll(Arrays.asList(commitInfo, commitInfo2, commitInfo3));
     }
 
     @Test
@@ -78,5 +87,12 @@ class CommitInfoRepositoryImplTest {
         LocalDate date = LocalDate.of(2020, 11, 11);
         List<GithubCommitInfo> betweenTime = commitInfoRepository.findBetweenTime(TimeUtils.getStartDate(date), TimeUtils.getEndDate(date), 1L);
         System.out.println(betweenTime);
+    }
+
+    @Test
+    void findCommitMap() {
+        sampleCommitSave();
+        List<?> commitMapCount = commitInfoRepository.findCommitMapCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), 1L);
+        System.out.println(commitMapCount);;
     }
 }
