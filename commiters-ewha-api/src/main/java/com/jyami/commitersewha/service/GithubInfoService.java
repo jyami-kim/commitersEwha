@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,43 +51,71 @@ public class GithubInfoService {
         return GithubDetailInfoResponse.fromEntity(githubInfo);
     }
 
-    public void updateDateInfo(LocalDateTime startDate, Long userId) { // endDate는 무조껀 오늘 날짜
+    @Transactional
+    public HashMap<String, List<GithubCommitInfo>> updateDateInfo(LocalDateTime startDate, Long userId) { // endDate는 무조껀 오늘 날짜
         GithubInfo githubInfo = githubInfoRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "userId", userId));
         String token = githubInfo.getToken();
 
-        updateDateRepository(token, startDate, githubInfo);
-//        getUpdatedCommits(token, x, githubInfo.getAuthorId(), startDate)
+        List<GithubRepoInfo> updateRepositoryInfo = updateDateRepository(token, startDate, githubInfo);
 
-//        List<GithubCommitResponse> updatedCommits = ;
-
+        return updateCommitInfo(token, updateRepositoryInfo, githubInfo, startDate);
     }
 
-    protected void updateDateRepository(String token, LocalDateTime startDate, GithubInfo githubInfo) {
-
-//        Map<Long, GithubRepoInfo> githubRepoInfoMap = validateStatusAndGetBody(githubRestTemplate.getUserRepositories(token, 1)).stream()
-//                .filter(x -> x.getUpdatedAt().isAfter(startDate))
-//                .map(x -> x.toEntity(githubInfo))
-//                .collect(Collectors.toMap(GithubRepoInfo::getRepoInfoId, x -> x));
+    protected List<GithubRepoInfo> updateDateRepository(String token, LocalDateTime startDate, GithubInfo githubInfo) {
 
         List<GithubRepoInfo> collect = validateStatusAndGetBody(githubRestTemplate.getUserRepositories(token, 1)).stream()
                 .filter(x -> x.getUpdatedAt().isAfter(startDate))
                 .map(x -> x.toEntity(githubInfo))
                 .collect(Collectors.toList());
 
-        log.info(collect.toString());
+        return githubRepoInfoRepository.saveAll(collect);
+    }
 
-        githubRepoInfoRepository.saveAll(collect);
+    protected HashMap<String, List<GithubCommitInfo>> updateCommitInfo(String token, List<GithubRepoInfo> githubRepoInfos, GithubInfo githubInfo, LocalDateTime startDate) {
 
-//        List<GithubRepoInfo> allById = githubRepoInfoRepository.findAllById(githubRepoInfoMap.keySet());
-//
-//        for(GithubRepoInfo githubRepoInfo: allById){
-//            if(githubRepoInfoMap.containsKey(githubInfo.getId())){
-//
-//            }
-//        }
+        List<GithubCommitInfo> betweenTime = commitInfoRepository.findBetweenTime(startDate, TimeUtils.getTodayEndTime(), githubInfo.getInfoId());
 
+        List<GithubCommitInfo> githubCommitInfos = githubRepoInfos.stream()
+                .map(c -> getUpdatedCommits(token, c, githubInfo.getAuthorId(), startDate))
+                .filter(c -> !c.isEmpty())
+                .flatMap(x -> x.stream()
+                        .map(y -> y.toEntity(githubInfo)))
+                .collect(Collectors.toList());
 
+        List<GithubCommitInfo> saveData = commitInfoRepository.saveAll(githubCommitInfos);
+        githubCommitInfos.removeAll(betweenTime);
+        commitInfoRepository.deleteAll(githubCommitInfos);
+        return new HashMap<String, List<GithubCommitInfo>>() {{
+            put("saveData", saveData);
+            put("deleteData", githubCommitInfos);
+        }};
+    }
+
+    protected List<GithubCommitResponse> getUpdatedCommits(String token, GithubRepoInfo githubRepoInfo, String authorId, LocalDateTime startDate) {
+        int page = 1;
+        List<GithubCommitResponse> repositoryResponses = new ArrayList<>();
+        while (true) {
+            try {
+                ResponseEntity<List<GithubCommitResponse>> commitList = githubRestTemplate
+                        .getReposCommitList(token, page++, githubRepoInfo.getOwner(), githubRepoInfo.getName(), authorId);
+
+                List<GithubCommitResponse> commitResponses = validateStatusAndGetBody(commitList).stream()
+                        .filter(x -> x.getCommit().getAuthor().getDate().isAfter(startDate))
+                        .collect(Collectors.toList());
+
+                boolean addAll = repositoryResponses.addAll(commitResponses);
+                if (!addAll) {
+                    break;
+                }
+            } catch (RestTemplateResponseException e) {
+                if (e.getStatus() != 409) {
+                    log.error(e.getLocalizedMessage());
+                }
+                break;
+            }
+        }
+        return repositoryResponses;
     }
 
     @Transactional
@@ -169,44 +198,6 @@ public class GithubInfoService {
                     break;
                 }
                 repositoryResponses.addAll(commitResponses);
-            } catch (RestTemplateResponseException e) {
-                if (e.getStatus() != 409) {
-                    log.error(e.getLocalizedMessage());
-                }
-                break;
-            }
-        }
-        return repositoryResponses;
-    }
-
-    protected void updateCommitInfo(String token, List<GithubRepoInfo> githubRepoInfos, GithubInfo githubInfo, LocalDateTime startDate) {
-
-        List<GithubCommitInfo> betweenTime = commitInfoRepository.findBetweenTime(startDate, TimeUtils.getTodayEndTime(), githubInfo.getInfoId());
-
-        List<GithubCommitInfo> githubCommitInfos = githubRepoInfos
-                .stream()
-                .map(c -> getUpdatedCommits(token, c, githubInfo.getAuthorId(), startDate))
-                .filter(c -> !c.isEmpty())
-                .flatMap(x -> x.stream()
-                        .map(y -> y.toEntity(githubInfo)))
-                .collect(Collectors.toList());
-        commitInfoRepository.saveAll(githubCommitInfos);
-    }
-
-    protected List<GithubCommitResponse> getUpdatedCommits(String token, GithubRepoInfo githubRepoInfo, String authorId, LocalDateTime startDate) {
-        int page = 1;
-        List<GithubCommitResponse> repositoryResponses = new ArrayList<>();
-        while (true) {
-            try {
-                ResponseEntity<List<GithubCommitResponse>> commitList = githubRestTemplate
-                        .getReposCommitList(token, page++, githubRepoInfo.getOwner(), githubRepoInfo.getName(), authorId);
-                List<GithubCommitResponse> commitResponses = validateStatusAndGetBody(commitList).stream()
-                        .filter(x -> x.getCommit().getAuthor().getDate().isAfter(startDate))
-                        .collect(Collectors.toList());
-                boolean addAll = repositoryResponses.addAll(commitResponses);
-                if (!addAll) {
-                    break;
-                }
             } catch (RestTemplateResponseException e) {
                 if (e.getStatus() != 409) {
                     log.error(e.getLocalizedMessage());

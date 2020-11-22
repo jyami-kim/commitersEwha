@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -38,5 +39,13 @@ class TimeTest{
         LocalDateTime commitTime = LocalDateTime.of(2019, 12, 1, 0, 0);
         boolean dateStandard = standard.isBefore(commitTime);
         System.out.println(dateStandard);
+    }
+
+    @Test
+    void name2() {
+        List<Integer> restApi = Arrays.asList(1,4);
+        List<Integer> db = Arrays.asList(1,2,3,4);
+        db.removeAll(restApi);
+        System.out.println(db);
     }
 }
