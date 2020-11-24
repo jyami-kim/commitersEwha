@@ -510,3 +510,154 @@ require: login
         ]
       }
     }
+
+
+[GET] /api/github/stat/weekday/{authorId}
+
+require : login
+
+```json
+{
+    "status": -200,
+    "message": "요일에 따른 커밋 개수 카운트 성공", # 0부터 월요일
+    "response": [
+        {
+            "count": 138,
+            "weekDay": 0
+        },
+        {
+            "count": 157,
+            "weekDay": 1
+        },
+        {
+            "count": 153,
+            "weekDay": 2
+        },
+        {
+            "count": 193,
+            "weekDay": 3
+        },
+        {
+            "count": 221,
+            "weekDay": 4
+        },
+        {
+            "count": 119,
+            "weekDay": 5
+        },
+        {
+            "count": 131,
+            "weekDay": 6
+        }
+    ]
+}
+```
+
+
+
+[GET] /api/github/stat/time/{authorId}
+
+require : login
+
+```json
+{
+    "status": -200,
+    "message": "시간에 따른 커밋 개수 카운트 성공",
+    "response": [
+        {
+            "count": 8,
+            "hour": 0
+        },
+        {
+            "count": 43,
+            "hour": 1
+        },
+        {
+            "count": 28,
+            "hour": 2
+        },
+        {
+            "count": 29,
+            "hour": 3
+        },
+        {
+            "count": 31,
+            "hour": 4
+        },
+        {
+            "count": 60,
+            "hour": 5
+        },
+        {
+            "count": 90,
+            "hour": 6
+        },
+        {
+            "count": 79,
+            "hour": 7
+        },
+        {
+            "count": 91,
+            "hour": 8
+        },
+        {
+            "count": 95,
+            "hour": 9
+        },
+        {
+            "count": 75,
+            "hour": 10
+        },
+        {
+            "count": 60,
+            "hour": 11
+        },
+        {
+            "count": 52,
+            "hour": 12
+        },
+        {
+            "count": 89,
+            "hour": 13
+        },
+        {
+            "count": 64,
+            "hour": 14
+        },
+        {
+            "count": 58,
+            "hour": 15
+        },
+        {
+            "count": 58,
+            "hour": 16
+        },
+        {
+            "count": 37,
+            "hour": 17
+        },
+        {
+            "count": 19,
+            "hour": 18
+        },
+        {
+            "count": 18,
+            "hour": 19
+        },
+        {
+            "count": 10,
+            "hour": 20
+        },
+        {
+            "count": 15,
+            "hour": 21
+        },
+        {
+            "count": 3,
+            "hour": 23
+        }
+    ]
+}
+```
+
+

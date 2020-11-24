@@ -3,6 +3,8 @@ package com.jyami.commitersewha.service;
 import com.jyami.commitersewha.domain.commitInfo.GithubCommitInfo;
 import com.jyami.commitersewha.domain.commitInfo.CommitInfoRepository;
 import com.jyami.commitersewha.domain.commitInfo.dto.CommitMap;
+import com.jyami.commitersewha.domain.commitInfo.dto.HourStat;
+import com.jyami.commitersewha.domain.commitInfo.dto.WeekDayStat;
 import com.jyami.commitersewha.domain.githubInfo.GithubInfo;
 import com.jyami.commitersewha.domain.githubInfo.GithubInfoRepository;
 import com.jyami.commitersewha.domain.githubRepoInfo.GithubRepoInfo;
@@ -27,7 +29,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.jyami.commitersewha.payload.ResponseMessage.GITHUB_REST_CALL_ERROR;
@@ -57,6 +58,18 @@ public class GithubInfoService {
         GithubInfo githubInfo = githubInfoRepository.findByAuthorId(authorId)
                 .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
         return commitInfoRepository.findCommitMapCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), githubInfo.getId());
+    }
+
+    public List<HourStat> findCommitStatHourCount(String authorId) {
+        GithubInfo githubInfo = githubInfoRepository.findByAuthorId(authorId)
+                .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
+        return commitInfoRepository.findHourStatCommitCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), githubInfo.getId());
+    }
+
+    public List<WeekDayStat> findCommitStatWeekdayCount(String authorId) {
+        GithubInfo githubInfo = githubInfoRepository.findByAuthorId(authorId)
+                .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
+        return commitInfoRepository.findWeekdayStatCommitCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), githubInfo.getId());
     }
 
     @Transactional

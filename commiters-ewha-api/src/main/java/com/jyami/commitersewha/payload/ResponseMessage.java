@@ -43,5 +43,7 @@ public final class ResponseMessage {
     public static final String SAVE_GITHUB_REPOSITORY_INFO_SUCCESS = "github repository 정보 저장 성공";
     public static final String UPDATE_GITHUB_INFO_SUCCESS = "시간에 따른 github 정보 없데이트 성공";
     public static final String FIND_COMMIT_SUCCESS = "나열된 커밋맵 찾기 성공";
+    public static final String FIND_STAT_HOUR_COUNT_SUCCESS = "시간에 따른 커밋 개수 카운트 성공";
+    public static final String FIND_STAT_WEEKDAY_COUNT_SUCCESS = "요일에 따른 커밋 개수 카운트 성공";
 
 }

@@ -2,26 +2,20 @@ package com.jyami.commitersewha.controller;
 
 import com.jyami.commitersewha.domain.commitInfo.GithubCommitInfo;
 import com.jyami.commitersewha.domain.commitInfo.dto.CommitMap;
-import com.jyami.commitersewha.domain.githubInfo.GithubInfo;
+import com.jyami.commitersewha.domain.commitInfo.dto.HourStat;
+import com.jyami.commitersewha.domain.commitInfo.dto.WeekDayStat;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.ResponseCode;
-import com.jyami.commitersewha.payload.request.SearchRequest;
 import com.jyami.commitersewha.payload.response.GithubDetailInfoResponse;
-import com.jyami.commitersewha.payload.response.PostResponse;
 import com.jyami.commitersewha.security.CurrentUser;
 import com.jyami.commitersewha.security.GoogleUserPrincipal;
 import com.jyami.commitersewha.service.GithubInfoService;
 import com.jyami.commitersewha.util.TimeUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static com.jyami.commitersewha.payload.ResponseMessage.*;
@@ -63,10 +57,26 @@ public class GithubInfoController {
     }
 
     @GetMapping("commitMap/{authorId}")
-    public ResponseEntity<?> saveNewGithubInfo(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable String authorId) {
+    public ResponseEntity<?> getGitCommitMap(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable String authorId) {
         log.info("---commitMap : search {} => {}", googleUserPrincipal.getId(), authorId);
-//        List<CommitMap> commitMapCount = githubInfoService.findCommitMapCount(authorId);
+        List<CommitMap> commitMapCount = githubInfoService.findCommitMapCount(authorId);
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(ResponseCode.OK, FIND_COMMIT_SUCCESS, new ArrayList<>()));
+                .body(DefaultResponse.of(ResponseCode.OK, FIND_COMMIT_SUCCESS, commitMapCount));
+    }
+
+    @GetMapping("stat/time/{authorId}")
+    public ResponseEntity<?> getGitCommitTimeStat(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable String authorId) {
+        log.info("---commitStatHourTime : search {} => {}", googleUserPrincipal.getId(), authorId);
+        List<HourStat> commitTimeCount = githubInfoService.findCommitStatHourCount(authorId);
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(ResponseCode.OK, FIND_STAT_HOUR_COUNT_SUCCESS, commitTimeCount));
+    }
+
+    @GetMapping("stat/weekday/{authorId}") // 0부터 monday
+    public ResponseEntity<?> getGitCommitWeekdayStat(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable String authorId) {
+        log.info("---commitStatWeekdayTime : search {} => {}", googleUserPrincipal.getId(), authorId);
+        List<WeekDayStat> commitStatWeekDayCount = githubInfoService.findCommitStatWeekdayCount(authorId);
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(ResponseCode.OK, FIND_STAT_WEEKDAY_COUNT_SUCCESS, commitStatWeekDayCount));
     }
 }

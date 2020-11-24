@@ -1,5 +1,9 @@
 package com.jyami.commitersewha.domain.commitInfo;
 
+import com.jyami.commitersewha.domain.commitInfo.dto.CommitMap;
+import com.jyami.commitersewha.domain.commitInfo.dto.HourStat;
+import com.jyami.commitersewha.domain.commitInfo.dto.WeekDayStat;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -8,4 +12,10 @@ import java.util.List;
  */
 public interface CommitInfoCustom {
     List<GithubCommitInfo> findBetweenTime(LocalDateTime startTime, LocalDateTime endTime, Long githubInfoId);
+
+    List<CommitMap> findCommitMapCount(LocalDateTime startDate, LocalDateTime endDate, Long githubInfoId);
+
+    List<HourStat> findHourStatCommitCount(LocalDateTime startDate, LocalDateTime endDate, Long githubInfoId);
+
+    List<WeekDayStat> findWeekdayStatCommitCount(LocalDateTime startDate, LocalDateTime endDate, Long githubInfoId);
 }
