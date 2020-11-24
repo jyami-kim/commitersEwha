@@ -22,9 +22,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.jyami.commitersewha.payload.ResponseMessage.*;
 
@@ -67,8 +65,8 @@ public class GithubInfoController {
     @GetMapping("commitMap/{authorId}")
     public ResponseEntity<?> saveNewGithubInfo(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable String authorId) {
         log.info("---commitMap : search {} => {}", googleUserPrincipal.getId(), authorId);
-        List<CommitMap> commitMapCount = githubInfoService.findCommitMapCount(authorId);
+//        List<CommitMap> commitMapCount = githubInfoService.findCommitMapCount(authorId);
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(ResponseCode.OK, FIND_COMMIT_SUCCESS, commitMapCount));
+                .body(DefaultResponse.of(ResponseCode.OK, FIND_COMMIT_SUCCESS, new ArrayList<>()));
     }
 }

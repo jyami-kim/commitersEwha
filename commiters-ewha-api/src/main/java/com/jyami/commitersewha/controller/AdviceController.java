@@ -1,6 +1,7 @@
 package com.jyami.commitersewha.controller;
 
 import com.jyami.commitersewha.exception.NotAccessUserException;
+import com.jyami.commitersewha.exception.ResourceNotFoundException;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.ResponseCode;
 import lombok.extern.slf4j.Slf4j;
@@ -21,5 +22,11 @@ public class AdviceController {
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     public DefaultResponse<?> unAuthentication(Exception e) {
         return DefaultResponse.of(ResponseCode.AUTHENTICATION_ERROR, e.getMessage());
+    }
+
+    @ExceptionHandler({ResourceNotFoundException.class})
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public DefaultResponse<?> resourceNotFound(ResourceNotFoundException e) {
+        return DefaultResponse.of(ResponseCode.REOUSRCE_NOT_FOUND, e.getMessage());
     }
 }

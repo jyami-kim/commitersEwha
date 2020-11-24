@@ -42,6 +42,9 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.0'
 
+    // swagger-ui
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.5.0'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.5.0'
 
 
 }
