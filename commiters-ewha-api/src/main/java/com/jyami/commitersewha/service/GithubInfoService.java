@@ -25,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,6 +71,11 @@ public class GithubInfoService {
         GithubInfo githubInfo = githubInfoRepository.findByAuthorId(authorId)
                 .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
         return commitInfoRepository.findWeekdayStatCommitCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), githubInfo.getId());
+    }
+
+    public void calculateCommitCommon(Long githubInfoId){
+        List<CommitMap> commitMapCount = commitInfoRepository.findCommitMapCount(TimeUtils.getThisQuarterStartTime(LocalDate.now()),
+                TimeUtils.getTodayEndTime(), githubInfoId);
     }
 
     @Transactional

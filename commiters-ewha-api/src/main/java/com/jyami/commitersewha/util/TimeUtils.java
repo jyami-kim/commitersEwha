@@ -30,4 +30,11 @@ public class TimeUtils {
     public static LocalDateTime getThisYearStartTime() {
         return getStartDate(LocalDate.now().minusWeeks(52));
     }
+
+    public static LocalDateTime getThisQuarterStartTime(LocalDate localDate) {
+        int quarterIndex = (localDate.getMonthValue() - 1) / 3;
+        int quarterStartMonth = quarterIndex * 3 + 1;
+        LocalDate date = LocalDate.of(localDate.getYear(), quarterStartMonth, 1);
+        return getStartDate(date);
+    }
 }
