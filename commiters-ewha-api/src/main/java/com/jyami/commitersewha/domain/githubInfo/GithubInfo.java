@@ -26,8 +26,6 @@ public class GithubInfo extends BaseTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long infoId;
 
-    private long id;
-
     @Setter
     private String name;
 

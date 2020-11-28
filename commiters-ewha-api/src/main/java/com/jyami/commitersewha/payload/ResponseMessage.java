@@ -46,4 +46,6 @@ public final class ResponseMessage {
     public static final String FIND_STAT_HOUR_COUNT_SUCCESS = "시간에 따른 커밋 개수 카운트 성공";
     public static final String FIND_STAT_WEEKDAY_COUNT_SUCCESS = "요일에 따른 커밋 개수 카운트 성공";
 
+    public static final String UPDATE_COMMIT_RANK_SUCCESS = "DB에 저장된 commit을 읽고 rank update 성공";
+
 }

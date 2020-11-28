@@ -1,5 +1,6 @@
 package com.jyami.commitersewha.domain.commitInfo.dto;
 
+import com.jyami.commitersewha.domain.userRank.dto.CommitMapRank;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -11,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Created by jyami on 2020/11/28
  */
-class CommitMapComboTest {
+class CommitMapRankTest {
 
 
     public List<CommitMap> getSampleCommitMap() {
@@ -40,7 +41,7 @@ class CommitMapComboTest {
 
     @Test
     void calculate() throws IOException {
-        CommitMapCombo calculate = CommitMapCombo.calculate(getSampleCommitMap());
+        CommitMapRank calculate = CommitMapRank.calculate(getSampleCommitMap());
         System.out.println(calculate);
         assertThat(calculate.getScore()).isEqualTo(330);
         assertThat(calculate.getCommitCount()).isEqualTo(18);

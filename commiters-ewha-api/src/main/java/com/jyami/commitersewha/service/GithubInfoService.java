@@ -25,7 +25,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,24 +57,19 @@ public class GithubInfoService {
     public List<CommitMap> findCommitMapCount(String authorId) {
         GithubInfo githubInfo = githubInfoRepository.findByAuthorId(authorId)
                 .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
-        return commitInfoRepository.findCommitMapCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), githubInfo.getId());
+        return commitInfoRepository.findCommitMapCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), githubInfo.getInfoId());
     }
 
     public List<HourStat> findCommitStatHourCount(String authorId) {
         GithubInfo githubInfo = githubInfoRepository.findByAuthorId(authorId)
                 .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
-        return commitInfoRepository.findHourStatCommitCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), githubInfo.getId());
+        return commitInfoRepository.findHourStatCommitCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), githubInfo.getInfoId());
     }
 
     public List<WeekDayStat> findCommitStatWeekdayCount(String authorId) {
         GithubInfo githubInfo = githubInfoRepository.findByAuthorId(authorId)
                 .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
-        return commitInfoRepository.findWeekdayStatCommitCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), githubInfo.getId());
-    }
-
-    public void calculateCommitCommon(Long githubInfoId){
-        List<CommitMap> commitMapCount = commitInfoRepository.findCommitMapCount(TimeUtils.getThisQuarterStartTime(LocalDate.now()),
-                TimeUtils.getTodayEndTime(), githubInfoId);
+        return commitInfoRepository.findWeekdayStatCommitCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), githubInfo.getInfoId());
     }
 
     @Transactional
@@ -88,7 +82,6 @@ public class GithubInfoService {
     }
 
     protected List<GithubRepoInfo> updateDateRepository(String token, LocalDateTime startDate, GithubInfo githubInfo) {
-
         List<GithubRepoInfo> collect = validateStatusAndGetBody(githubRestTemplate.getUserRepositories(token, 1)).stream()
                 .filter(x -> x.getUpdatedAt().isAfter(startDate))
                 .map(x -> x.toEntity(githubInfo))

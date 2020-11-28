@@ -79,4 +79,5 @@ public class GithubInfoController {
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(ResponseCode.OK, FIND_STAT_WEEKDAY_COUNT_SUCCESS, commitStatWeekDayCount));
     }
+
 }

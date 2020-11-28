@@ -1,8 +1,6 @@
 package com.jyami.commitersewha.util;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -31,10 +29,16 @@ public class TimeUtils {
         return getStartDate(LocalDate.now().minusWeeks(52));
     }
 
-    public static LocalDateTime getThisQuarterStartTime(LocalDate localDate) {
-        int quarterIndex = (localDate.getMonthValue() - 1) / 3;
+    public static LocalDateTime getThisQuarterStartTime(LocalDate now) {
+        int quarterIndex = (now.getMonthValue() - 1) / 3;
         int quarterStartMonth = quarterIndex * 3 + 1;
-        LocalDate date = LocalDate.of(localDate.getYear(), quarterStartMonth, 1);
+        LocalDate date = LocalDate.of(now.getYear(), quarterStartMonth, 1);
         return getStartDate(date);
+    }
+
+    public static LocalDateTime getThisWeekStartTime(LocalDate now) {
+        int minusValue = now.getDayOfWeek().getValue();
+        LocalDate startWeek = now.minusDays(minusValue);
+        return getStartDate(startWeek);
     }
 }

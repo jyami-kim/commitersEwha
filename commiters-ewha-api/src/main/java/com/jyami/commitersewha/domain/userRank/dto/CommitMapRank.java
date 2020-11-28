@@ -1,5 +1,8 @@
-package com.jyami.commitersewha.domain.commitInfo.dto;
+package com.jyami.commitersewha.domain.userRank.dto;
 
+import com.jyami.commitersewha.domain.commitInfo.dto.CommitMap;
+import com.jyami.commitersewha.domain.githubInfo.GithubInfo;
+import com.jyami.commitersewha.domain.userRank.UserRank;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -15,12 +18,12 @@ import java.util.List;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
-public class CommitMapCombo {
+public class CommitMapRank {
     long commitCount;
     long commitMaxCombo;
     long score;
 
-    public static CommitMapCombo calculate(List<CommitMap> commitMaps) {
+    public static CommitMapRank calculate(List<CommitMap> commitMaps) {
         commitMaps.sort(Comparator.comparing(CommitMap::getCommitDate));
         long commitCount = 0;
         long commitCombo = 0;
@@ -52,11 +55,24 @@ public class CommitMapCombo {
             beforeDate = commit.getCommitDate();
 
         }
-        return CommitMapCombo.builder()
+
+        return CommitMapRank.builder()
                 .commitMaxCombo(commitMaxCombo)
                 .commitCount(commitCount)
                 .score(commitCount * 10 + comboScore)
                 .build();
     }
+
+    public UserRank of(LocalDate localDate, boolean week, GithubInfo githubInfo){
+        return UserRank.builder()
+                .githubInfo(githubInfo)
+                .commitCount(this.commitCount)
+                .commitMaxCombo(this.commitMaxCombo)
+                .score(this.score)
+                .localDate(localDate)
+                .week(week)
+                .build();
+    }
+
 
 }
