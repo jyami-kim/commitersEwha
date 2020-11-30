@@ -26,7 +26,7 @@ public class CommitInfoRepositoryImpl implements CommitInfoCustom {
     public List<GithubCommitInfo> findBetweenTime(LocalDateTime startTime, LocalDateTime endTime, Long githubInfoId) {
         return jpaQueryFactory.selectFrom(QGithubCommitInfo.githubCommitInfo)
                 .where(QGithubCommitInfo.githubCommitInfo.date.between(startTime, endTime))
-                .where(QGithubCommitInfo.githubCommitInfo.githubInfo.id.eq(githubInfoId))
+                .where(QGithubCommitInfo.githubCommitInfo.githubInfo.infoId.eq(githubInfoId))
                 .fetch();
     }
 
@@ -45,7 +45,7 @@ public class CommitInfoRepositoryImpl implements CommitInfoCustom {
                         QGithubCommitInfo.githubCommitInfo.date.goe(startDate)
                         , QGithubCommitInfo.githubCommitInfo.date.loe(endDate)
                 )
-                .where(QGithubCommitInfo.githubCommitInfo.githubInfo.id.eq(githubInfoId))
+                .where(QGithubCommitInfo.githubCommitInfo.githubInfo.infoId.eq(githubInfoId))
                 .groupBy(formattedDate)
                 .orderBy(formattedDate.desc())
                 .fetch();

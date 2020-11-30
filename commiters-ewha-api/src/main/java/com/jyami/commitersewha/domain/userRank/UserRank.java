@@ -48,4 +48,12 @@ public class UserRank {
                 .build();
     }
 
+    public void updateUserRank(UserRank userRank) {
+        this.score = userRank.score;
+        this.commitCount = userRank.commitCount;
+        this.commitMaxCombo = userRank.commitMaxCombo;
+        this.week = userRank.isWeek();
+        this.localDate = userRank.localDate;
+    }
+
 }

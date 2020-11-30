@@ -8,7 +8,8 @@ import com.jyami.commitersewha.domain.userRank.UserRank;
 import com.jyami.commitersewha.domain.userRank.UserRankRepository;
 import com.jyami.commitersewha.domain.userRank.dto.CommitMapRank;
 import com.jyami.commitersewha.exception.ResourceNotFoundException;
-import com.jyami.commitersewha.payload.response.UserRankInfo;
+import com.jyami.commitersewha.payload.response.OneUserRankResponse;
+import com.jyami.commitersewha.payload.response.UserRankInfoResponse;
 import com.jyami.commitersewha.util.TimeUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,27 +38,50 @@ public class UserRankService {
         saveRankAsWeek(githubInfo);
     }
 
-    public UserRankInfo getUserRank(String authorId) {
+    public OneUserRankResponse getSingleUserRankScore(String authorId) {
         GithubInfo githubInfo = githubInfoRepository.findByAuthorId(authorId)
                 .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
+        UserRank quarterRankScore = findQuarterRankScore(githubInfo);
+        UserRank weekRankScore = findWeekRankScore(githubInfo);
+        return new OneUserRankResponse(UserRankInfoResponse.of(weekRankScore, githubInfo), UserRankInfoResponse.of(quarterRankScore, githubInfo));
+    }
+
+    private UserRank findWeekRankScore(GithubInfo githubInfo){
         LocalDateTime thisWeekStartTime = TimeUtils.getThisWeekStartTime(LocalDate.now());
-        UserRank userRank = userRankRepository.findByGithubInfoAndWeekAndLocalDate(githubInfo, true, thisWeekStartTime.toLocalDate())
+        return userRankRepository.findByGithubInfoAndWeekAndLocalDate(githubInfo, true, thisWeekStartTime.toLocalDate())
                 .orElseGet(() -> UserRank.emptyUserRank(githubInfo));
-        return UserRankInfo.of(userRank, githubInfo);
+    }
+
+    private UserRank findQuarterRankScore(GithubInfo githubInfo){
+        LocalDateTime thisQuarterStartTime = TimeUtils.getThisQuarterStartTime(LocalDate.now());
+        return userRankRepository.findByGithubInfoAndWeekAndLocalDate(githubInfo, false, thisQuarterStartTime.toLocalDate())
+                .orElseGet(() -> UserRank.emptyUserRank(githubInfo));
+    }
+
+    public List<UserRank> getRankingWeek() {
+        LocalDateTime thisWeekStartTime = TimeUtils.getThisWeekStartTime(LocalDate.now());
+        return userRankRepository.findAllUserRankinks(true, thisWeekStartTime.toLocalDate());
+    }
+
+    public List<UserRank> getRankingQuarter() {
+        LocalDateTime thisQuarterStartTime = TimeUtils.getThisQuarterStartTime(LocalDate.now());
+        return userRankRepository.findAllUserRankinks(false, thisQuarterStartTime.toLocalDate());
     }
 
     private void saveRankAsWeek(GithubInfo githubInfo) {
+        UserRank weekRankScore = findWeekRankScore(githubInfo);
         LocalDateTime thisWeekStartTime = TimeUtils.getThisWeekStartTime(LocalDate.now());
         List<CommitMap> commitWeek = findCommitMapStartTime(githubInfo.getInfoId(), thisWeekStartTime);
         UserRank userRank = CommitMapRank.calculate(commitWeek).of(thisWeekStartTime.toLocalDate(), true, githubInfo);
-        userRankRepository.save(userRank);
+        weekRankScore.updateUserRank(userRank);
     }
 
     private void saveRankAsQuarter(GithubInfo githubInfo) {
+        UserRank quarterRankScore = findQuarterRankScore(githubInfo);
         LocalDateTime thisQuarterStartTime = TimeUtils.getThisQuarterStartTime(LocalDate.now());
         List<CommitMap> commitQuarter = findCommitMapStartTime(githubInfo.getInfoId(), thisQuarterStartTime);
         UserRank userRank = CommitMapRank.calculate(commitQuarter).of(thisQuarterStartTime.toLocalDate(), false, githubInfo);
-        userRankRepository.save(userRank);
+        quarterRankScore.updateUserRank(userRank);
     }
 
     private List<CommitMap> findCommitMapStartTime(Long githubInfoId, LocalDateTime startTime) {

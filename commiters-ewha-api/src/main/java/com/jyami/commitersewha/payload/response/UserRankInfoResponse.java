@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Getter
 @Builder(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class UserRankInfo {
+public class UserRankInfoResponse {
 
     private long githubInfoId;
 
@@ -29,8 +29,8 @@ public class UserRankInfo {
 
     private LocalDate localDate;
 
-    public static UserRankInfo of(UserRank userRank, GithubInfo githubInfo) {
-        return UserRankInfo.builder()
+    public static UserRankInfoResponse of(UserRank userRank, GithubInfo githubInfo) {
+        return UserRankInfoResponse.builder()
                 .githubInfoId(githubInfo.getInfoId())
                 .authorId(githubInfo.getAuthorId())
                 .score(userRank.getScore())

@@ -15,6 +15,7 @@ import com.jyami.commitersewha.githubRestTemplate.GithubRestTemplate;
 import com.jyami.commitersewha.githubRestTemplate.response.CommitStatisticResponse;
 import com.jyami.commitersewha.githubRestTemplate.response.GithubCommitResponse;
 import com.jyami.commitersewha.githubRestTemplate.response.RepositoryResponse;
+import com.jyami.commitersewha.payload.response.GithubCommitInfoResponse;
 import com.jyami.commitersewha.payload.response.GithubDetailInfoResponse;
 import com.jyami.commitersewha.util.TimeUtils;
 import lombok.NoArgsConstructor;
@@ -73,7 +74,7 @@ public class GithubInfoService {
     }
 
     @Transactional
-    public HashMap<String, List<GithubCommitInfo>> updateDateInfo(LocalDateTime startDate, Long userId) { // endDate는 무조껀 오늘 날짜
+    public HashMap<String, List<GithubCommitInfoResponse>> updateDateInfo(LocalDateTime startDate, Long userId) { // endDate는 무조껀 오늘 날짜
         GithubInfo githubInfo = githubInfoRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "userId", userId));
         String token = githubInfo.getToken();
@@ -90,7 +91,7 @@ public class GithubInfoService {
         return githubRepoInfoRepository.saveAll(collect);
     }
 
-    protected HashMap<String, List<GithubCommitInfo>> updateCommitInfo(String token, List<GithubRepoInfo> githubRepoInfos, GithubInfo githubInfo, LocalDateTime startDate) {
+    protected HashMap<String, List<GithubCommitInfoResponse>> updateCommitInfo(String token, List<GithubRepoInfo> githubRepoInfos, GithubInfo githubInfo, LocalDateTime startDate) {
 
         List<GithubCommitInfo> betweenTime = commitInfoRepository.findBetweenTime(startDate, TimeUtils.getTodayEndTime(), githubInfo.getInfoId());
 
@@ -104,14 +105,14 @@ public class GithubInfoService {
         List<GithubCommitInfo> saveData = commitInfoRepository.saveAll(githubCommitInfos);
 
         List<GithubCommitInfo> removeData = betweenTime.stream()
-                .filter(x -> !saveData.contains(betweenTime))
+                .filter(x -> !saveData.contains(x))
                 .collect(Collectors.toList());
 
         commitInfoRepository.deleteAll(removeData);
 
-        return new HashMap<String, List<GithubCommitInfo>>() {{
-            put("saveData", saveData);
-            put("deleteData", removeData);
+        return new HashMap<String, List<GithubCommitInfoResponse>>() {{
+            put("saveData", saveData.stream().map(GithubCommitInfoResponse::of).collect(Collectors.toList()));
+            put("deleteData", removeData.stream().map(GithubCommitInfoResponse::of).collect(Collectors.toList()));
         }};
     }
 

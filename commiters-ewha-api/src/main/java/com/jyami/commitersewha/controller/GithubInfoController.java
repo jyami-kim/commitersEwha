@@ -6,6 +6,7 @@ import com.jyami.commitersewha.domain.commitInfo.dto.HourStat;
 import com.jyami.commitersewha.domain.commitInfo.dto.WeekDayStat;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.ResponseCode;
+import com.jyami.commitersewha.payload.response.GithubCommitInfoResponse;
 import com.jyami.commitersewha.payload.response.GithubDetailInfoResponse;
 import com.jyami.commitersewha.security.CurrentUser;
 import com.jyami.commitersewha.security.GoogleUserPrincipal;
@@ -51,7 +52,8 @@ public class GithubInfoController {
     @PostMapping("update/{startDate}") // YYYY-MM-dd
     public ResponseEntity<?> updateGithubRepositoryInfo(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable String startDate) {
         log.info("---updateGithubInfo : userId = {} date = {}", googleUserPrincipal.getId(), startDate);
-        HashMap<String, List<GithubCommitInfo>> updateDataInfo = githubInfoService.updateDateInfo(TimeUtils.getStartDate(startDate), googleUserPrincipal.getId());
+        HashMap<String, List<GithubCommitInfoResponse>> updateDataInfo =
+                githubInfoService.updateDateInfo(TimeUtils.getStartDate(startDate), googleUserPrincipal.getId());
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(ResponseCode.OK, UPDATE_GITHUB_INFO_SUCCESS, updateDataInfo));
     }
