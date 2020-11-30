@@ -9,7 +9,5 @@ import java.util.Optional;
  */
 public interface GithubInfoRepository extends JpaRepository<GithubInfo, Long>, GithubInfoCustom {
 
-    Optional<GithubInfo> findByAuthorId(String authorId);
-
     Optional<GithubInfo> findByEmail(String email);
 }

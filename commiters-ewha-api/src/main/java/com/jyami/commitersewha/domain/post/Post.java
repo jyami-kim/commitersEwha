@@ -44,7 +44,7 @@ public class Post extends BaseTime {
     @Builder.Default
     private long hit = 0;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = CascadeType.REMOVE)
     @Builder.Default
     private Set<Comment> comments = new HashSet<>();
 

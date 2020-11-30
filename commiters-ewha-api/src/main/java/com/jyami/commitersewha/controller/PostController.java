@@ -14,7 +14,6 @@ import com.jyami.commitersewha.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,14 +48,6 @@ public class PostController {
         log.info("---createPost success :{} - {}", user.getUserId(), postResponse);
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(ResponseCode.OK, SUCCESS_POST_CREATE, postResponse));
-    }
-
-    @GetMapping("post/{postId}")
-    public ResponseEntity<?> getPostDetailWithComments(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable Long postId) {
-        PostResponse postResponse = postService.getDetailPost(postId);
-        log.info("---getPost success : viewer {} => {}", googleUserPrincipal.getId(), postResponse);
-        return ResponseEntity.ok()
-                .body(DefaultResponse.of(ResponseCode.OK, GET_POST_DETAIL, postResponse));
     }
 
     @PutMapping("post")

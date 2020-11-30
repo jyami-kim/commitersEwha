@@ -26,6 +26,8 @@ public class CommentResponse {
 
     private long userId;
 
+    private String userName;
+
     private LocalDateTime createdDate;
 
     private LocalDateTime modifiedDate;
@@ -39,6 +41,7 @@ public class CommentResponse {
                 .parent(comment.getParent())
                 .postId(comment.getPost().getPostId())
                 .userId(comment.getUser().getUserId())
+                .userName(comment.getUser().getName())
                 .createdDate(comment.getCreatedDate())
                 .modifiedDate(comment.getModifiedDate())
                 .commentLikeSize(comment.getLikesUser().size())

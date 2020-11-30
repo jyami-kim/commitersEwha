@@ -12,11 +12,12 @@ import com.jyami.commitersewha.service.CommentService;
 import com.jyami.commitersewha.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.List;
 
 import static com.jyami.commitersewha.payload.ResponseMessage.*;
 
@@ -32,6 +33,14 @@ public class CommentController {
     private final CommentService commentService;
     private final UserService userService;
 
+    @GetMapping("post/{postId}") // 사실상 post 자세히 보기
+    public ResponseEntity<?> getCommentsOfPost(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable Long postId) {
+        List<CommentResponse> commentsByPostId = commentService.getCommentsByPostId(postId);
+        log.info("---get comments of post success : viewer {} => {}", googleUserPrincipal.getId(), commentsByPostId);
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(ResponseCode.OK, GET_COMMENTS_BY_POSTID, commentsByPostId));
+    }
+
     @PostMapping("")
     public ResponseEntity<?> createComment(@CurrentUser GoogleUserPrincipal googleUserPrincipal,
                                            @Valid @RequestBody CommentRequest commentRequest) {
@@ -42,7 +51,7 @@ public class CommentController {
                 .body(DefaultResponse.of(ResponseCode.OK, SUCCESS_COMMENT_CREATE, commentResponse));
     }
 
-    @PostMapping("{commentId}")
+    @DeleteMapping("{commentId}")
     public ResponseEntity<?> deleteComment(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable long commentId) {
         commentService.deleteComment(googleUserPrincipal.getId(), commentId);
         log.info("---deleteComment success : {} => {} ", googleUserPrincipal.getId(), commentId);

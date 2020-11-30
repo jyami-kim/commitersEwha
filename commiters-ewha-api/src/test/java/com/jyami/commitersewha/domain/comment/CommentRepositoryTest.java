@@ -17,6 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,6 +41,27 @@ class CommentRepositoryTest {
     @Autowired
     private PostRepository postRepository;
 
+    private void settingComments(User user, Post post) {
+        Comment comment = Comment.builder()
+                .user(user)
+                .post(post)
+                .content("댓글 예시")
+                .build();
+
+        Comment comment2 = Comment.builder()
+                .user(user)
+                .post(post)
+                .content("댓글 예시")
+                .build();
+
+        Comment comment3 = Comment.builder()
+                .user(user)
+                .post(post)
+                .content("댓글 예시")
+                .build();
+
+        commentRepository.saveAll(Arrays.asList(comment, comment2, comment3));
+    }
 
     private User settingUser() {
         User settingUser = User.builder()
@@ -63,6 +85,21 @@ class CommentRepositoryTest {
         return postRepository.save(settingPost);
     }
 
+    @Test
+//    @Ignore
+    @DisplayName("N+1 문제 방지를 위해 post가져올 때 comment와 user 모두 같이 가져온다. : query확")
+    void findPostByIdWithCommentsTest2() {
+        User user = settingUser();
+        Post post = settingPost(user);
+        settingComments(user, post);
+        entityManager.clear();
+        List<Comment> postByIdWithComments2 = commentRepository.findPostByIdWithComments(1L);
+        for (Comment comment : postByIdWithComments2) {
+            System.out.println(comment.toString());
+            System.out.println(comment.getUser().toString());
+            System.out.println(comment.getPost().getLikesUser().size());
+        }
+    }
 
     @Test
     @DisplayName("comment를 저장했을 때 post를 조회해도 연관관계가 걸려있다.")

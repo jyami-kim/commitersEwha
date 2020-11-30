@@ -16,7 +16,7 @@ public final class ResponseMessage {
 
     public static final String GET_POST_LIST = "커뮤니티 포스트 리스트 조회 성공";
     public static final String SUCCESS_POST_CREATE = "커뮤니티 포스트 만들기 성공";
-    public static final String GET_POST_DETAIL = "커뮤니티 포스트 자세하게 조회하기 성공";
+    public static final String GET_COMMENTS_BY_POSTID = "커뮤니티 포스트에 해당하는 댓글 수 가져오기";
     public static final String CAN_NOT_UPDATED_THIS_ACCESS_USER = "현재 접근한 유저는 변경이 불가능 합니다.";
     public static final String SUCCESS_POST_UPDATE = "커뮤니티 포스트 업데이트 성공";
     public static final String SUCCESS_POST_DELETE = "커뮤니티 포스트 삭제 성공";

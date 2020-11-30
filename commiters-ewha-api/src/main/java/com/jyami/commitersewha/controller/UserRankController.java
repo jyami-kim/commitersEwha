@@ -35,11 +35,11 @@ public class UserRankController {
                 .body(DefaultResponse.of(ResponseCode.OK, UPDATE_COMMIT_RANK_SUCCESS));
     }
 
-    @GetMapping("{authorId}")
+    @GetMapping("{subId}")
     public ResponseEntity<?> getRankDetailAsQuarterAndWeek(@CurrentUser GoogleUserPrincipal googleUserPrincipal,
-                                                           @PathVariable String authorId) {
-        log.info("---getRank : parameter = {} => {}", googleUserPrincipal.getId(), authorId);
-        OneUserRankResponse userRanks = userRankService.getSingleUserRankScore(authorId);
+                                                           @PathVariable String subId) {
+        log.info("---getRank : parameter = {} => {}", googleUserPrincipal.getId(), subId);
+        OneUserRankResponse userRanks = userRankService.getSingleUserRankScore(subId);
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(ResponseCode.OK, UPDATE_COMMIT_RANK_SUCCESS, userRanks));
     }

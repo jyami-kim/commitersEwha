@@ -10,11 +10,15 @@ import com.jyami.commitersewha.payload.request.CommentRequest;
 import com.jyami.commitersewha.payload.response.CommentResponse;
 import com.jyami.commitersewha.payload.response.LikeResponse;
 import com.jyami.commitersewha.payload.ResponseMessage;
+import com.jyami.commitersewha.payload.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by jyami on 2020/10/02
@@ -32,6 +36,21 @@ public class CommentService {
         validateParentComment(commentRequest.getPostId());
         Comment comment = commentRepository.save(commentRequest.toEntity(post, user));
         return CommentResponse.fromEntity(comment);
+    }
+
+    @Transactional
+    public List<CommentResponse> getCommentsByPostId(Long postId) {
+        List<Comment> comments = commentRepository.findPostByIdWithComments(postId);
+        if (comments.size() == 0) {
+            Post post = postService.findPostFromId(postId);
+            post.addHitCount();
+            return Collections.emptyList();
+        }
+        comments.get(0).getPost().addHitCount();
+
+        return comments.stream()
+                .map(CommentResponse::fromEntity)
+                .collect(Collectors.toList());
     }
 
     private void validateParentComment(long parentId) {

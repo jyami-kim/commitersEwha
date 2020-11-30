@@ -116,22 +116,6 @@ class PostRepositoryTest {
     }
 
     @Test
-//    @Ignore
-    @DisplayName("N+1 문제 방지를 위해 post가져올 때 comment와 user 모두 같이 가져온다. : query확")
-    void findPostByIdWithCommentsTest2() {
-        User user = settingUser();
-        Post post = settingPost(user);
-        settingComments(user, post);
-        entityManager.clear();
-        List<Comment> postByIdWithComments2 = postRepository.findPostByIdWithComments(1L);
-        for (Comment comment : postByIdWithComments2) {
-            System.out.println(comment.toString());
-            System.out.println(comment.getUser().toString());
-            System.out.println(comment.getPost().getLikesUser().size());
-        }
-    }
-
-    @Test
     @DisplayName("post를 id기반으로 가져올 떄 user도 함께 가져온다. : query 확인")
     void findPostAllById() {
         User user = settingUser();

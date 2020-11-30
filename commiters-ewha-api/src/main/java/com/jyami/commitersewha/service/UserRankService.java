@@ -39,9 +39,9 @@ public class UserRankService {
         saveRankAsWeek(githubInfo);
     }
 
-    public OneUserRankResponse getSingleUserRankScore(String authorId) {
-        GithubInfo githubInfo = githubInfoRepository.findByAuthorId(authorId)
-                .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
+    public OneUserRankResponse getSingleUserRankScore(String subId) {
+        GithubInfo githubInfo = githubInfoRepository.findByUserSubId(subId)
+                .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "subId", subId));
         UserRank quarterRankScore = findQuarterRankScore(githubInfo);
         UserRank weekRankScore = findWeekRankScore(githubInfo);
         return new OneUserRankResponse(UserRankInfoResponse.of(weekRankScore, githubInfo), UserRankInfoResponse.of(quarterRankScore, githubInfo));

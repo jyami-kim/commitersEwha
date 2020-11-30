@@ -31,33 +31,8 @@ public final class PostResponse {
     private long hit = 0;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
-    @Builder.Default
-    private List<CommentResponse> commentResponses = Collections.emptyList();
     private List<String> hashTags;
     private Integer postLikeSize;
-
-    public static PostResponse fromEntityWithCommentDto(List<Comment> comments) {
-        Post post = comments.get(0).getPost();
-        User user = post.getUser();
-
-        List<CommentResponse> commentResponses = comments.stream()
-                .map(CommentResponse::fromEntity)
-                .collect(Collectors.toList());
-
-        return PostResponse.builder()
-                .postId(post.getPostId())
-                .title(post.getTitle())
-                .detail(post.getDetail())
-                .userId(user.getUserId())
-                .userName(user.getName())
-                .category(post.getCategory())
-                .hashTags(post.getHashTags())
-                .hit(post.getHit())
-                .createdDate(post.getCreatedDate())
-                .modifiedDate(post.getModifiedDate())
-                .commentResponses(commentResponses)
-                .build();
-    }
 
     public static PostResponse fromEntityToWithoutComment(Post post) {
         User user = post.getUser();

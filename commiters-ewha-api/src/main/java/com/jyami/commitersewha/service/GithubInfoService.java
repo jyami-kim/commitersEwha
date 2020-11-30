@@ -50,26 +50,26 @@ public class GithubInfoService {
     private final GithubRestTemplate githubRestTemplate;
 
     public GithubDetailInfoResponse getGithubInfoFromUserId(String authorId) {
-        GithubInfo githubInfo = githubInfoRepository.findByAuthorId(authorId)
+        GithubInfo githubInfo = githubInfoRepository.findByUserSubId(authorId)
                 .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
         return GithubDetailInfoResponse.fromEntity(githubInfo);
     }
 
-    public List<CommitMap> findCommitMapCount(String authorId) {
-        GithubInfo githubInfo = githubInfoRepository.findByAuthorId(authorId)
-                .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
+    public List<CommitMap> findCommitMapCount(String subId) {
+        GithubInfo githubInfo = githubInfoRepository.findByUserSubId(subId)
+                .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "subId", subId));
         return commitInfoRepository.findCommitMapCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), githubInfo.getInfoId());
     }
 
-    public List<HourStat> findCommitStatHourCount(String authorId) {
-        GithubInfo githubInfo = githubInfoRepository.findByAuthorId(authorId)
-                .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
+    public List<HourStat> findCommitStatHourCount(String subId) {
+        GithubInfo githubInfo = githubInfoRepository.findByUserSubId(subId)
+                .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "subId", subId));
         return commitInfoRepository.findHourStatCommitCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), githubInfo.getInfoId());
     }
 
-    public List<WeekDayStat> findCommitStatWeekdayCount(String authorId) {
-        GithubInfo githubInfo = githubInfoRepository.findByAuthorId(authorId)
-                .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
+    public List<WeekDayStat> findCommitStatWeekdayCount(String subId) {
+        GithubInfo githubInfo = githubInfoRepository.findByUserSubId(subId)
+                .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "subId", subId));
         return commitInfoRepository.findWeekdayStatCommitCount(TimeUtils.getThisYearStartTime(), TimeUtils.getTodayEndTime(), githubInfo.getInfoId());
     }
 

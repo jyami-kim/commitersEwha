@@ -14,6 +14,14 @@ public class GithubInfoRepositoryImpl implements GithubInfoCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
+    public Optional<GithubInfo> findByUserSubId(String subId) {
+        GithubInfo githubInfo = jpaQueryFactory.selectFrom(QGithubInfo.githubInfo)
+                .where(QGithubInfo.githubInfo.user.subId.eq(subId))
+                .fetchOne();
+        return Optional.ofNullable(githubInfo);
+    }
+
+    @Override
     public Optional<GithubInfo> findByUserId(Long userId) {
         GithubInfo githubInfo = jpaQueryFactory.selectFrom(QGithubInfo.githubInfo)
                 .where(QGithubInfo.githubInfo.user.userId.eq(userId))

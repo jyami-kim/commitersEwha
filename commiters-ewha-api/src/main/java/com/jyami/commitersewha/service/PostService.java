@@ -1,6 +1,5 @@
 package com.jyami.commitersewha.service;
 
-import com.jyami.commitersewha.domain.comment.Comment;
 import com.jyami.commitersewha.domain.post.Post;
 import com.jyami.commitersewha.domain.post.PostRepository;
 import com.jyami.commitersewha.domain.user.User;
@@ -38,18 +37,6 @@ public class PostService {
     public PostResponse createNewPost(User user, PostRequest postRequest) {
         Post post = postRepository.save(postRequest.toEntity(user));
         return PostResponse.fromEntityToWithoutComment(post);
-    }
-
-    @Transactional
-    public PostResponse getDetailPost(Long postId) {
-        List<Comment> postByIdWithComments = postRepository.findPostByIdWithComments(postId);
-        if (postByIdWithComments.size() == 0) {
-            Post post = findPostFromId(postId);
-            post.addHitCount();
-            return PostResponse.fromEntityToWithoutComment(post);
-        }
-        postByIdWithComments.get(0).getPost().addHitCount();
-        return PostResponse.fromEntityWithCommentDto(postByIdWithComments);
     }
 
     public Post findPostFromId(Long postId) {

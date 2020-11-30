@@ -34,16 +34,6 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     }
 
     @Override
-    public List<Comment> findPostByIdWithComments(long postId) {
-        return jpaQueryFactory.selectFrom(QComment.comment)
-                .join(QComment.comment.post, QPost.post).fetchJoin()
-                .leftJoin(QComment.comment.user, QUser.user).fetchJoin()
-                .leftJoin(QComment.comment.likesUser, QUser.user).fetchJoin()
-                .where(QPost.post.postId.eq(postId))
-                .fetch();
-    }
-
-    @Override
     public Page<Post> findAllBySearchCondition(SearchRequest searchRequest) {
         PostSearchRequestParamMapper queryMapper = new PostSearchRequestParamMapper(searchRequest);
         JPAQuery<Post> searchQuery = queryMapper.getSearchConditionMapping(jpaQueryFactory.selectFrom(QPost.post));

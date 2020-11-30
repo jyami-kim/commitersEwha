@@ -14,7 +14,5 @@ public interface PostRepositoryCustom {
 
     Optional<Post> findByPostId(long postId);
 
-    List<Comment> findPostByIdWithComments(long postId);
-
     Page<Post> findAllBySearchCondition(SearchRequest searchRequest);
 }
