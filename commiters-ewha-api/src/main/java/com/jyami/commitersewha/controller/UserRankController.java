@@ -1,9 +1,9 @@
 package com.jyami.commitersewha.controller;
 
-import com.jyami.commitersewha.domain.userRank.UserRank;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.ResponseCode;
 import com.jyami.commitersewha.payload.response.OneUserRankResponse;
+import com.jyami.commitersewha.payload.response.UserRankInfoResponse;
 import com.jyami.commitersewha.security.CurrentUser;
 import com.jyami.commitersewha.security.GoogleUserPrincipal;
 import com.jyami.commitersewha.service.UserRankService;
@@ -47,7 +47,7 @@ public class UserRankController {
     @GetMapping("quarter")
     public ResponseEntity<?> getQuarterRanking(@CurrentUser GoogleUserPrincipal googleUserPrincipal) {
         log.info("---getQuarterRank : parameter = {}", googleUserPrincipal.getId());
-        List<UserRank> rankingQuarter = userRankService.getRankingQuarter();
+        List<UserRankInfoResponse> rankingQuarter = userRankService.getRankingQuarter();
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(ResponseCode.OK, FIND_RANKING_QUARTER_SUCCESS, rankingQuarter));
     }
@@ -55,7 +55,7 @@ public class UserRankController {
     @GetMapping("week")
     public ResponseEntity<?> getWeekRanking(@CurrentUser GoogleUserPrincipal googleUserPrincipal) {
         log.info("---getWeekrRank : parameter = {}", googleUserPrincipal.getId());
-        List<UserRank> rankingWeek = userRankService.getRankingWeek();
+        List<UserRankInfoResponse> rankingWeek = userRankService.getRankingWeek();
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(ResponseCode.OK, FIND_RANKING_WEEK_SUCCESS, rankingWeek));
     }

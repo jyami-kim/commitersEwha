@@ -11,6 +11,7 @@ import com.jyami.commitersewha.payload.response.GithubDetailInfoResponse;
 import com.jyami.commitersewha.security.CurrentUser;
 import com.jyami.commitersewha.security.GoogleUserPrincipal;
 import com.jyami.commitersewha.service.GithubInfoService;
+import com.jyami.commitersewha.service.UserRankService;
 import com.jyami.commitersewha.util.TimeUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,7 @@ import static com.jyami.commitersewha.payload.ResponseMessage.*;
 public class GithubInfoController {
 
     private final GithubInfoService githubInfoService;
+    private final UserRankService userRankService;
 
     @GetMapping("{authorId}")
     public ResponseEntity<?> getGithubUserInfo(@CurrentUser GoogleUserPrincipal googleUserPrincipal,
@@ -54,6 +56,7 @@ public class GithubInfoController {
         log.info("---updateGithubInfo : userId = {} date = {}", googleUserPrincipal.getId(), startDate);
         HashMap<String, List<GithubCommitInfoResponse>> updateDataInfo =
                 githubInfoService.updateDateInfo(TimeUtils.getStartDate(startDate), googleUserPrincipal.getId());
+        userRankService.saveRank(googleUserPrincipal.getId());
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(ResponseCode.OK, UPDATE_GITHUB_INFO_SUCCESS, updateDataInfo));
     }

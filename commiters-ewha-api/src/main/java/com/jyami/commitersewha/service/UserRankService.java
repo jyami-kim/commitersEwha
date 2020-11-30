@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by jyami on 2020/11/28
@@ -58,14 +59,20 @@ public class UserRankService {
                 .orElseGet(() -> UserRank.emptyUserRank(githubInfo));
     }
 
-    public List<UserRank> getRankingWeek() {
+    public List<UserRankInfoResponse> getRankingWeek() {
         LocalDateTime thisWeekStartTime = TimeUtils.getThisWeekStartTime(LocalDate.now());
-        return userRankRepository.findAllUserRankinks(true, thisWeekStartTime.toLocalDate());
+        return userRankRepository.findAllUserRankinks(true, thisWeekStartTime.toLocalDate())
+                .stream()
+                .map(x -> UserRankInfoResponse.of(x, x.getGithubInfo()))
+                .collect(Collectors.toList());
     }
 
-    public List<UserRank> getRankingQuarter() {
+    public List<UserRankInfoResponse> getRankingQuarter() {
         LocalDateTime thisQuarterStartTime = TimeUtils.getThisQuarterStartTime(LocalDate.now());
-        return userRankRepository.findAllUserRankinks(false, thisQuarterStartTime.toLocalDate());
+        return userRankRepository.findAllUserRankinks(false, thisQuarterStartTime.toLocalDate())
+                .stream()
+                .map(x -> UserRankInfoResponse.of(x, x.getGithubInfo()))
+                .collect(Collectors.toList());
     }
 
     private void saveRankAsWeek(GithubInfo githubInfo) {
