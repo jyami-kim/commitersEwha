@@ -1,6 +1,7 @@
 package com.jyami.commitersewha.payload.request;
 
-import com.jyami.commitersewha.domain.post.Category;
+import com.jyami.commitersewha.domain.post.PostCategory;
+import com.jyami.commitersewha.domain.projectPost.ProjectPostCategory;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +25,8 @@ public class SearchRequest {
     private int page = 1;
     private int size = DEFAULT_SIZE;
     private Sort.Direction direction = Sort.Direction.DESC;
-    private Category category = null;
+    private ProjectPostCategory projectPostCategory = null;
+    private PostCategory postCategory = null;
     private String title = null;
     private List<String> hashTag = null;
 

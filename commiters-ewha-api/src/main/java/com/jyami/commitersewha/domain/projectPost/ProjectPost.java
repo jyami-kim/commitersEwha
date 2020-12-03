@@ -1,4 +1,4 @@
-package com.jyami.commitersewha.domain.post;
+package com.jyami.commitersewha.domain.projectPost;
 
 import com.jyami.commitersewha.domain.BaseTime;
 import com.jyami.commitersewha.domain.comment.Comment;
@@ -20,17 +20,27 @@ import java.util.*;
 @DynamicUpdate
 @Builder(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Post extends BaseTime {
+public class ProjectPost extends BaseTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "postId")
-    private long postId;
+    @Column(name = "projectPostId")
+    private long projectPostId;
 
     @Setter
     private String title;
     @Setter
-    private String detail;
+    private String introducing;
+    @Setter
+    private String githubLink;
+    @Setter
+    private String deployLinkIOS;
+    @Setter
+    private String deployLinkAndroid;
+    @Setter
+    private String deployLinkWeb;
+    @Setter
+    private String deployLinkOther;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
@@ -39,7 +49,7 @@ public class Post extends BaseTime {
     @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
     @Setter
-    private PostCategory postCategory;
+    private ProjectPostCategory projectPostCategory;
 
     @Builder.Default
     private long hit = 0;
@@ -49,7 +59,14 @@ public class Post extends BaseTime {
     private Set<Comment> comments = new HashSet<>();
 
     @Setter
+    private String devStacks;
+
+    @Setter
     private String hashTags;
+    @Setter
+    private String image;
+    @Setter
+    private String youtubeLink;
 
     @ManyToMany
     @JoinTable(name = "post_user_like_link")
@@ -58,6 +75,12 @@ public class Post extends BaseTime {
 
     public Set<User> getLikesUser() {
         return Collections.unmodifiableSet(likesUser);
+    }
+
+    public List<String> getDevStacks() {
+        if (StringUtils.isNotBlank(this.devStacks))
+            return Arrays.asList(devStacks.split(","));
+        return Collections.emptyList();
     }
 
     public List<String> getHashTags() {

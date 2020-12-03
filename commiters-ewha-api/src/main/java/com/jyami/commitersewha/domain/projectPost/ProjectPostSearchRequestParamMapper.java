@@ -1,4 +1,4 @@
-package com.jyami.commitersewha.domain.post;
+package com.jyami.commitersewha.domain.projectPost;
 
 import com.jyami.commitersewha.payload.request.SearchRequest;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
@@ -13,7 +13,7 @@ import java.util.List;
  * Created by jyami on 2020/10/02
  */
 @RequiredArgsConstructor
-public final class PostSearchRequestParamMapper {
+public final class ProjectPostSearchRequestParamMapper {
 
     private final SearchRequest searchRequest;
 
@@ -23,7 +23,7 @@ public final class PostSearchRequestParamMapper {
         return getHashTagMapping(mapping);
     }
 
-    public PageRequest getPageRequest(){
+    public PageRequest getPageRequest() {
         return searchRequest.toPageRequest();
     }
 
@@ -31,7 +31,7 @@ public final class PostSearchRequestParamMapper {
         if (searchRequest.getPostCategory() == null) {
             return query;
         }
-        return query.where(QPost.post.category.eq(searchRequest.getPostCategory()));
+        return query.where(QProjectPost.projectPost.category.eq(searchRequest.getProjectPostCategory()));
     }
 
     private <T> JPAQuery<T> getHashTagMapping(JPAQuery<T> query) {
@@ -48,13 +48,13 @@ public final class PostSearchRequestParamMapper {
         if (StringUtils.isBlank(title)) {
             return query;
         }
-        return query.where(QPost.post.title.containsIgnoreCase(title));
+        return query.where(QProjectPost.projectPost.title.containsIgnoreCase(title));
     }
 
     private BooleanExpression getHashTagSearchExpression(List<String> hashTag) {
-        BooleanExpression hashExpression = QPost.post.hashTags.containsIgnoreCase(hashTag.get(0));
+        BooleanExpression hashExpression = QProjectPost.projectPost.hashTags.containsIgnoreCase(hashTag.get(0));
         for (int i = 1; i < hashTag.size(); i++) {
-            hashExpression = hashExpression.or(QPost.post.hashTags.containsIgnoreCase(hashTag.get(i)));
+            hashExpression = hashExpression.or(QProjectPost.projectPost.hashTags.containsIgnoreCase(hashTag.get(i)));
         }
         return hashExpression;
     }

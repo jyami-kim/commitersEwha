@@ -1,7 +1,7 @@
 package com.jyami.commitersewha.payload.request;
 
-import com.jyami.commitersewha.domain.post.Category;
 import com.jyami.commitersewha.domain.post.Post;
+import com.jyami.commitersewha.domain.post.PostCategory;
 import com.jyami.commitersewha.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,14 +23,14 @@ public final class PostRequest {
     @NotNull
     private String detail;
     @NotNull
-    private Category category;
+    private PostCategory postCategory;
     private List<String> hashTag = Collections.emptyList();
 
     public Post toEntity(User user) {
         return Post.builder()
                 .title(this.title)
                 .detail(this.detail)
-                .category(this.category)
+                .postCategory(this.postCategory)
                 .user(user)
                 .hashTags(joiningHashTag())
                 .build();
@@ -38,7 +38,7 @@ public final class PostRequest {
 
     public void updateEntity(Post post) {
         post.setTitle(this.title);
-        post.setCategory(this.category);
+        post.setPostCategory(this.postCategory);
         post.setDetail(this.detail);
         post.setHashTags(joiningHashTag());
     }

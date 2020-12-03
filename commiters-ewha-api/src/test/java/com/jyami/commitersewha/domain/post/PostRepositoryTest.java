@@ -19,7 +19,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import javax.persistence.EntityManager;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -61,7 +60,7 @@ class PostRepositoryTest {
 
     private Post settingPost(User settingUser) {
         Post settingPost = Post.builder()
-                .category(Category.ADVERTISING)
+                .postCategory(PostCategory.ADVERTISING)
                 .detail("세부사항")
                 .title("제목")
                 .user(settingUser)

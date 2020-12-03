@@ -1,15 +1,12 @@
 package com.jyami.commitersewha.payload.response;
 
-import com.jyami.commitersewha.domain.comment.Comment;
-import com.jyami.commitersewha.domain.post.Category;
+import com.jyami.commitersewha.domain.post.PostCategory;
 import com.jyami.commitersewha.domain.post.Post;
 import com.jyami.commitersewha.domain.user.User;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by jyami on 2020/09/30
@@ -26,7 +23,7 @@ public final class PostResponse {
     private String detail;
     private long userId;
     private String userName;
-    private Category category;
+    private PostCategory postCategory;
     @Builder.Default
     private long hit = 0;
     private LocalDateTime createdDate;
@@ -42,7 +39,7 @@ public final class PostResponse {
                 .detail(post.getDetail())
                 .userId(user.getUserId())
                 .userName(user.getName())
-                .category(post.getCategory())
+                .postCategory(post.getPostCategory())
                 .hashTags(post.getHashTags())
                 .hit(post.getHit())
                 .createdDate(post.getCreatedDate())

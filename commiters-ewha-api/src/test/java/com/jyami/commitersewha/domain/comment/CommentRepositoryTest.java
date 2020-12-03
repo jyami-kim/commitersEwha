@@ -1,6 +1,6 @@
 package com.jyami.commitersewha.domain.comment;
 
-import com.jyami.commitersewha.domain.post.Category;
+import com.jyami.commitersewha.domain.post.PostCategory;
 import com.jyami.commitersewha.domain.post.Post;
 import com.jyami.commitersewha.domain.post.PostRepository;
 import com.jyami.commitersewha.domain.user.User;
@@ -8,12 +8,10 @@ import com.jyami.commitersewha.domain.user.UserRepository;
 import com.jyami.commitersewha.preSetting.TestConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
 import java.util.Arrays;
@@ -76,7 +74,7 @@ class CommentRepositoryTest {
 
     private Post settingPost(User settingUser) {
         Post settingPost = Post.builder()
-                .category(Category.ADVERTISING)
+                .postCategory(PostCategory.ADVERTISING)
                 .detail("세부사항")
                 .title("제목")
                 .user(settingUser)
