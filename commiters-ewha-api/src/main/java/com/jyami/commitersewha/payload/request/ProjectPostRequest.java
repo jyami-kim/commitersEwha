@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public final class ProjectPostRequest {
 
-    private Long postId; //update 할 때 사용
+    private Long projectPostId; //update 할 때 사용
     @NotNull
     private String title;
     @NotNull

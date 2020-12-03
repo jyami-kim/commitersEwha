@@ -1,14 +1,11 @@
 package com.jyami.commitersewha.service;
 
-import com.jyami.commitersewha.domain.post.Post;
-import com.jyami.commitersewha.domain.post.PostRepository;
 import com.jyami.commitersewha.domain.projectPost.ProjectPost;
 import com.jyami.commitersewha.domain.projectPost.ProjectPostRepository;
 import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.exception.NotAccessUserException;
 import com.jyami.commitersewha.exception.ResourceNotFoundException;
 import com.jyami.commitersewha.payload.ResponseMessage;
-import com.jyami.commitersewha.payload.request.PostRequest;
 import com.jyami.commitersewha.payload.request.ProjectPostRequest;
 import com.jyami.commitersewha.payload.request.SearchRequest;
 import com.jyami.commitersewha.payload.response.LikeResponse;
@@ -46,45 +43,45 @@ public class ProjectPostService {
     }
 
     @Transactional
-    public ProjectPostResponse updatePost(Long userId, PostRequest postRequest) {
-        ProjectPost projectPost = findPostFromId(postRequest.getPostId());
+    public ProjectPostResponse updatePost(Long userId, ProjectPostRequest projectPostRequest) {
+        ProjectPost projectPost = findPostFromId(projectPostRequest.getProjectPostId());
         validateAuthorizedUser(userId, projectPost);
 
-        postRequest.updateEntity(post);
+        projectPostRequest.updateEntity(projectPost);
 
-        Post updatedPost = projectPostRepository.save(post);
+        ProjectPost updatedPost = projectPostRepository.save(projectPost);
         return ProjectPostResponse.fromEntityToWithoutComment(updatedPost);
     }
 
     @Transactional
-    public void deletePost(Long userId, Long postId) {
-        Post post = findPostFromId(postId);
-        validateAuthorizedUser(userId, post);
+    public void deletePost(Long userId, Long projectPostId) {
+        ProjectPost projectPost = findPostFromId(projectPostId);
+        validateAuthorizedUser(userId, projectPost);
 
-        projectPostRepository.delete(post);
+        projectPostRepository.delete(projectPost);
     }
 
-    private void validateAuthorizedUser(Long accessUserId, Post post) {
-        long authorId = post.getUser().getUserId();
+    private void validateAuthorizedUser(Long accessUserId, ProjectPost projectPost) {
+        long authorId = projectPost.getUser().getUserId();
         if (authorId != accessUserId)
             throw new NotAccessUserException(ResponseMessage.CAN_NOT_UPDATED_THIS_ACCESS_USER);
     }
 
     @Transactional
     public LikeResponse changeUserLikeStatus(User user, Long postId) {
-        Post post = findPostFromId(postId);
+        ProjectPost post = findPostFromId(postId);
         boolean likeStatus = changeLikeStatus(user, post);
         projectPostRepository.save(post);
         return LikeResponse.ofPostLike(user.getUserId(), postId, likeStatus);
     }
 
-    private boolean changeLikeStatus(User user, Post post) {
-        Set<User> likesUser = post.getLikesUser();
+    private boolean changeLikeStatus(User user, ProjectPost projectPost) {
+        Set<User> likesUser = projectPost.getLikesUser();
         if (likesUser.contains(user)) {
-            post.removeLikeUser(user);
+            projectPost.removeLikeUser(user);
             return false;
         }
-        post.addLikeUser(user);
+        projectPost.addLikeUser(user);
         return true;
     }
 
