@@ -1,6 +1,7 @@
 package com.jyami.commitersewha.payload.response;
 
 import com.jyami.commitersewha.domain.comment.Comment;
+import com.jyami.commitersewha.domain.projectComment.ProjectComment;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -34,7 +35,7 @@ public class CommentResponse {
 
     private Integer commentLikeSize;
 
-    public static CommentResponse fromEntity(Comment comment){
+    public static CommentResponse fromPostEntity(Comment comment) {
         return CommentResponse.builder()
                 .commentId(comment.getCommentId())
                 .content(comment.getContent())
@@ -46,6 +47,19 @@ public class CommentResponse {
                 .modifiedDate(comment.getModifiedDate())
                 .commentLikeSize(comment.getLikesUser().size())
                 .build();
+    }
 
+    public static CommentResponse fromProjectPostEntity(ProjectComment projectComment) {
+        return CommentResponse.builder()
+                .commentId(projectComment.getProjectCommentId())
+                .content(projectComment.getContent())
+                .parent(projectComment.getParent())
+                .postId(projectComment.getProjectPost().getProjectPostId())
+                .userId(projectComment.getUser().getUserId())
+                .userName(projectComment.getUser().getName())
+                .createdDate(projectComment.getCreatedDate())
+                .modifiedDate(projectComment.getModifiedDate())
+                .commentLikeSize(projectComment.getLikesUser().size())
+                .build();
     }
 }

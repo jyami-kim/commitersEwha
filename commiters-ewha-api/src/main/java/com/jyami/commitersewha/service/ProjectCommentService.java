@@ -1,15 +1,17 @@
 package com.jyami.commitersewha.service;
 
 import com.jyami.commitersewha.domain.comment.Comment;
-import com.jyami.commitersewha.domain.comment.CommentRepository;
 import com.jyami.commitersewha.domain.post.Post;
+import com.jyami.commitersewha.domain.projectComment.ProjectComment;
+import com.jyami.commitersewha.domain.projectComment.ProjectCommentRepository;
+import com.jyami.commitersewha.domain.projectPost.ProjectPost;
 import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.exception.NotAccessUserException;
 import com.jyami.commitersewha.exception.ResourceNotFoundException;
+import com.jyami.commitersewha.payload.ResponseMessage;
 import com.jyami.commitersewha.payload.request.CommentRequest;
 import com.jyami.commitersewha.payload.response.CommentResponse;
 import com.jyami.commitersewha.payload.response.LikeResponse;
-import com.jyami.commitersewha.payload.ResponseMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,50 +26,50 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
-public class CommentService {
+public class ProjectCommentService {
 
-    private final PostService postService;
-    private final CommentRepository commentRepository;
+    private final ProjectPostService projectPostService;
+    private final ProjectCommentRepository projectCommentRepository;
 
     @Transactional
     public CommentResponse createComment(User user, CommentRequest commentRequest) {
-        Post post = postService.findPostFromId(commentRequest.getPostId());
+        ProjectPost projectPost = projectPostService.findPostFromId(commentRequest.getPostId());
         validateParentComment(commentRequest.getPostId());
-        Comment comment = commentRepository.save(commentRequest.toPostEntity(post, user));
-        return CommentResponse.fromPostEntity(comment);
+        ProjectComment comment = projectCommentRepository.save(commentRequest.toProjectPostEntity(projectPost, user));
+        return CommentResponse.fromProjectPostEntity(comment);
     }
 
     @Transactional
     public List<CommentResponse> getCommentsByPostId(Long postId) {
-        List<Comment> comments = commentRepository.findPostByIdWithComments(postId);
+        List<ProjectComment> comments = projectCommentRepository.findPostByIdWithComments(postId);
         if (comments.size() == 0) {
-            Post post = postService.findPostFromId(postId);
+            ProjectPost post = projectPostService.findPostFromId(postId);
             post.addHitCount();
             return Collections.emptyList();
         }
-        comments.get(0).getPost().addHitCount();
+        comments.get(0).getProjectPost().addHitCount();
 
         return comments.stream()
-                .map(CommentResponse::fromPostEntity)
+                .map(CommentResponse::fromProjectPostEntity)
                 .collect(Collectors.toList());
     }
 
     private void validateParentComment(long parentId) {
         if (parentId != -1) {
-            commentRepository.findById(parentId)
-                    .orElseThrow(() -> new ResourceNotFoundException("comment", "parentId", parentId));
+            projectCommentRepository.findById(parentId)
+                    .orElseThrow(() -> new ResourceNotFoundException("projectComment", "parentId", parentId));
         }
     }
 
     @Transactional
     public void deleteComment(Long userId, Long commentId) {
-        Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new ResourceNotFoundException("comment", "commentId", commentId));
+        ProjectComment comment = projectCommentRepository.findById(commentId)
+                .orElseThrow(() -> new ResourceNotFoundException("projectComment", "commentId", commentId));
         validateAuthorizedUser(userId, comment);
-        commentRepository.delete(comment);
+        projectCommentRepository.delete(comment);
     }
 
-    private void validateAuthorizedUser(Long accessUserId, Comment comment) {
+    private void validateAuthorizedUser(Long accessUserId, ProjectComment comment) {
         long authorId = comment.getUser().getUserId();
         if (authorId != accessUserId)
             throw new NotAccessUserException(ResponseMessage.CAN_NOT_UPDATED_THIS_ACCESS_USER);
@@ -75,14 +77,14 @@ public class CommentService {
 
     @Transactional
     public LikeResponse changeUserLikeStatus(User user, Long commentId) {
-        Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new ResourceNotFoundException("comment", "commentId", commentId));
-        boolean likeStatus = changeLikeStatus(user, comment);
-        commentRepository.save(comment);
-        return LikeResponse.ofCommentLike(user.getUserId(), comment.getPost().getPostId(), commentId, likeStatus);
+        ProjectComment projectComment = projectCommentRepository.findById(commentId)
+                .orElseThrow(() -> new ResourceNotFoundException("projectComment", "commentId", commentId));
+        boolean likeStatus = changeLikeStatus(user, projectComment);
+        projectCommentRepository.save(projectComment);
+        return LikeResponse.ofCommentLike(user.getUserId(), projectComment.getProjectPost().getProjectPostId(), commentId, likeStatus);
     }
 
-    private boolean changeLikeStatus(User user, Comment comment) {
+    private boolean changeLikeStatus(User user, ProjectComment comment) {
         Set<User> likesUser = comment.getLikesUser();
         if (likesUser.contains(user)) {
             comment.removeLikeUser(user);
