@@ -32,7 +32,7 @@ public class CommentService {
     @Transactional
     public CommentResponse createComment(User user, CommentRequest commentRequest) {
         Post post = postService.findPostFromId(commentRequest.getPostId());
-        validateParentComment(commentRequest.getPostId());
+        validateParentComment(commentRequest.getParent());
         Comment comment = commentRepository.save(commentRequest.toPostEntity(post, user));
         return CommentResponse.fromPostEntity(comment);
     }

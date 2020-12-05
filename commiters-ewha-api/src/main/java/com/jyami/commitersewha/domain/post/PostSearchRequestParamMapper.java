@@ -31,7 +31,7 @@ public final class PostSearchRequestParamMapper {
         if (searchRequest.getPostCategory() == null) {
             return query;
         }
-        return query.where(QPost.post.category.eq(searchRequest.getPostCategory()));
+        return query.where(QPost.post.postCategory.eq(searchRequest.getPostCategory()));
     }
 
     private <T> JPAQuery<T> getHashTagMapping(JPAQuery<T> query) {

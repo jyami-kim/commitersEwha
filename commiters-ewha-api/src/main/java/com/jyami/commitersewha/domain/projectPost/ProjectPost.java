@@ -2,6 +2,7 @@ package com.jyami.commitersewha.domain.projectPost;
 
 import com.jyami.commitersewha.domain.BaseTime;
 import com.jyami.commitersewha.domain.comment.Comment;
+import com.jyami.commitersewha.domain.projectComment.ProjectComment;
 import com.jyami.commitersewha.domain.user.User;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import lombok.*;
@@ -54,9 +55,9 @@ public class ProjectPost extends BaseTime {
     @Builder.Default
     private long hit = 0;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "projectPost", cascade = CascadeType.REMOVE)
     @Builder.Default
-    private Set<Comment> comments = new HashSet<>();
+    private Set<ProjectComment> comments = new HashSet<>();
 
     @Setter
     private String devStacks;
@@ -69,7 +70,7 @@ public class ProjectPost extends BaseTime {
     private String youtubeLink;
 
     @ManyToMany
-    @JoinTable(name = "post_user_like_link")
+    @JoinTable(name = "project_post_user_like_link")
     @Builder.Default
     private Set<User> likesUser = new HashSet<>();
 

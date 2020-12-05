@@ -52,7 +52,8 @@ public class RssFeedService {
 
     public static List<RssFeedContents> parsing(SyndFeed feed, RssFeed rssFeed) {
         return feed.getEntries().stream()
-                .map(entry -> RssFeedContents.of(rssFeed, entry))
+                .map(entry -> RssFeedContents.
+                        of(rssFeed, entry))
                 .collect(Collectors.toList());
     }
 

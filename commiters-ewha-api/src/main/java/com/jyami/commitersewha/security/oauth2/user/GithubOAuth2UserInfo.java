@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Created by jyami on 2020/10/11
  */
-public class GithubOAuth2UserInfo extends OAuth2UserInfo{
+public class GithubOAuth2UserInfo extends OAuth2UserInfo {
 
     public GithubOAuth2UserInfo(Map<String, Object> attributes) {
         super(attributes);
@@ -34,5 +34,9 @@ public class GithubOAuth2UserInfo extends OAuth2UserInfo{
     @Override
     public Boolean getEmailVerified() {
         return true;
+    }
+
+    public String getAuthorId(){
+        return (String) attributes.get("login");
     }
 }
