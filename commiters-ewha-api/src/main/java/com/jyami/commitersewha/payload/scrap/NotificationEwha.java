@@ -15,6 +15,7 @@ public class NotificationEwha {
     private long number;
     private String title;
     private String type;
+    private String date;
     private String link;
     private boolean newBadge;
 
@@ -22,6 +23,7 @@ public class NotificationEwha {
         return NotificationEwha.builder()
                 .number(Integer.parseInt(element.select(".no").text()))
                 .type(element.select("td:nth-child(2)").text())
+                .date(element.select("td:nth-child(5)").text())
                 .title(element.select(".title").text())
                 .link(baseUrl + element.select(".title a").attr("href"))
                 .newBadge(!element.select(".title a img").isEmpty())
