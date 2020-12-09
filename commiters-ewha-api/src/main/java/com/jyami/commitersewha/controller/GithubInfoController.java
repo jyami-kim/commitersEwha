@@ -1,6 +1,5 @@
 package com.jyami.commitersewha.controller;
 
-import com.jyami.commitersewha.domain.commitInfo.GithubCommitInfo;
 import com.jyami.commitersewha.domain.commitInfo.dto.CommitMap;
 import com.jyami.commitersewha.domain.commitInfo.dto.HourStat;
 import com.jyami.commitersewha.domain.commitInfo.dto.WeekDayStat;
@@ -34,11 +33,19 @@ public class GithubInfoController {
     private final GithubInfoService githubInfoService;
     private final UserRankService userRankService;
 
+    @GetMapping("me")
+    public ResponseEntity<?> getGihtubCurrentUSerInfo(@CurrentUser GoogleUserPrincipal googleUserPrincipal) {
+        log.info("---getUserGithubInfo : parameter = {}", googleUserPrincipal.getId());
+        GithubDetailInfoResponse detailInfo = githubInfoService.getGithubInfoFromUserId(googleUserPrincipal.getId());
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(ResponseCode.OK, GET_GITHUB_USER_DETAIL_INFO, detailInfo));
+    }
+
     @GetMapping("{subId}")
     public ResponseEntity<?> getGithubUserInfo(@CurrentUser GoogleUserPrincipal googleUserPrincipal,
                                                @PathVariable String subId) {
         log.info("---getUserGithubInfo : parameter = {} => {}", googleUserPrincipal.getId(), subId);
-        GithubDetailInfoResponse detailInfo = githubInfoService.getGithubInfoFromUserId(subId);
+        GithubDetailInfoResponse detailInfo = githubInfoService.getGithubInfoFromSubId(subId);
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(ResponseCode.OK, GET_GITHUB_USER_DETAIL_INFO, detailInfo));
     }

@@ -49,9 +49,15 @@ public class GithubInfoService {
     private final CommitInfoRepository commitInfoRepository;
     private final GithubRestTemplate githubRestTemplate;
 
-    public GithubDetailInfoResponse getGithubInfoFromUserId(String authorId) {
-        GithubInfo githubInfo = githubInfoRepository.findByUserSubId(authorId)
-                .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "authorId", authorId));
+    public GithubDetailInfoResponse getGithubInfoFromUserId(Long userId) {
+        GithubInfo githubInfo = githubInfoRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "userId", userId));
+        return GithubDetailInfoResponse.fromEntity(githubInfo);
+    }
+
+    public GithubDetailInfoResponse getGithubInfoFromSubId(String subId) {
+        GithubInfo githubInfo = githubInfoRepository.findByUserSubId(subId)
+                .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "subId", subId));
         return GithubDetailInfoResponse.fromEntity(githubInfo);
     }
 
