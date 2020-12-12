@@ -2,8 +2,6 @@ package com.jyami.commitersewha.domain.user;
 
 import com.jyami.commitersewha.domain.tag.Badge;
 import com.jyami.commitersewha.domain.tag.BadgeRepository;
-import com.jyami.commitersewha.domain.tag.DevStack;
-import com.jyami.commitersewha.domain.tag.DevStackRepository;
 import com.jyami.commitersewha.exception.ResourceNotFoundException;
 import com.jyami.commitersewha.preSetting.TestConfig;
 import org.assertj.core.util.Sets;

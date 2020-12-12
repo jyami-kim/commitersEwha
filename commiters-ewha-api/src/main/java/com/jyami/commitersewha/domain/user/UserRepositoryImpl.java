@@ -1,7 +1,6 @@
 package com.jyami.commitersewha.domain.user;
 
 import com.jyami.commitersewha.domain.tag.QBadge;
-import com.jyami.commitersewha.domain.tag.QDevStack;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +18,6 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     public Optional<User> findBySubId(String subId) {
         User user = jpaQueryFactory.selectFrom(QUser.user)
                 .leftJoin(QUser.user.badges, QBadge.badge).fetchJoin()
-                .leftJoin(QUser.user.devStacks, QDevStack.devStack).fetchJoin()
                 .where(QUser.user.subId.eq(subId))
                 .fetchOne();
         return Optional.ofNullable(user);
@@ -29,7 +27,6 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     public Optional<User> findByUserId(Long userId) {
         User user = jpaQueryFactory.selectFrom(QUser.user)
                 .leftJoin(QUser.user.badges, QBadge.badge).fetchJoin()
-                .leftJoin(QUser.user.devStacks, QDevStack.devStack).fetchJoin()
                 .where(QUser.user.userId.eq(userId))
                 .fetchOne();
         return Optional.ofNullable(user);

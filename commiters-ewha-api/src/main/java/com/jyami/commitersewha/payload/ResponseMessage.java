@@ -49,5 +49,6 @@ public final class ResponseMessage {
     public static final String UPDATE_COMMIT_RANK_SUCCESS = "DB에 저장된 commit을 읽고 rank update 성공";
     public static final String FIND_RANKING_WEEK_SUCCESS = "한주간의 랭킹 리스트 찾기 성공";
     public static final String FIND_RANKING_QUARTER_SUCCESS = "한 쿼터간 랭킹 리스트 찾기 성공";
+    public static final String FIND_RANKING_INFO_SUCCESS = "한 유저의 랭킹 정보 찾기 성공";
 
 }

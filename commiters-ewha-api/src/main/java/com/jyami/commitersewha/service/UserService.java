@@ -1,7 +1,5 @@
 package com.jyami.commitersewha.service;
 
-import com.google.common.collect.Sets;
-import com.jyami.commitersewha.domain.tag.DevStack;
 import com.jyami.commitersewha.domain.user.User;
 import com.jyami.commitersewha.domain.user.UserRepository;
 import com.jyami.commitersewha.exception.ResourceNotFoundException;
@@ -11,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 
 /**
@@ -24,7 +20,6 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final TagService tagService;
 
     public UserInfoResponse getCurrentUser(Long userId) {
         return UserInfoResponse.fromEntity(getUserFromId(userId));
@@ -33,8 +28,7 @@ public class UserService {
     @Transactional
     public UserInfoResponse nextSignUp(Long userId, UserUpdateRequest userUpdateRequest) {
         User user = getUserFromId(userId);
-        List<DevStack> allDevStacks = tagService.findAllBtDevStackId(Sets.newHashSet(userUpdateRequest.getDevStackIdList()));
-        userUpdateRequest.updateUserInfo(user, allDevStacks);
+        userUpdateRequest.updateUserInfo(user);
         return UserInfoResponse.fromEntity(userRepository.save(user));
     }
 

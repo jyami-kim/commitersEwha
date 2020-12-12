@@ -1,13 +1,8 @@
 package com.jyami.commitersewha.payload.request;
 
-import com.google.common.collect.Sets;
-import com.jyami.commitersewha.domain.tag.DevStack;
 import com.jyami.commitersewha.domain.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * Created by jyami on 2020/09/30
@@ -16,23 +11,28 @@ import java.util.List;
 @NoArgsConstructor
 public final class UserUpdateRequest {
     private String description;
-    @NotNull
-    private String major;
-    @NotNull
     private int entranceYear;
-    @NotNull
     private boolean isGraduate;
     private String job;
     private String company;
-    private List<Long> devStackIdList;
+    private String devStacks;
+    private String wantJob1;
+    private String wantJob2;
+    private String wantJob3;
+    private String github;
+    private String site;
 
-    public void updateUserInfo(User user, List<DevStack> devStacks) {
+    public void updateUserInfo(User user) {
         user.setDescription(this.description);
-        user.setMajor(this.major);
         user.setEntranceYear(this.entranceYear);
         user.setGraduate(this.isGraduate);
         user.setJob(this.job);
         user.setCompany(this.company);
-        user.setDevStacks(Sets.newHashSet(devStacks));
+        user.setDevStacks(this.devStacks);
+        user.setWantJob1(this.wantJob1);
+        user.setWantJob2(this.wantJob2);
+        user.setWantJob3(this.wantJob3);
+        user.setGithub(this.github);
+        user.setSite(this.site);
     }
 }

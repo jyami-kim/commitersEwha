@@ -8,7 +8,6 @@ import com.jyami.commitersewha.security.GoogleUserPrincipal;
 import com.jyami.commitersewha.security.TokenProvider;
 import com.jyami.commitersewha.util.CookieUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;

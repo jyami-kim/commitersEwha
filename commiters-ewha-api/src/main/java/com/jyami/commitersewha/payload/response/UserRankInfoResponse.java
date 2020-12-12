@@ -29,6 +29,8 @@ public class UserRankInfoResponse {
 
     private LocalDate localDate;
 
+    private String profile;
+
     public static UserRankInfoResponse of(UserRank userRank, GithubInfo githubInfo) {
         return UserRankInfoResponse.builder()
                 .githubInfoId(githubInfo.getInfoId())
@@ -37,6 +39,7 @@ public class UserRankInfoResponse {
                 .commitCount(userRank.getCommitCount())
                 .commitMaxCombo(userRank.getCommitMaxCombo())
                 .week(userRank.isWeek())
+                .profile(githubInfo.getImageUrl())
                 .localDate(userRank.getLocalDate())
                 .build();
     }

@@ -2,7 +2,6 @@ package com.jyami.commitersewha.domain.user;
 
 import com.jyami.commitersewha.domain.BaseTime;
 import com.jyami.commitersewha.domain.tag.Badge;
-import com.jyami.commitersewha.domain.tag.DevStack;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -55,13 +54,12 @@ public class User extends BaseTime {
 
     private String defaultMajor;
 
+
     // ----------- 여기까지 google 기본 정보 ----------
 
     //    private long githubId; // 이후 깃허브 연동시 사용할 아이디
     @Setter
     private String description;
-    @Setter
-    private String major;
     @Setter
     private int entranceYear;
     @Setter
@@ -70,6 +68,16 @@ public class User extends BaseTime {
     private String job;
     @Setter
     private String company;
+    @Setter
+    private String wantJob1;
+    @Setter
+    private String wantJob2;
+    @Setter
+    private String wantJob3;
+    @Setter
+    private String github;
+    @Setter
+    private String site;
 
     @Setter
     @ManyToMany(cascade = CascadeType.PERSIST)
@@ -78,29 +86,15 @@ public class User extends BaseTime {
     private Set<Badge> badges = new HashSet<>();
 
     @Setter
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "user_dev_stack_link")
     @Builder.Default
-    private Set<DevStack> devStacks = new HashSet<>();
+    private String devStacks = "";
 
     public Set<Badge> getBadges() {
         return Collections.unmodifiableSet(badges);
     }
 
-    public Set<DevStack> getDevStacks() {
-        return Collections.unmodifiableSet(devStacks);
-    }
-
     public void addBadges(List<Badge> baseList){
         badges.addAll(baseList);
-    }
-
-    public void addDevStacks(List<DevStack> devStackList){
-        devStacks.addAll(devStackList);
-    }
-
-    public void deleteDevStacks(List<DevStack> devStackList){
-        devStacks.removeAll(devStackList);
     }
 
     public static String emailToSubId(String email) {

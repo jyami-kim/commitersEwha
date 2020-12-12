@@ -35,13 +35,21 @@ public class UserRankController {
                 .body(DefaultResponse.of(ResponseCode.OK, UPDATE_COMMIT_RANK_SUCCESS));
     }
 
+    @GetMapping("me")
+    public ResponseEntity<?> getMyRankDetailAsQuarterAndWeek(@CurrentUser GoogleUserPrincipal googleUserPrincipal) {
+        log.info("---getMyRank : parameter = {}", googleUserPrincipal.getId());
+        OneUserRankResponse userRanks = userRankService.getMyRankScore(googleUserPrincipal.getId());
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(ResponseCode.OK, FIND_RANKING_INFO_SUCCESS, userRanks));
+    }
+
     @GetMapping("{subId}")
     public ResponseEntity<?> getRankDetailAsQuarterAndWeek(@CurrentUser GoogleUserPrincipal googleUserPrincipal,
                                                            @PathVariable String subId) {
         log.info("---getRank : parameter = {} => {}", googleUserPrincipal.getId(), subId);
         OneUserRankResponse userRanks = userRankService.getSingleUserRankScore(subId);
         return ResponseEntity.ok()
-                .body(DefaultResponse.of(ResponseCode.OK, UPDATE_COMMIT_RANK_SUCCESS, userRanks));
+                .body(DefaultResponse.of(ResponseCode.OK, FIND_RANKING_INFO_SUCCESS, userRanks));
     }
 
     @GetMapping("quarter")

@@ -37,7 +37,7 @@ public class ProjectPostRepositoryImpl implements ProjectPostRepositoryCustom {
         JPAQuery<ProjectPost> searchQuery = queryMapper
                 .getSearchConditionMapping(jpaQueryFactory.selectFrom(QProjectPost.projectPost));
         QueryResults<ProjectPost> postQueryResults = searchQuery.
-                leftJoin(QPost.post.user, QUser.user).fetchJoin()
+                leftJoin(QProjectPost.projectPost.user, QUser.user).fetchJoin()
                 .fetchResults();
         return new PageImpl<>(postQueryResults.getResults(), queryMapper.getPageRequest(), postQueryResults.getTotal());
     }

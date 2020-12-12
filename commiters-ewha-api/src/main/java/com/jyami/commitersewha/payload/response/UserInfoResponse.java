@@ -1,7 +1,6 @@
 package com.jyami.commitersewha.payload.response;
 
 import com.jyami.commitersewha.domain.tag.Badge;
-import com.jyami.commitersewha.domain.tag.DevStack;
 import com.jyami.commitersewha.domain.user.User;
 import lombok.*;
 
@@ -39,17 +38,28 @@ public final class UserInfoResponse {
 
     private int entranceYear;
 
+    private String defaultMajor;
+
     private boolean isGraduate;
 
     private String job;
 
     private String company;
 
-    @Builder.Default
-    private Set<Badge> badges = Collections.emptySet();
+    private String devStacks;
+
+    private String wantJob1;
+
+    private String wantJob2;
+
+    private String wantJob3;
+
+    private String github;
+
+    private String site;
 
     @Builder.Default
-    private Set<DevStack> devStacks = Collections.emptySet();
+    private Set<Badge> badges = Collections.emptySet();
 
     public static UserInfoResponse fromEntity(User user){
         return UserInfoResponse.builder()
@@ -58,8 +68,13 @@ public final class UserInfoResponse {
                 .email(user.getEmail())
                 .imageUrl(user.getImageUrl())
                 .role(user.getRole())
+                .defaultMajor(user.getDefaultMajor())
                 .description(user.getDescription())
-                .major(user.getMajor())
+                .wantJob1(user.getWantJob1())
+                .wantJob2(user.getWantJob2())
+                .wantJob3(user.getWantJob3())
+                .github(user.getGithub())
+                .site(user.getSite())
                 .entranceYear(user.getEntranceYear())
                 .isGraduate(user.isGraduate())
                 .job(user.getJob())
