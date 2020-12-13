@@ -9,6 +9,7 @@ import com.jyami.commitersewha.domain.githubInfo.GithubInfo;
 import com.jyami.commitersewha.domain.githubInfo.GithubInfoRepository;
 import com.jyami.commitersewha.domain.githubRepoInfo.GithubRepoInfo;
 import com.jyami.commitersewha.domain.githubRepoInfo.GithubRepoInfoRepository;
+import com.jyami.commitersewha.domain.user.UserRepository;
 import com.jyami.commitersewha.exception.ResourceNotFoundException;
 import com.jyami.commitersewha.exception.RestTemplateResponseException;
 import com.jyami.commitersewha.githubRestTemplate.GithubRestTemplate;
@@ -170,9 +171,12 @@ public class GithubInfoService {
     public void saveNewCommitersInfo(Long userId) {
         GithubInfo githubInfo = githubInfoRepository.findByUserId(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("GithubInfo", "userId", userId));
-        String token = githubInfo.getToken();
-        List<GithubRepoInfo> repoInfos = saveRepositoryInfo(token, githubInfo);
-        saveCommitInfo(token, repoInfos, githubInfo);
+        boolean existCommit = commitInfoRepository.checkExistCommit(githubInfo.getInfoId());
+        if(!existCommit){
+            String token = githubInfo.getToken();
+            List<GithubRepoInfo> repoInfos = saveRepositoryInfo(token, githubInfo);
+            saveCommitInfo(token, repoInfos, githubInfo);
+        }
     }
 
     protected List<GithubRepoInfo> saveRepositoryInfo(String token, GithubInfo githubInfo) {

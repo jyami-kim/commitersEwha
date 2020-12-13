@@ -41,6 +41,8 @@ public class CommentController {
                 .body(DefaultResponse.of(ResponseCode.OK, GET_COMMENTS_BY_POSTID, commentsByPostId));
     }
 
+
+
     @PostMapping("")
     public ResponseEntity<?> createComment(@CurrentUser GoogleUserPrincipal googleUserPrincipal,
                                            @Valid @RequestBody CommentRequest commentRequest) {

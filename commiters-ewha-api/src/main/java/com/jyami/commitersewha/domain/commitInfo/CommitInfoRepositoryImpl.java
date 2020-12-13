@@ -87,4 +87,14 @@ public class CommitInfoRepositoryImpl implements CommitInfoCustom {
                 .fetch();
     }
 
+    @Override
+    public boolean checkExistCommit(Long githubInfoId) {
+        Integer fetch = jpaQueryFactory.selectOne()
+                .from(QGithubCommitInfo.githubCommitInfo)
+                .where(QGithubCommitInfo.githubCommitInfo.githubInfo.infoId.eq(githubInfoId))
+                .fetchFirst();
+        return fetch != null;
+    }
+
+
 }

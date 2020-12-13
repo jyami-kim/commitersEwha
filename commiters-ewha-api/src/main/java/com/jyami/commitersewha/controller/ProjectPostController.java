@@ -6,6 +6,7 @@ import com.jyami.commitersewha.payload.ResponseCode;
 import com.jyami.commitersewha.payload.request.PostRequest;
 import com.jyami.commitersewha.payload.request.ProjectPostRequest;
 import com.jyami.commitersewha.payload.request.SearchRequest;
+import com.jyami.commitersewha.payload.response.CommentResponse;
 import com.jyami.commitersewha.payload.response.LikeResponse;
 import com.jyami.commitersewha.payload.response.PostResponse;
 import com.jyami.commitersewha.payload.response.ProjectPostResponse;
@@ -21,6 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.List;
 
 import static com.jyami.commitersewha.payload.ResponseMessage.*;
 
@@ -41,6 +44,14 @@ public class ProjectPostController {
         Page<ProjectPostResponse> postOutLineResponse = projectPostService.getPostOutLineResponse(searchRequest);
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(ResponseCode.OK, GET_POST_LIST, postOutLineResponse));
+    }
+
+    @GetMapping("post/{postId}") // 사실상 post 자세히 보기
+    public ResponseEntity<?> getCommentsOfPost(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable Long postId) {
+        ProjectPostResponse postDetail = projectPostService.getPostDetail(postId);
+        log.info("---get comments of post success : viewer {} => {}", googleUserPrincipal.getId(), postId);
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(ResponseCode.OK, GET_COMMENTS_BY_POSTID, postDetail));
     }
 
     @PostMapping("post")

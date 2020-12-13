@@ -8,6 +8,6 @@ import java.util.List;
  */
 public interface UserRankRepositoryCustom {
 
-    List<UserRank> findAllUserRankinks(boolean week, LocalDate localDate);
+    List<UserRank> findAllUserRankings(boolean week, LocalDate localDate);
 
 }

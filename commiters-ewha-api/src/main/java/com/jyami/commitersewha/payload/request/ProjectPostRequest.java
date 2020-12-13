@@ -30,8 +30,8 @@ public final class ProjectPostRequest {
     private String deployLinkWeb;
     private String deployLinkOther;
     private ProjectPostCategory projectPostCategory;
-    private List<String> hashTags = Collections.emptyList();
-    private List<String> devStacks = Collections.emptyList();
+    private String hashTags;
+    private String devStacks;
     private String image;
     private String youtubeLink;
 
@@ -46,8 +46,8 @@ public final class ProjectPostRequest {
                 .deployLinkWeb(this.deployLinkWeb)
                 .projectPostCategory(this.projectPostCategory)
                 .user(user)
-                .hashTags(joiningHashTag())
-                .devStacks(joiningDevStacks())
+                .hashTags(this.hashTags)
+                .devStacks(this.devStacks)
                 .image(this.image)
                 .youtubeLink(this.youtubeLink)
                 .build();
@@ -57,23 +57,23 @@ public final class ProjectPostRequest {
         projectPost.setTitle(this.title);
         projectPost.setProjectPostCategory(this.projectPostCategory);
         projectPost.setIntroducing(this.introducing);
-        projectPost.setHashTags(joiningHashTag());
+        projectPost.setHashTags(this.hashTags);
         projectPost.setDeployLinkAndroid(this.deployLinkAndroid);
         projectPost.setDeployLinkIOS(this.deployLinkIOS);
         projectPost.setDeployLinkOther(this.deployLinkOther);
         projectPost.setDeployLinkWeb(this.deployLinkWeb);
-        projectPost.setDevStacks(joiningDevStacks());
+        projectPost.setDevStacks(this.devStacks);
         projectPost.setGithubLink(this.githubLink);
         projectPost.setImage(this.image);
         projectPost.setYoutubeLink(this.youtubeLink);
     }
 
-    protected String joiningHashTag() {
-        return String.join(",", this.hashTags);
-    }
+//    protected String joiningHashTag() {
+//        return String.join(",", this.hashTags);
+//    }
 
-    protected String joiningDevStacks() {
-        return String.join(",", this.devStacks);
-    }
+//    protected String joiningDevStacks() {
+//        return String.join(",", this.devStacks);
+//    }
 
 }

@@ -78,17 +78,17 @@ public class ProjectPost extends BaseTime {
         return Collections.unmodifiableSet(likesUser);
     }
 
-    public List<String> getDevStacks() {
-        if (StringUtils.isNotBlank(this.devStacks))
-            return Arrays.asList(devStacks.split(","));
-        return Collections.emptyList();
-    }
-
-    public List<String> getHashTags() {
-        if (StringUtils.isNotBlank(this.hashTags))
-            return Arrays.asList(hashTags.split(","));
-        return Collections.emptyList();
-    }
+//    public List<String> getDevStacks() {
+//        if (StringUtils.isNotBlank(this.devStacks))
+//            return Arrays.asList(devStacks.split(","));
+//        return Collections.emptyList();
+//    }
+//
+//    public List<String> getHashTags() {
+//        if (StringUtils.isNotBlank(this.hashTags))
+//            return Arrays.asList(hashTags.split(","));
+//        return Collections.emptyList();
+//    }
 
     public void addHitCount() {
         this.hit = ++hit;

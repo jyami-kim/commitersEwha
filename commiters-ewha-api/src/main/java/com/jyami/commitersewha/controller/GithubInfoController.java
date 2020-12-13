@@ -54,6 +54,7 @@ public class GithubInfoController {
     public ResponseEntity<?> saveNewGithubRepoInfo(@CurrentUser GoogleUserPrincipal googleUserPrincipal) {
         log.info("---saveNewGithubInfo : parameter = {}", googleUserPrincipal.getId());
         githubInfoService.saveNewCommitersInfo(googleUserPrincipal.getId());
+        userRankService.saveRank(googleUserPrincipal.getId());
         return ResponseEntity.ok()
                 .body(DefaultResponse.of(ResponseCode.OK, SAVE_GITHUB_REPOSITORY_INFO_SUCCESS));
     }

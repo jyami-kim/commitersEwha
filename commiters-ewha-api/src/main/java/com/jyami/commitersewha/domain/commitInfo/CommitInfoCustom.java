@@ -18,4 +18,6 @@ public interface CommitInfoCustom {
     List<HourStat> findHourStatCommitCount(LocalDateTime startDate, LocalDateTime endDate, Long githubInfoId);
 
     List<WeekDayStat> findWeekdayStatCommitCount(LocalDateTime startDate, LocalDateTime endDate, Long githubInfoId);
+
+    boolean checkExistCommit(Long githubInfoId);
 }

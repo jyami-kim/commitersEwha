@@ -69,7 +69,7 @@ public class UserRankService {
 
     public List<UserRankInfoResponse> getRankingWeek() {
         LocalDateTime thisWeekStartTime = TimeUtils.getThisWeekStartTime(LocalDate.now());
-        return userRankRepository.findAllUserRankinks(true, thisWeekStartTime.toLocalDate())
+        return userRankRepository.findAllUserRankings(true, thisWeekStartTime.toLocalDate())
                 .stream()
                 .map(x -> UserRankInfoResponse.of(x, x.getGithubInfo()))
                 .collect(Collectors.toList());
@@ -77,7 +77,7 @@ public class UserRankService {
 
     public List<UserRankInfoResponse> getRankingQuarter() {
         LocalDateTime thisQuarterStartTime = TimeUtils.getThisQuarterStartTime(LocalDate.now());
-        return userRankRepository.findAllUserRankinks(false, thisQuarterStartTime.toLocalDate())
+        return userRankRepository.findAllUserRankings(false, thisQuarterStartTime.toLocalDate())
                 .stream()
                 .map(x -> UserRankInfoResponse.of(x, x.getGithubInfo()))
                 .collect(Collectors.toList());

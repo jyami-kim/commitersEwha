@@ -32,6 +32,14 @@ public class ProjectPostService {
     }
 
     @Transactional
+    public ProjectPostResponse getPostDetail(Long projectPostId) {
+        ProjectPost projectPost = projectPostRepository.findByProjectPostId(projectPostId)
+                .orElseThrow(() -> new ResourceNotFoundException("projectPost", "id", projectPostId));
+        projectPost.addHitCount();
+        return ProjectPostResponse.fromEntityToWithoutComment(projectPost);
+    }
+
+    @Transactional
     public ProjectPostResponse createNewPost(User user, ProjectPostRequest projectPostRequest) {
         ProjectPost projectPost = projectPostRepository.save(projectPostRequest.toEntity(user));
         return ProjectPostResponse.fromEntityToWithoutComment(projectPost);

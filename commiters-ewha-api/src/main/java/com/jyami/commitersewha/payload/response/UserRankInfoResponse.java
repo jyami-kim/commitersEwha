@@ -19,6 +19,8 @@ public class UserRankInfoResponse {
 
     private String authorId;
 
+    private String name;
+
     private long score;
 
     private long commitCount;
@@ -39,7 +41,8 @@ public class UserRankInfoResponse {
                 .commitCount(userRank.getCommitCount())
                 .commitMaxCombo(userRank.getCommitMaxCombo())
                 .week(userRank.isWeek())
-                .profile(githubInfo.getImageUrl())
+                .name(githubInfo.getUser().getName())
+                .profile(githubInfo.getUser().getImageUrl())
                 .localDate(userRank.getLocalDate())
                 .build();
     }

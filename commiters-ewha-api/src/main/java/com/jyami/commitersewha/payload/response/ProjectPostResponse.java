@@ -30,13 +30,14 @@ public final class ProjectPostResponse {
     private String deployLinkOther;
     private long userId;
     private String userName;
+    private String userProfileUrl;
     private ProjectPostCategory projectPostCategory;
     @Builder.Default
     private long hit = 0;
     private LocalDateTime createdDate;
     private LocalDateTime modifiedDate;
-    private List<String> hashTags;
-    private List<String> devStacks;
+    private String hashTags;
+    private String devStacks;
     private String image;
     private String youtubeLink;
     private Integer projectPostLikeSize;
@@ -54,14 +55,17 @@ public final class ProjectPostResponse {
                 .deployLinkOther(projectPost.getDeployLinkOther())
                 .userId(user.getUserId())
                 .userName(user.getName())
+                .userProfileUrl(projectPost.getUser().getImageUrl())
                 .projectPostCategory(projectPost.getProjectPostCategory())
-                .hashTags(projectPost.getHashTags())
                 .hit(projectPost.getHit())
-                .image(projectPost.getImage())
-                .image(projectPost.getYoutubeLink())
                 .createdDate(projectPost.getCreatedDate())
                 .modifiedDate(projectPost.getModifiedDate())
+                .image(projectPost.getImage())
+
+                .hashTags(projectPost.getHashTags())
+                .devStacks(projectPost.getDevStacks())
                 .projectPostLikeSize(projectPost.getLikesUser().size())
+                .youtubeLink(projectPost.getYoutubeLink())
                 .build();
     }
 
