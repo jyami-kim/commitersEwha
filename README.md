@@ -4,7 +4,7 @@
 
 커미터스 이화를 통해 개발벗들과의 소통을 시작하세요 :)
 
-<img src="https://user-images.githubusercontent.com/26458200/102019776-a9624a80-3db8-11eb-824e-7d767e756021.gif" alt="drawing" width="600"/>
+![KakaoTalk_Photo_2020-12-13-14-30-03](https://user-images.githubusercontent.com/26458200/102019776-a9624a80-3db8-11eb-824e-7d767e756021.gif)
 
 지원하는 기능
 - 나의 커밋 정보 모아보기
