@@ -16,3 +16,13 @@
 - 유명 기술 블로그 조회
 - 개발자 동문간 프로필 검색 (지원 예정)
 
+### 컴포넌트 다이어그램
+  ![image](https://user-images.githubusercontent.com/26458200/102116234-070d9a00-3e80-11eb-9504-8e22ecf371f3.png)
+  
+### DB ERD  
+![image](https://user-images.githubusercontent.com/26458200/102116304-1e4c8780-3e80-11eb-878d-c9b0d002cade.png)
+
+### API List
+![image](https://user-images.githubusercontent.com/26458200/102116399-420fcd80-3e80-11eb-9c62-a9279f0a4ef5.png)
+![image](https://user-images.githubusercontent.com/26458200/102116434-4dfb8f80-3e80-11eb-8464-91335adb756a.png)
+![image](https://user-images.githubusercontent.com/26458200/102116476-5c49ab80-3e80-11eb-8c54-21f7fcfd6491.png)
