@@ -1,11 +1,6 @@
 package com.jyami.commitersewha.security.oauth2.user;
 
 
-import com.jyami.commitersewha.exception.OAuth2AuthenticationProcessingException;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.util.StringUtils;
-
 import java.util.Map;
 
 /**
@@ -16,7 +11,7 @@ public abstract class OAuth2UserInfo {
 
     public OAuth2UserInfo(Map<String, Object> attributes) {
         this.attributes = attributes;
-        validateEmail();
+//        validateEmail();
     }
 
     public abstract String getId();
@@ -28,10 +23,10 @@ public abstract class OAuth2UserInfo {
     public abstract String getImageUrl();
 
     public abstract Boolean getEmailVerified();
-
-    private void validateEmail() {
-        if (StringUtils.isEmpty(this.getEmail())) {
-            throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
-        }
-    }
+//
+//    private void validateEmail() {
+//        if (StringUtils.isEmpty(this.getEmail())) {
+//            throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
+//        }
+//    }
 }

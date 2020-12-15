@@ -2,6 +2,7 @@ package com.jyami.commitersewha.githubRestTemplate;
 
 import com.google.common.net.HttpHeaders;
 import com.jyami.commitersewha.config.GithubProperties;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -11,7 +12,7 @@ class GithubRestTemplateBuilder {
     }
 
     static RestTemplate getGithubDefaultSetting(GithubProperties properties) {
-        return new org.springframework.boot.web.client.RestTemplateBuilder()
+        return new RestTemplateBuilder()
                 .setConnectTimeout(properties.getConnectionTimeout())
                 .setReadTimeout(properties.getReadTimeout())
                 .rootUri(properties.getHost())

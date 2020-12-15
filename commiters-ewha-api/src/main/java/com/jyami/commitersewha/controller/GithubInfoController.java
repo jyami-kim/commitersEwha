@@ -59,6 +59,14 @@ public class GithubInfoController {
                 .body(DefaultResponse.of(ResponseCode.OK, SAVE_GITHUB_REPOSITORY_INFO_SUCCESS));
     }
 
+    @PostMapping("newCommiters/{userId}")
+    public ResponseEntity<?> saveNewUserGithubRepo(@PathVariable Long userId) {
+        githubInfoService.saveNewCommitersInfo(userId);
+        userRankService.saveRank(userId);
+        return ResponseEntity.ok()
+                .body(DefaultResponse.of(ResponseCode.OK, SAVE_GITHUB_REPOSITORY_INFO_SUCCESS));
+    }
+
     @PostMapping("update/{startDate}") // YYYY-MM-dd
     public ResponseEntity<?> updateGithubRepositoryInfo(@CurrentUser GoogleUserPrincipal googleUserPrincipal, @PathVariable String startDate) {
         log.info("---updateGithubInfo : userId = {} date = {}", googleUserPrincipal.getId(), startDate);

@@ -9,6 +9,7 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequ
 import org.springframework.web.util.UriComponents;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.net.URL;
 
 /**
@@ -45,7 +46,8 @@ public class CustomAuthorizationRequestResolver implements OAuth2AuthorizationRe
         if (authorizationRequest.getAttribute("registration_id").equals("github")) {
             String queryString = httpServletRequest.getQueryString();
             String googleToken = findToken(queryString);
-            httpServletRequest.getSession().setAttribute(GOOGLE_TOKEN_HEADER, googleToken);
+            HttpSession session = httpServletRequest.getSession();
+            session.setAttribute(GOOGLE_TOKEN_HEADER, googleToken);
         }
         return OAuth2AuthorizationRequest.from(authorizationRequest).build();
     }

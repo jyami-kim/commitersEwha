@@ -37,10 +37,6 @@ class UserRepositoryTest {
     @Autowired
     private BadgeRepository badgeRepository;
 
-    @Autowired
-    private DevStackRepository devStackRepository;
-
-
     private User settingUser() {
 
         Badge badge1 = Badge.builder().title("테스트1").description("1").build();
@@ -49,18 +45,12 @@ class UserRepositoryTest {
         List<Badge> badges = Arrays.asList(badge1, badge2, badge3);
         badgeRepository.saveAll(badges);
 
-        DevStack devStack1 = DevStack.builder().title("JAVA").build();
-        DevStack devStack2 = DevStack.builder().title("C").build();
-        DevStack devStack3 = DevStack.builder().title("Python").build();
-        List<DevStack> devStacks = Arrays.asList(devStack1, devStack2, devStack3);
-        devStackRepository.saveAll(devStacks);
-
         User settingUser = User.builder()
                 .email("jyami@ewhain.net")
                 .name("jyami")
                 .subId("jyami")
                 .role(User.Role.USER)
-                .devStacks(Sets.newHashSet(Arrays.asList(new DevStack(), new DevStack(), new DevStack())))
+                .devStacks("#Java #C")
                 .badges(Sets.newHashSet(badges))
                 .build();
 
@@ -80,7 +70,6 @@ class UserRepositoryTest {
         System.out.println(user.getDevStacks());
         System.out.println(user);
     }
-
 
 
 }

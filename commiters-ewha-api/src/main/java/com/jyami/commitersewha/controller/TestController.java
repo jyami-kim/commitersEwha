@@ -1,5 +1,6 @@
 package com.jyami.commitersewha.controller;
 
+import com.jyami.commitersewha.config.AppProperties;
 import com.jyami.commitersewha.payload.DefaultResponse;
 import com.jyami.commitersewha.payload.ResponseCode;
 import com.jyami.commitersewha.payload.request.SearchRequest;
@@ -23,6 +24,7 @@ import static com.jyami.commitersewha.payload.ResponseMessage.GET_POST_LIST;
 @Slf4j
 public class TestController {
 
+    private final AppProperties appProperties;
 
     @GetMapping("posts")
     public ResponseEntity<?> getAllPostWithPage(SearchRequest searchRequest) {

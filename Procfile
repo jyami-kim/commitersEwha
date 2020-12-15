@@ -1,0 +1,1 @@
+web: java -Dspring.server.port=8080 -Dspring.profiles.active=production $JAVA_OPTS -jar commiters-ewha-api/build/libs/commiters-ewha-api-1.0.jar
